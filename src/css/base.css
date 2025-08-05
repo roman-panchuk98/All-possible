@@ -57,7 +57,14 @@ main {
   .section-title {
     font-size: 48px;
   }
-    .section-text {
-      font-size: 18px;
-    }
+
+  .section-text {
+    font-size: 18px;
+  }
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
