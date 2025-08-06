@@ -1,0 +1,49 @@
+.feedback {
+    padding-top: 64px;
+    padding-bottom: 64px;
+}
+
+.feedback-subbox {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 80px;
+}
+
+.feedback-list {}
+
+.feedback-item {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 56px;
+}
+
+.feedback-descr {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.feedback-name {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+@media only screen and (min-width: 768px) {
+    .feedback {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+    .feedback-list {
+        display: flex;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .feedback {
+        padding-top: 64px;
+        padding-bottom: 64px;
+    }
+}
