@@ -35,26 +35,17 @@
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  padding: 24px 64px;
   position: relative;
-  width: 100%;
-}
-
-.footer-container {
-  align-items: center;
-  display: flex;
-  flex: 0 0 auto;
-  justify-content: center;
   width: 100%;
 }
 
 .footer-content {
   display: flex;
-  max-width: 1318px;
   position: relative;
   align-items: center;
   gap: 80px;
   width: 100%;
+  padding: 24px 0;
 }
 
 .footer-logo {
@@ -62,33 +53,27 @@
   display: inline-flex;
   flex: 0 0 auto;
   flex-direction: column;
-  gap: 65.29px;
   position: relative;
 }
 
 .footer-logo-wrapper {
-  height: 97.93px;
+  display: inline-block;
   position: relative;
-  width: 228.5px;
 }
 
 .footer-logo-img {
   height: 49px;
-  left: 4px;
-  position: absolute;
-  top: 25px;
   width: 220px;
   object-fit: contain;
+  display: block;
 }
 
 .footer-info {
   align-items: center;
   display: flex;
-  flex: 1;
   flex-direction: column;
-  flex-grow: 1;
-  gap: 32px;
   position: relative;
+  flex: 0 0 auto;
 }
 
 .footer-nav {
@@ -103,6 +88,7 @@
   align-items: flex-start;
   flex: 0 0 auto;
   position: relative;
+  padding: 0 40px;
 }
 
 .footer-copyright-text {
@@ -118,9 +104,10 @@
 .footer-links {
   align-items: center;
   display: inline-flex;
-  flex: 0 0 auto;
+  flex: 1;
   gap: 32px;
   position: relative;
+  justify-content: center;
 }
 
 .footer-link {
@@ -160,7 +147,7 @@
   align-items: center;
   display: inline-flex;
   flex: 0 0 auto;
-  gap: 24px;
+  gap: 12px;
   position: relative;
 }
 
@@ -189,28 +176,24 @@
 /* Mobile styles (375px) */
 @media screen and (max-width: 767px) {
   .footer {
-    padding: 32px 20px;
-    gap: 80px;
-  }
-
-  .footer-container {
-    flex-direction: column;
-    gap: 80px;
+    gap: 0;
   }
 
   .footer-content {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    gap: 24px;
+    padding: 25px 0 32px 0;
   }
 
   .footer-logo {
     align-items: center;
+    padding: 0 37px;
   }
 
-  .footer-logo-wrapper {
-    width: 220px;
-    height: 94.29px;
+  .footer-copyright {
+    padding: 0;
   }
 
   .footer-info {
@@ -219,18 +202,20 @@
 
   .footer-links {
     flex-direction: column;
-    gap: 0;
+    gap: 32px;
     width: 100%;
+    flex: initial;
   }
 
   .footer-link {
     width: 100%;
-    padding: 10px 0;
+    padding: 0;
     justify-content: center;
   }
 
   .footer-socials {
     order: 2;
+    gap: 24px;
   }
 
   .footer-copyright-text {
@@ -242,23 +227,24 @@
 /* Tablet styles (768px) */
 @media screen and (min-width: 768px) and (max-width: 1439px) {
   .footer {
-    padding: 32px 32px;
-    gap: 80px;
-  }
-
-  .footer-container {
-    flex-direction: column;
-    gap: 80px;
+    gap: 0;
   }
 
   .footer-content {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    gap: 0;
+    padding: 25px 0 32px 0;
   }
 
   .footer-logo {
     align-items: center;
+    margin-bottom: 47px;
+  }
+
+  .footer-copyright {
+    padding: 0;
   }
 
   .footer-info {
@@ -266,24 +252,22 @@
   }
 
   .footer-links {
-    gap: 24px;
+    gap: 32px;
+    flex: initial;
+    flex-direction: row;
+    margin-bottom: 24px;
   }
 
   .footer-socials {
     order: 2;
+    gap: 24px;
+    margin-bottom: 24px;
   }
 }
 
 /* Desktop specific adjustments */
 @media screen and (min-width: 1440px) {
   .footer {
-    padding: 24px 64px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .footer-container {
-    flex-direction: row;
     align-items: center;
     justify-content: center;
   }
@@ -291,27 +275,31 @@
   .footer-content {
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
     gap: 80px;
+    padding: 0;
   }
 
   .footer-logo {
-    gap: 0;
+    padding: 25px 0 24px 0;
   }
 
   .footer-info {
     order: 1;
-    flex: initial;
-    margin-left: 80px;
+    flex: 0 0 auto;
+  }
+
+  .footer-copyright {
+    padding: 38px 40px;
   }
 
   .footer-links {
     order: 2;
-    flex: 1;
-    justify-content: center;
+    padding: 36px 0;
   }
 
   .footer-socials {
     order: 3;
+    gap: 12px;
+    padding: 37px 0;
   }
 }
