@@ -12,7 +12,6 @@
 
 .feedback-item {
     display: flex !important;
-    height: 295px;
     flex-direction: column;
     gap: 24px;
     padding-right: 48px;
@@ -45,6 +44,11 @@
     }
 }
 
+.star-container {
+    display: flex;
+    gap: 4px;
+}
+
 .swiper .swiper-pagination {
     position: static !important;
     transform: none !important;
@@ -71,8 +75,13 @@
     gap: 16px;
 }
 
+.swiper-pagination > .swiper-pagination-bullet {
+    transition: opacity 0.3s ease;
+}
+
 .swiper-pagination > .swiper-pagination-bullet-active {
     background-color: #080c09;
+    opacity: 1;
 }
 
 .swiper-button-prev,
