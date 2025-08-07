@@ -62,7 +62,6 @@ body.modal-open {
     position: absolute;
     top: 16px;
     right: 16px;
-    /*!!!*/
     background: none;
     border: none;
     cursor: pointer;
@@ -186,7 +185,7 @@ body.modal-open {
     display: none;
 }
 
-/* Показує галочку при виборі */
+
 .color-label input[type="radio"]:checked~.checkmark {
     display: block;
 }
@@ -212,6 +211,12 @@ body.modal-open {
     font-size: 16px;
     line-height: 160%;
     color: var(--color-scheme-1-background);
+    transition: opacity cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-product-btn:hover,
+.modal-product-btn:focus {
+    opacity: 0.5;
 }
 
 /* Styles for Tablet devices */
