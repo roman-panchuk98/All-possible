@@ -1,103 +1,31 @@
-// import Swiper from 'swiper';
-// import 'swiper/css';
-// import 'swiper/css/navigation';
-// import 'swiper/css/pagination';
-// import { getFeedback } from './product-api';
-// import 'css-star-rating/css/star-rating.min.css';
-// import refs from './refs';
-
-// function renderFeedback(response) {
-//   const markup = response
-//     .map(({ descr, name, rate }) => {
-//       return `
-//         <li class="feedback-item">
-//             <div class="rating" data-rating="${rate} [modifier class]">
-//                 <div class="star-container">
-//                     <div class="star">
-//                         <svg class="star-empty" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-empty"></use>
-//                         </svg>
-//                         <svg class="star-half" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-half"></use>
-//                         </svg>
-//                         <svg class="star-filled" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-filled"></use>
-//                         </svg>
-//                     </div>
-//                     <div class="star">
-//                         <svg class="star-empty" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-empty"></use>
-//                         </svg>
-//                         <svg class="star-half" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-half"></use>
-//                         </svg>
-//                         <svg class="star-filled" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-filled"></use>
-//                         </svg>
-//                     </div>
-//                     <div class="star">
-//                         <svg class="star-empty" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-empty"></use>
-//                         </svg>
-//                         <svg class="star-half" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-half"></use>
-//                         </svg>
-//                         <svg class="star-filled" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-filled"></use>
-//                         </svg>
-//                     </div>
-//                     <div class="star">
-//                         <svg class="star-empty" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-empty"></use>
-//                         </svg>
-//                         <svg class="star-half" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-half"></use>
-//                         </svg>
-//                         <svg class="star-filled" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-filled"></use>
-//                         </svg>
-//                     </div>
-//                     <div class="star">
-//                         <svg class="star-empty" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-empty"></use>
-//                         </svg>
-//                         <svg class="star-half" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-half"></use>
-//                         </svg>
-//                         <svg class="star-filled" width="20" height="20">
-//                             <use href="../img/icons.svg#icon-star-filled"></use>
-//                         </svg>
-//                     </div>
-//                 </div>
-//             </div>
-//             <p class="feedback-descr">${descr}</p>
-//             <p class="feedback-name">${name}</p>
-//         </li>`;
-//     })
-//     .join('');
-
-//   refs.feedbackList.insertAdjacentHTML('beforeend', markup);
-
-//   if (window.StarRating) {
-//     new StarRating('.rating');
-//   }
-// }
-
-// export async function feedbackSection() {
-//   const response = await getFeedback();
-//   console.log(response.data.feedbacks);
-
-//   renderFeedback(response.data.feedbacks);
-// }
-
 import Swiper from 'swiper';
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
-import { getFeedback } from './product-api';
-import 'css-star-rating/css/star-rating.min.css';
 import refs from './refs';
+import axios from 'axios';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+
+axios.defaults.baseURL = 'https://furniture-store.b.goit.study/api';
+
+function hideSwipeBox() {
+  const swipeBox = document.querySelector('.swiper');
+  swipeBox.remove();
+}
+
+async function getFeedback(currentPage = 1) {
+  try {
+    const response = await axios.get(`/feedbacks?limit=10&page=${currentPage}`);
+    return response;
+  } catch (error) {
+    hideSwipeBox();
+    iziToast.error({
+      title: error.message,
+      position: 'topRight',
+    });
+  }
+}
 
 function getStars(rate) {
   const fullStars = Math.floor(rate);
@@ -124,33 +52,18 @@ function renderFeedback(response) {
       const starsMarkup = getStars(rate);
 
       return `
-        <div class="swiper-slide">
-          <div class="feedback-item">
-            <div class="star-container">${starsMarkup}</div>
-            <p class="feedback-descr">${descr}</p>
-            <p class="feedback-name">${name}</p>
-          </div>
-        </div>`;
+      <li class="feedback-item swiper-slide">
+          <div class="star-container">${starsMarkup}</div>
+          <p class="feedback-descr">${descr}</p>
+          <p class="feedback-name">${name}</p>
+      </li>`;
     })
     .join('');
 
-  const fullSwiperMarkup = `
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        ${slidesMarkup}
-      </div>
-      <div class="swiper-pagination"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-    </div>`;
-
-  refs.feedbackList.innerHTML = fullSwiperMarkup;
+  refs.feedbackList.insertAdjacentHTML('beforeend', slidesMarkup);
 
   new Swiper('.swiper', {
     modules: [Navigation, Pagination],
-    slidesPerView: 1,
-    spaceBetween: 20,
-    loop: true,
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
@@ -158,6 +71,20 @@ function renderFeedback(response) {
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      375: {
+        slidesPerView: 1,
+        spaceBetween: 0,
+      },
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 24,
+      },
+      1440: {
+        slidesPerView: 3,
+        spaceBetween: 24,
+      },
     },
   });
 }
