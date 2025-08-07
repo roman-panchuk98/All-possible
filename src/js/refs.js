@@ -1,3 +1,4 @@
+
 const refs = {
   feedbackList: document.querySelector('.feedback-list'),
   categoriesList: document.querySelector('.furniture-categories'),
@@ -7,3 +8,4 @@ const refs = {
 };
 
 export default refs;
+
