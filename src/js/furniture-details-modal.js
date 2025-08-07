@@ -4,7 +4,7 @@ import iziToast from 'izitoast';
 
 
 
-setupProductClickHandler();
+// setupProductClickHandler();   тимчасовий виклик
 export function setupProductClickHandler(allProducts) {
     productList.addEventListener('click', event => {
         const cardBtn = event.target.closest('.card-product-btn');//не знаю яка буде назва кнопки!!!
