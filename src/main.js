@@ -1,6 +1,10 @@
 import 'modern-normalize/modern-normalize.css';
 import './css/styles.css';
 
+
+
+import './js/popular-goods';
+
 import { feedbackSection } from './js/feedback';
 import { handlerCategories } from './js/furniture_list';
 import refs from './js/refs';
@@ -8,3 +12,6 @@ import refs from './js/refs';
 feedbackSection();
 // Furniture-list
 refs.categoriesList.addEventListener('click', handlerCategories);
+refs.categoriesList.addEventListener('click', handlerCategories);
+
+

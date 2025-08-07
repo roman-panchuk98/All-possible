@@ -5,7 +5,8 @@ const refs = {
   furnitureGrid: document.querySelector('.furniture-gallery'),
   furnitureLoadMoreBtn: document.querySelector('#furniture-loadMoreBtn'),
   modalDetailisProduct: document.querySelector('.modal'),
+   popularGoodsList: document.querySelector('.popular-goods-list'),
 };
 
-export default refs;
+
 
