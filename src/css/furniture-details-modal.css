@@ -8,11 +8,10 @@
     --color-madang: #6b0609;
 }
 
-body.modal-open {
+.body--no-scroll {
     overflow: hidden;
-    position: fixed;
-    width: 100%;
 }
+
 
 .modal {
     position: fixed;
@@ -27,6 +26,7 @@ body.modal-open {
     background: rgba(0, 0, 0, 0.25);
     opacity: 0;
     visibility: hidden;
+    overflow: hidden;
     pointer-events: none;
     transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
         visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);

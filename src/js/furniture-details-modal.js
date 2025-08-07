@@ -33,6 +33,8 @@ function renderProductDetails(product) {
   const markup = product.map(createProductMarkup).join('');
   modalContent.innerHTML = markup;
 
+  updateStars(product[0].rate);
+
   const mainImg = document.getElementById('main-product-img');
   const thumbnails = document.querySelectorAll('.mini-img');
 
@@ -59,7 +61,6 @@ function renderProductDetails(product) {
     });
   });
 
-  updateStars(product[0].rate);
   listenerClosseModalProduct();
 
   const form = document.querySelector('.detailis-product');
@@ -84,7 +85,7 @@ function createProductMarkup({ _id, images, name, price, rate, sizes, color, des
         <p class="price">${price}\u00A0<span class="hrn"></span>грн</p>
         <div class="reting">
           <div class="star-rating">
-            ${generateStars()}
+            
           </div>
         </div>
       </div>
@@ -110,14 +111,6 @@ function createProductMarkup({ _id, images, name, price, rate, sizes, color, des
   `;
 }
 
-//  Генерація SVG-зірочок
-function generateStars() {
-  return Array.from({ length: 5 }, (_, i) => `
-    <svg class="star" data-index="${i + 1}" width="20" height="20">
-      <use href="./img/icons.svg#icon-star-empty" />
-    </svg>
-  `).join('');
-}
 
 //  Генерація кольорів
 function generateColorOptions(colors) {
@@ -132,26 +125,42 @@ function generateColorOptions(colors) {
 
 //  Оновлення зірочок за рейтингом
 function updateStars(rawRating) {
+
   let rating;
-  if (rawRating >= 3.3 && rawRating <= 3.7) rating = 3.5;
-  else if (rawRating >= 3.8 && rawRating <= 4.2) rating = 4;
-  else rating = Math.round(rawRating * 2) / 2;
+  if (rawRating >= 3.3 && rawRating <= 3.7) {
+    rating = 3.5;
+  } else if (rawRating >= 3.8 && rawRating <= 4.2) {
+    rating = 4;
+  } else {
+    rating = Math.round(rawRating * 2) / 2;
+  }
 
-  const stars = document.querySelectorAll('.star');
   const spritePath = './img/icons.svg';
+  const starRatingContainer = document.querySelector('.star-rating');
 
-  stars.forEach((star, i) => {
+  if (!starRatingContainer) {
+    console.warn('Контейнер .star-rating не знайдено');
+    return;
+  }
+
+  const starsMarkup = Array.from({ length: 5 }, (_, i) => {
     const index = i + 1;
-    const useElement = star.querySelector('use');
+    let icon = 'icon-star-empty';
 
     if (rating >= index) {
-      useElement.setAttribute('href', `${spritePath}#icon-star-filled`);
+      icon = 'icon-star-filled';
     } else if (rating >= index - 0.5) {
-      useElement.setAttribute('href', `${spritePath}#icon-star-half`);
-    } else {
-      useElement.setAttribute('href', `${spritePath}#icon-star-empty`);
+      icon = 'icon-star-half';
     }
-  });
+
+    return `
+      <svg class="star" data-index="${index}" width="20" height="20">
+        <use href="${spritePath}#${icon}" />
+      </svg>
+    `;
+  }).join('');
+
+  starRatingContainer.innerHTML = starsMarkup;
 }
 
 // Обробка сабміту форми
@@ -181,13 +190,13 @@ function handleOrderSubmit(event) {
 
 // Відкриття модалки
 function openProductDetailis() {
-  document.body.classList.add('modal-open');
+  document.body.classList.add('body--no-scroll');
   refs.modalDetailisProduct.classList.add('modal--is-open');
 }
 
 //  Закриття модалки
 function closseProductDatailis() {
-  document.body.classList.remove('modal-open');
+  document.body.classList.remove('body--no-scroll');
   refs.modalDetailisProduct.classList.remove('modal--is-open');
 }
 
