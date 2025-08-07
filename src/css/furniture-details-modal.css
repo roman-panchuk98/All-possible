@@ -97,6 +97,7 @@ body.modal-open {
 .large-img {
     width: 295px;
     height: 297px;
+    transition: opacity 0.3s ease;
 }
 
 .small-img img {
