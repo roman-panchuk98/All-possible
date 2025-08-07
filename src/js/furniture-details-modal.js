@@ -181,9 +181,9 @@ function handleOrderSubmit(event) {
   }
 
   const orderData = { productId, color: selectedColor };
-  console.log('Дані для замовлення:', orderData);
+  // console.log('Дані для замовлення:', orderData);
 
-  // localStorage.setItem('orderData', JSON.stringify(orderData));
+  localStorage.setItem('orderData', JSON.stringify(orderData));
   closseProductDatailis();
   // openOrderModal(); // якщо буде така функція
 }
