@@ -1,0 +1,121 @@
+.feedback {
+    padding-top: 64px;
+    padding-bottom: 64px;
+}
+
+.feedback-textbox {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 80px;
+}
+
+.feedback-item {
+    display: flex !important;
+    flex-direction: column;
+    gap: 24px;
+    padding-right: 48px;
+    margin-bottom: 48px;
+}
+
+.feedback-descr {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.feedback-name {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+@media only screen and (min-width: 768px) {
+    .feedback {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .feedback {
+        padding-top: 64px;
+        padding-bottom: 64px;
+    }
+}
+
+.star-container {
+    display: flex;
+    gap: 4px;
+}
+
+.swiper .swiper-pagination {
+    position: static !important;
+    transform: none !important;
+    width: auto !important;
+    margin: 0 !important;
+}
+
+.swiper .swiper-pagination :first-child {
+    margin-left: 0 !important;
+}
+
+.swiper .swiper-pagination :last-child {
+    margin-right: 0 !important;
+}
+
+.swiper-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.swaper-btn-subbox {
+    display: flex;
+    gap: 16px;
+}
+
+.swiper-pagination > .swiper-pagination-bullet {
+    transition: opacity 0.3s ease;
+}
+
+.swiper-pagination > .swiper-pagination-bullet-active {
+    background-color: #080c09;
+    opacity: 1;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    background-color: #f2f2f2;
+    border: 1px solid rgba(8, 12, 9, 0.15);
+    border-radius: 100px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border 0.3s ease, background-color 0.3s ease, fill 0.3s ease, opacity 0.3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover,
+.swiper-button-prev:focus,
+.swiper-button-next:focus {
+    border: none;
+    background-color: #975052;
+    fill: #fff;
+}
+
+.swiper-button-prev:active,
+.swiper-button-next:active {
+    border: none;
+    background-color: #6b0609;;
+    fill: #fff;
+}
+
+.swiper-button-prev:disabled,
+.swiper-button-next:disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+}
