@@ -3,6 +3,8 @@ const refs = {
   categoriesList: document.querySelector('.furniture-categories'),
   furnitureGrid: document.querySelector('.furniture-gallery'),
   furnitureLoadMoreBtn: document.querySelector('#furniture-loadMoreBtn'),
+   popularGoodsList: document.querySelector('.popular-goods-list'),
 };
 
 export default refs;
+
