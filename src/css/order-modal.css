@@ -14,11 +14,12 @@
   position: relative;
   border-radius: 8px;
   padding: 64px 20px;
+  max-width: 375px;
+  margin: 0 auto;
 }
 
 .form-title {
   text-align: center;
-  margin: 0 auto;
   margin-bottom: 48px;
 }
 
@@ -41,8 +42,7 @@
 }
 .submit-btn {
   border-radius: 100px;
-  padding: 10px 24px;
-  width: 295px;
+  padding: 10px 81px;
   margin: 0 auto;
   height: 46px;
   border: none;
@@ -53,6 +53,8 @@
   background: #6b0609;
   font-weight: 500;
   color: #ffffff;
+  opacity: 100%;
+  transition: opacity 250ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 .input-form {
@@ -62,10 +64,12 @@
   height: 42px;
   border: 1px solid rgba(8, 12, 9, 0.15);
   background-color: rgba(8, 12, 9, 0.05);
+  outline: none;
 }
 
 .input-form::placeholder {
   color: rgba(8, 12, 9, 0.05);
+  transition: color 250ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 .textarea {
@@ -73,6 +77,7 @@
   resize: none;
 }
 
+/* адаптив */
 @media screen and (min-width: 768px) {
   .order-modal {
     padding: 64px 0px;
@@ -85,7 +90,7 @@
   }
 
   .submit-btn {
-    max-width: 196px;
+    padding: 10px 31.5px;
   }
 
   .input-form::placeholder {
@@ -97,4 +102,31 @@
   .form-wrapper {
     max-width: 866px;
   }
+}
+
+/* зміна станів */
+.input-form:hover::placeholder {
+  color: rgb(8, 12, 9);
+}
+
+.input-form:focus {
+  border: 1px solid rgba(8, 12, 9, 0.4);
+}
+
+.submit-btn:hover,
+.submit-btn:focus {
+  opacity: 50%;
+}
+
+.error-message {
+  border: 1px solid #6b0609;
+}
+
+.error-message::placeholder {
+  color: #6b0609;
+}
+
+.error-text {
+  color: #6b0609;
+  font-size: 12px;
 }
