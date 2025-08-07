@@ -34,13 +34,13 @@ function getStars(rate) {
   let stars = '';
 
   for (let i = 0; i < fullStars; i++) {
-    stars += `<svg class="star star-filled" width="20" height="20"><use href="../img/icons.svg#icon-star-filled"></use></svg>`;
+    stars += `<svg class="star star-filled" width="20" height="20"><use href="/img/icons.svg#icon-star-filled"></use></svg>`;
   }
   if (hasHalfStar) {
-    stars += `<svg class="star star-half" width="20" height="20"><use href="../img/icons.svg#icon-star-half"></use></svg>`;
+    stars += `<svg class="star star-half" width="20" height="20"><use href="/img/icons.svg#icon-star-half"></use></svg>`;
   }
   for (let i = 0; i < emptyStars; i++) {
-    stars += `<svg class="star star-empty" width="20" height="20"><use href="../img/icons.svg#icon-star-empty"></use></svg>`;
+    stars += `<svg class="star star-empty" width="20" height="20"><use href="/img/icons.svg#icon-star-empty"></use></svg>`;
   }
 
   return stars;
