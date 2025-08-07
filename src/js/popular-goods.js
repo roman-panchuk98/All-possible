@@ -14,7 +14,7 @@ async function getPopularGoods() {
     );
     return response.data;
   } catch (error) {
-    // hideSwipeBox();
+    hideSwipeBox();
     iziToast.error({
       title: error.message,
       position: 'topRight',
