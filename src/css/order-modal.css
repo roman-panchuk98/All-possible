@@ -14,7 +14,7 @@
   position: relative;
   border-radius: 8px;
   padding: 64px 20px;
-  max-width: 375px;
+  max-width: 335px;
   margin: 0 auto;
 }
 
@@ -101,6 +101,11 @@
 @media screen and (min-width: 1440px) {
   .form-wrapper {
     max-width: 866px;
+  }
+
+  .form-title {
+    max-width: 530px;
+    margin: 0 auto;
   }
 }
 
