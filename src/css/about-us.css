@@ -1,0 +1,39 @@
+.about-us {
+    background-color: #f0e6e6;
+}
+
+.about-us-box {
+    padding-top: 64px;
+    padding-bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.about-us-text {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.img-box img {
+    border-radius: 8px;
+}
+
+@media screen and (min-width: 768px) {
+    .about-us-box {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .about-us-box {
+        flex-direction: row;
+        padding: 64px 61px;
+        align-items: center;
+    }
+    .about-us-text {
+        max-width: 647px;
+    }
+}
