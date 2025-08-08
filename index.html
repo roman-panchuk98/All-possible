@@ -8,11 +8,44 @@
     <script type="module" crossorigin src="/All-possible/index.js"></script>
     <link rel="modulepreload" crossorigin href="/All-possible/assets/vendor-CGvOlcVM.js">
     <link rel="stylesheet" crossorigin href="/All-possible/assets/vendor-Co4fKibZ.css">
-    <link rel="stylesheet" crossorigin href="/All-possible/assets/index-C9LSQz38.css">
+    <link rel="stylesheet" crossorigin href="/All-possible/assets/index-BkmNd790.css">
   </head>
   <body>
     <!-- Header partial -->
-    <!--  -->
+    <header class="header">
+  <div class="container header-container">
+    <div class="logo-wrap">
+      <a href="../index.html" class="header-logo">
+        <svg class="icon-header-logo" width="159" height="35">
+          <use href="../img/icons.svg#icon-logo"></use>
+        </svg>
+      </a>
+    </div>
+
+    <div class="burger-box">
+      <button class="burger-button" type="button" data-modal-open>
+        <svg class="burger-icon" width="32" height="32">
+          <use href="../img/icons.svg#icon-burger-menu"></use>
+        </svg>
+      </button>
+    </div>
+
+    <div class="header-nav">
+      <nav class="header-nav-wrap">
+        <ul class="header-menu">
+          <li><a href="#">Наші меблі</a></li>
+          <li><a href="#about">Про нас</a></li>
+          <li><a href="#">Часті питання</a></li>
+          <li><a href="#feedback">Відгуки</a></li>
+        </ul>
+        <button class="nav-btn" id="scroll-to-furniture" type="button">
+          До покупок
+        </button>
+      </nav>
+    </div>
+  </div>
+</header>
+
     <main>
       <!-- Hero partial -->
       <!--  -->
@@ -81,12 +114,12 @@
                 <div class="swiper-buttons">
                     <button class="swiper-button-prev custom-nav">
                         <svg class="prev-arrow" width="24" height="24">
-                            <use href="/All-possible/assets/icons-CGNcO12D.svg#icon-left-arrow-alt"></use>
+                            <use href="/All-possible/assets/icons-B4xe_nXC.svg#icon-left-arrow-alt"></use>
                         </svg>
                     </button>
                     <button class="swiper-button-next custom-nav">
                         <svg class="next-arrow" width="24" height="24">
-                            <use href="/All-possible/assets/icons-CGNcO12D.svg#icon-right-arrow-alt"></use>
+                            <use href="/All-possible/assets/icons-B4xe_nXC.svg#icon-right-arrow-alt"></use>
                         </svg>
                     </button>
                 </div>
@@ -112,12 +145,12 @@
                 <div class="swaper-btn-subbox">
                     <button class="swiper-button-prev">
                         <svg class="swiper-svg-button-prev" width="24" height="24">
-                            <use href="/All-possible/assets/icons-CGNcO12D.svg#icon-left-arrow-alt"></use>
+                            <use href="/All-possible/assets/icons-B4xe_nXC.svg#icon-left-arrow-alt"></use>
                         </svg>
                     </button>
                     <button class="swiper-button-next">
                         <svg class="swiper-svg-button-next" width="24" height="24">
-                            <use href="/All-possible/assets/icons-CGNcO12D.svg#icon-right-arrow-alt"></use>
+                            <use href="/All-possible/assets/icons-B4xe_nXC.svg#icon-right-arrow-alt"></use>
                         </svg>
                     </button>
                 </div>
@@ -176,7 +209,7 @@
         rel="noopener noreferrer"
       >
         <svg class="footer-social-icon" width="24" height="24">
-          <use href="/All-possible/assets/icons-CGNcO12D.svg#icon-Youtube"></use>
+          <use href="/All-possible/assets/icons-B4xe_nXC.svg#icon-Youtube"></use>
         </svg>
       </a>
       <a
@@ -185,7 +218,7 @@
         rel="noopener noreferrer"
       >
         <svg class="footer-social-icon" width="24" height="24">
-          <use href="/All-possible/assets/icons-CGNcO12D.svg#icon-Instagram"></use>
+          <use href="/All-possible/assets/icons-B4xe_nXC.svg#icon-Instagram"></use>
         </svg>
       </a>
       <a
@@ -194,7 +227,7 @@
         rel="noopener noreferrer"
       >
         <svg class="footer-social-icon" width="24" height="24">
-          <use href="/All-possible/assets/icons-CGNcO12D.svg#icon-Facebook"></use>
+          <use href="/All-possible/assets/icons-B4xe_nXC.svg#icon-Facebook"></use>
         </svg>
       </a>
     </div>
@@ -210,7 +243,7 @@
     <div class="form-wrapper">
         <button type="button" class="close-form-btn">
             <svg class="close-form-svg" width="32" height="32">
-                <use href="/All-possible/assets/icons-CGNcO12D.svg#icon-close"></use>
+                <use href="/All-possible/assets/icons-B4xe_nXC.svg#icon-close"></use>
             </svg>
         </button>
         <h2 class="section-title form-title">Замовити зворотний зв'язок</h2>
@@ -230,6 +263,64 @@
         </form>
     </div>
 </div>
+
+
+    <!--   Header modal   -->
+    <div class="header-modal-overlay" data-modal-mobnav>
+  <div class="tab-modal-header tablet-only">
+    <a href="../index.html" class="header-logo">
+      <svg class="icon-header-logo" width="159" height="35">
+        <use href="../img/icons.svg#icon-logo"></use>
+      </svg>
+    </a>
+    <button
+      aria-label="exit tablet navigation"
+      class="close-tab-btn"
+      type="button"
+      data-modal-close
+    >
+      <svg class="close-icon" width="32" height="32">
+        <use href="../img/icons.svg#icon-close"></use>
+      </svg>
+    </button>
+  </div>
+
+  <div class="mob-modal-wrap">
+    <div class="logo-close-wrap mobile-only">
+      <a href="../index.html" class="header-logo">
+        <svg class="icon-header-logo" width="159" height="35">
+          <use href="../img/icons.svg#icon-logo"></use>
+        </svg>
+      </a>
+      <button
+        aria-label="exit mobile navigation"
+        class="close-mod"
+        type="button"
+        data-modal-close
+      >
+        <svg class="close-icon" width="32" height="32">
+          <use href="../img/icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+
+    <div class="mob-nav-wrap">
+      <nav aria-label="mobile-navigation" class="mobile-menu">
+        <ul class="header-menu">
+          <li><a href="#">Наші меблі</a></li>
+          <li><a href="#about">Про нас</a></li>
+          <li><a href="#">Часті питання</a></li>
+          <li><a href="#feedback">Відгуки</a></li>
+        </ul>
+        <button class="nav-btn" id="scroll-to-furniture" type="button">
+          До покупок
+        </button>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
 
 
   </body>
