@@ -134,6 +134,11 @@
     color: var(--color-scheme-1-text);
 }
 
+.modal-rating {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
 
 .star {
     fill: var(--color-scheme-1-text);

@@ -2,6 +2,7 @@
 import refs from './refs';
 import iziToast from 'izitoast';
 import { openOrderModal } from './order-modal';
+// import rater from 'rater-js';
 
 
 
@@ -75,7 +76,7 @@ function createProductMarkup({
         <p class="type-product-modal">${type}</p>
         <p class="price">${price}\u00A0<span class="hrn"></span>грн</p>
         <div class="reting">
-          <div class="star-rating">
+          <div class="modal-rating" >
             
           </div>
         </div>
@@ -130,9 +131,9 @@ function updateStars(rawRating) {
   }
 
   const spritePath = './img/icons.svg';
-  const starRatingContainer = document.querySelector('.star-rating');
+  const starRatingContainerr = document.querySelector('.modal-rating');
 
-  if (!starRatingContainer) {
+  if (!starRatingContainerr) {
     console.warn('Контейнер .star-rating не знайдено');
     return;
   }
@@ -154,8 +155,8 @@ function updateStars(rawRating) {
     `;
   }).join('');
 
-  starRatingContainer.innerHTML = starsMarkup;
-  console.log(starRatingContainer);
+  starRatingContainerr.innerHTML = starsMarkup;
+  console.log(starRatingContainerr);
 
 }
 
