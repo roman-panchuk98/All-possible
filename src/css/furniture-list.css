@@ -1,8 +1,133 @@
+.furniture_title {
+  
+  font-weight: 700;
+font-size: 36px; 
+line-height: 1.2;
+letter-spacing: 0.01em;
+color: #080c09;
+text-align: left;
+margin-top: 24px;
+margin-bottom: 16px;
+}
+
+.furniture_subtitle {
+  font-weight: 400;
+font-size: 16px;
+line-height: 1.6;
+color: #080c09;
+text-align: left;
+margin-bottom: 20px;
+}
+
 .color-dot {
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  margin-right: 4px;
-  border: 1px solid #ccc;
+  width: 24px;
+  height: 24px;
+  border-radius: 64px;;
+  margin-right: 16px;
+  border: 1px solid #c7c3bb;
+  margin-bottom: 8px;
+}
+.furniture-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+  
+}
+
+.category-btn {
+  position: relative;
+  
+border-radius: 8px;
+
+width: 160px;
+height: 122px;
+border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f3f3f3;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+justify-content: center;
+}
+
+
+.category-btn:hover,
+.category-btn:focus {
+  transform: scale(1.03);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.category-btn.active {
+  border: 8px solid #6b0609;
+}
+.furniture-card {
+border-radius: 8px;
+width: 335px;
+height: 277px;
+margin-bottom: 197px;
+
+}
+.category-name {
+ font-weight: 700;
+font-size: 18px;
+line-height: 1.4;
+letter-spacing: 0.01em;
+text-align: center;
+color: #fff;
+  
+}
+.furniture-gallery {
+  margin-top: 20px;
+}
+.furniture-card {
+ 
+
+}
+.furniture-img {
+
+}
+
+.furniture-name {
+font-weight: 600;
+font-size: 16px;
+line-height: 1.6;
+color: #080c09;
+margin-top: 16px;
+margin-bottom: 8px;
+}
+
+.furniture-price {
+font-weight: 600;
+font-size: 18px;
+line-height: 1.6;
+color: #080c09;
+margin-bottom: 16px;
+}
+
+.furniture-btn {
+border-radius: 100px;
+padding: 10px 24px;
+width: 335px;
+height: 46px;
+margin-bottom: 24px;
+font-weight: 500;
+font-size: 16px;
+ line-height: 1.6;
+color: #080c09;
+box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(8, 12, 9, 0.05), inset 0 0 0 1px rgba(8, 12, 9, 0.05);
+background: rgba(8, 12, 9, 0.05);
+padding: 8px;
+border: none;
+
+}
+
+.furniture-img {
+  border-radius: 8px;
+
 }
