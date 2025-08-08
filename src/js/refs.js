@@ -8,5 +8,7 @@ const refs = {
    popularGoodsList: document.querySelector('.popular-goods-list'),
 };
 
+export default refs;
+
 
 
