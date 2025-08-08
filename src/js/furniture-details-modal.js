@@ -3,28 +3,7 @@ import refs from './refs';
 import iziToast from 'izitoast';
 import { openOrderModal } from './order-modal';
 
-//  Основна ініціалізація
-export function setupProductClickHandler(allProducts) {
-  refs.furnitureGrid.addEventListener('click', event => {
-    const cardBtn = event.target.closest('.furniture-btn');
-    if (!cardBtn) return;
 
-    const productId = cardBtn.dataset.id;
-    const selectedProduct = allProducts.find(
-      product => product._id === productId
-    );
-
-    if (selectedProduct) {
-      renderProductDetails([selectedProduct]);
-    } else {
-      iziToast.error({
-        title: 'Error',
-        message: 'Продукт не знайдено за ID',
-        position: 'topRight',
-      });
-    }
-  });
-}
 
 // Рендер модалки з деталями продукту
 export function renderProductDetails(product) {
@@ -82,9 +61,8 @@ function createProductMarkup({
 }) {
   return `
     <div class="img-product">
-      <img class="large-img" src="${
-        images[0]
-      }" alt="${name}" id="main-product-img"/>
+      <img class="large-img" src="${images[0]
+    }" alt="${name}" id="main-product-img"/>
       <div class="small-img">
         <img class="mini-img" src="${images[1]}" alt="${name}" />
         <img class="mini-img" src="${images[2]}" alt="${name}" />
@@ -130,9 +108,8 @@ function generateColorOptions(colors) {
     .map(
       (color, index) => `
     <label class="color-label">
-      <input type="radio" name="color" value="${color}" ${
-        index === 0 ? 'checked' : ''
-      } />
+      <input type="radio" name="color" value="${color}" ${index === 0 ? 'checked' : ''
+        } />
       <span class="circle" style="background-color: ${color}"></span>
       <span class="checkmark"></span>
     </label>
@@ -178,6 +155,8 @@ function updateStars(rawRating) {
   }).join('');
 
   starRatingContainer.innerHTML = starsMarkup;
+  console.log(starRatingContainer);
+
 }
 
 // Обробка сабміту форми
