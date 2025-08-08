@@ -1,0 +1,109 @@
+/* -------------- Hero -------------- */
+
+.hero {
+  background-color: #54504a;
+  padding-top: 157px;
+  padding-bottom: 157px;
+  background-image: url(/img/mob-bg-1x-min.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+@media screen and (min-resolution: 2x) {
+  .hero {
+    background-image: url(/img/mob-bg-2x-min.jpg);
+  }
+}
+
+.title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #fff;
+  text-align: start;
+  margin-bottom: 24px;
+  max-width: 335px;
+}
+
+.section-text {
+  margin-bottom: 32px;
+  color: #fff;
+  max-width: 335px;
+}
+
+.hero-btn {
+  display: block;
+  border-radius: 100px;
+  padding: 10px 24px;
+  max-width: 335px;
+  max-height: 46px;
+  box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
+  background-color: #6b0609;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #fff;
+  text-align: center;
+}
+
+.hero-btn:hover {
+  box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
+  background-color: #6b0609;
+  opacity: 0.5;
+}
+
+/* -------------Media-Hero----------- */
+
+@media screen and (min-width: 768px) {
+  .hero {
+    padding: 37px 0;
+    background-image: url(/img/tab-bg-1x-min.jpg);
+  }
+
+  @media screen and (min-resolution: 2x) {
+    .hero {
+      background-image: url(/img/tab-bg-2x-min.jpg);
+    }
+  }
+
+  .title {
+    font-weight: 700;
+    font-size: 56px;
+    letter-spacing: 0.01em;
+    max-width: 560px;
+  }
+
+  .section-text {
+    font-size: 18px;
+    max-width: 560px;
+  }
+
+  .hero-btn {
+    width: 209px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .hero {
+    padding: 92px 0;
+    background-image: url(/img/desk-bg-1x-min.jpg);
+  }
+
+  @media screen and (min-resolution: 2x) {
+    .hero {
+      background-image: url(/img/desk-bg-2x-min.jpg);
+    }
+  }
+}
+
+/* -------------Other-sections--------------------------- */
