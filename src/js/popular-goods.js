@@ -30,7 +30,7 @@ async function renderPopularGoods() {
         name = name.slice(0, 28) + '...';
       }
       return `
-      <li class="popular-goods-item swiper-slide" id="${_id}">
+      <li class="popular-goods-item swiper-slide">
         <img class="popular-goods-img" src="${images[0]}" alt="${name}">
         <div class="popular-goods-item-desc">
             <h3 class="popular-goods-item-title">${name}</h3>
@@ -44,22 +44,22 @@ async function renderPopularGoods() {
             </ul>
             <p class="popular-goods-price">${price} грн</p>
         </div>
-        <button class="popular-goods-more-datails-btn">Детальніше</button>
+        <button class="furniture-btn btn-details" data-id="${_id}">Детальніше</button>
       </li>
         `;
     })
     .join('');
   refs.popularGoodsList.innerHTML = markup;
 
-  new Swiper('.swiper', {
+  new Swiper('.popular-goods-swiper', {
     modules: [Navigation, Pagination],
     pagination: {
-      el: '.swiper-pagination',
+      el: '.popular-goods-swiper-pagination',
       clickable: true,
     },
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      nextEl: '.popular-goods-swiper-button-next',
+      prevEl: '.popular-goods-swiper-button-prev',
     },
     grabCursor: true,
     breakpoints: {
