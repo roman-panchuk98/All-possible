@@ -7,12 +7,7 @@ const modalForm = document.querySelector(".order-modal");
 const emailForm = document.querySelector(".input-email");
 const commentForm = document.querySelector(".textarea");
 const phoneForm = document.querySelector(".input-phone");
-const plus = document.querySelector(".plus-elem");
 
-const savedData = localStorage.getItem("orderData");
-const parsedData = savedData ? JSON.parse(savedData) : {};
-const productId = parsedData.productId;
-const color = parsedData.color;
 
 
 // слухач події для форми
@@ -21,6 +16,29 @@ form.addEventListener("submit", handleFormSubmit);
 // Сабміт на формі
 async function handleFormSubmit(event) {
     event.preventDefault();
+
+    const savedData = localStorage.getItem("orderData");
+    if (!savedData) {
+        iziToast.error({
+            title: 'Помилка',
+            message: 'Немає інформації про товар. Оформлення неможливе.',
+            position: 'topCenter',
+        });
+        return;
+    }
+
+    const parsedData = JSON.parse(savedData);
+    const productId = parsedData.productId;
+    const color = parsedData.color;
+
+    if (!productId || !color) {
+        iziToast.error({
+            title: 'Помилка',
+            message: 'Немає даних про товар. Спробуйте додати його ще раз.',
+            position: 'topCenter',
+        });
+        return;
+    }
 
     // значення в інпутах
     const email = event.currentTarget.elements.email.value.trim();
