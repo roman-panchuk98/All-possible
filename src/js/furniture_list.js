@@ -31,18 +31,18 @@ function markUpCategories(categories) {
 
     const categoryImages = {
     '': './img/furnitureList/всі товари-min.png', 
-    '66504a50a1b2c3d4e5f6a7b8': './img/furnitureList/декор та аксесуари-min.png',
-    '66504a50a1b2c3d4e5f6a7b9': './img/furnitureList/Кухні-min.png',
-    '66504a50a1b2c3d4e5f6a7ba': './img/furnitureList/ліжка та матраци-min.png',
-    '66504a50a1b2c3d4e5f6a7bb': './img/furnitureList/меблі для ванної кімнати-min.png',
-    '66504a50a1b2c3d4e5f6a7bc': './img/furnitureList/меблі для дитячої-min.png',
-    '66504a50a1b2c3d4e5f6a7bd': './img/furnitureList/меблі для офісу-min.png',
-    '66504a50a1b2c3d4e5f6a7be': './img/furnitureList/меблі для передпокою-min.png',
-    '66504a50a1b2c3d4e5f6a7bf': './img/furnitureList/мякі меблі-min.png',
-    '66504a50a1b2c3d4e5f6a7c0': './img/furnitureList/садові та вуличні меблі-min.png',
-    '66504a50a1b2c3d4e5f6a7c1': './img/furnitureList/стільці та табурети-min.png',
-    '66504a50a1b2c3d4e5f6a7c2': './img/furnitureList/столи-min.png',
-    '66504a50a1b2c3d4e5f6a7c3': './img/furnitureList/шафи та системи зберігання-min.png',
+    '66504a50a1b2c3d4e5f6a7b8': '/img/furnitureList/декор та аксесуари-min.png',
+    '66504a50a1b2c3d4e5f6a7b9': '/img/furnitureList/Кухні-min.png',
+    '66504a50a1b2c3d4e5f6a7ba': '/img/furnitureList/ліжка та матраци-min.png',
+    '66504a50a1b2c3d4e5f6a7bb': '/img/furnitureList/меблі для ванної кімнати-min.png',
+    '66504a50a1b2c3d4e5f6a7bc': '/img/furnitureList/меблі для дитячої-min.png',
+    '66504a50a1b2c3d4e5f6a7bd': '/img/furnitureList/меблі для офісу-min.png',
+    '66504a50a1b2c3d4e5f6a7be': '/img/furnitureList/меблі для передпокою-min.png',
+    '66504a50a1b2c3d4e5f6a7bf': '/img/furnitureList/мякі меблі-min.png',
+    '66504a50a1b2c3d4e5f6a7c0': '/img/furnitureList/садові та вуличні меблі-min.png',
+    '66504a50a1b2c3d4e5f6a7c1': '/img/furnitureList/стільці та табурети-min.png',
+    '66504a50a1b2c3d4e5f6a7c2': '/img/furnitureList/столи-min.png',
+    '66504a50a1b2c3d4e5f6a7c3': '/img/furnitureList/шафи та системи зберігання-min.png',
   };
   const markUp = [{ _id: '', name: 'Всі товари' }, ...categories]
     .map(
