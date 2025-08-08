@@ -30,25 +30,6 @@
     line-height: 1.6;
 }
 
-@media only screen and (min-width: 768px) {
-    .feedback {
-        padding-top: 32px;
-        padding-bottom: 32px;
-    }
-}
-
-@media only screen and (min-width: 1440px) {
-    .feedback {
-        padding-top: 64px;
-        padding-bottom: 64px;
-    }
-}
-
-.star-container {
-    display: flex;
-    gap: 4px;
-}
-
 .swiper .swiper-pagination {
     position: static !important;
     transform: none !important;
@@ -118,4 +99,18 @@
     opacity: 0.3;
     cursor: default;
     pointer-events: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .feedback {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .feedback {
+        padding-top: 64px;
+        padding-bottom: 64px;
+    }
 }
