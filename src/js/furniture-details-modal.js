@@ -1,7 +1,7 @@
 //  Імпорти
 import refs from './refs';
 import iziToast from 'izitoast';
-// import openOrderModal from './order-modal.js';
+import { openOrderModal } from './order-modal';
 
 //  Основна ініціалізація
 export function setupProductClickHandler(allProducts) {
@@ -204,7 +204,7 @@ function handleOrderSubmit(event) {
 
   localStorage.setItem('orderData', JSON.stringify(orderData));
   closseProductDatailis();
-  // openOrderModal(); // якщо буде така функція
+  openOrderModal(); // якщо буде така функція
 }
 
 // Відкриття модалки
