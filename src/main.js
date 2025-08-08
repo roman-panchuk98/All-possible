@@ -8,4 +8,4 @@ import refs from './js/refs';
 feedbackSection();
 // Furniture-list
 refs.categoriesList.addEventListener('click', handlerCategories);
-
+import './js/faq';

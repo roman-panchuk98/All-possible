@@ -74,25 +74,26 @@
 }
 /* tablet styles */
 @media screen and (min-width: 768px) {
-.ac {
-  width: 704px;
+  .ac {
+    width: 704px;
+  }
+  .ac-trigger {
+    width: 704px;
+    font-size: 18px;
+  }
 }
-.ac-trigger {
-  width: 704px;
-  font-size: 18px;
-}}
 /* desctop styles */
 @media screen and (min-width: 1440px) {
-    #FAQ-section {
-        padding: 80px 0;
-    }
-    .faq-title {
-        font-size: 48px;
-    }
-    .ac-trigger {
-        width: 865px;
-    }
-    .ac-text {
-        width: 865px;
-    }
+  #FAQ-section {
+    padding: 80px 0;
+  }
+  .faq-title {
+    font-size: 48px;
+  }
+  .ac-trigger {
+    width: 865px;
+  }
+  .ac-text {
+    width: 865px;
+  }
 }
