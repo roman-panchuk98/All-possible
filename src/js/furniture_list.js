@@ -3,8 +3,10 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import '../css/furniture-list.css';
 import refs from './refs';
+import { setupProductClickHandler } from './furniture-details-modal.js';
 
 const BaseUrl = 'https://furniture-store.b.goit.study/api/';
+let allProducts = [];
 
 export async function getCategories() {
   try {
@@ -24,8 +26,7 @@ function markUpCategories(categories) {
   const markUp = [{ _id: '', name: 'Всі товари' }, ...categories]
     .map(
       ({ _id, name }) =>
-        `<li><button type="button" class="category-btn${
-          _id === '' ? ' active' : ''
+        `<li><button type="button" class="category-btn${_id === '' ? ' active' : ''
         }"  data-category="${_id}">${name}</button></li>`
     )
     .join('');
@@ -46,11 +47,12 @@ export async function getFurniture(limit, page, category = '') {
 
     const responce = await axios.get(`${BaseUrl}furnitures`, { params });
     const data = responce.data;
-
+    allProducts = data.furnitures;
     if (page === 1) {
       refs.furnitureGrid.innerHTML = '';
     }
-    markUpFurniture(data.furnitures);
+    markUpFurniture(allProducts);
+    setupProductClickHandler(allProducts);
     if (page * limit >= data.totalItems) {
       refs.furnitureLoadMoreBtn.style.display = 'none';
     } else {

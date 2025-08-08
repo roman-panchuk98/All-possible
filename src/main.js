@@ -8,5 +8,4 @@ import refs from './js/refs';
 // import './js/order-modal.js'
 // Furniture-list
 refs.categoriesList.addEventListener('click', handlerCategories);
-// import './js/order-modal.js'
 
