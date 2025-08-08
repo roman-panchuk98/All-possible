@@ -1,0 +1,27 @@
+#FAQ-section {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+.faq-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 32px;
+}
+.faq-title {
+  text-align: center;
+  color: #080c09;
+}
+.faq-list {
+  display: flex;
+  flex-direction: column;
+}
+.question-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 0px;
+border-top: 1px solid rgba(8, 12, 9, 0.15);
+    padding: 20px 0px;
+}
