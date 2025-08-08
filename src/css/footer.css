@@ -52,6 +52,7 @@
   width: 220px;
   object-fit: contain;
   display: block;
+  fill: var(--white);
 }
 
 .footer-info {
@@ -137,12 +138,12 @@
 .footer-social-icon {
   height: 24px;
   width: 24px;
-  fill: var(--cod-gray);
+  fill: var(--white);
   transition: fill 0.3s ease;
 }
 
 .footer-socials a:hover .footer-social-icon {
-  fill: var(--white);
+  fill: var(--cod-gray);
 }
 
 /* Tablet styles (768px - 1439px) */
@@ -185,7 +186,7 @@
   .footer-content {
     flex-direction: row;
     gap: 80px;
-    padding: 0;
+    padding: 0 64px;
   }
 
   .footer-logo {
