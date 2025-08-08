@@ -4,7 +4,7 @@
   background-color: #54504a;
   padding-top: 157px;
   padding-bottom: 157px;
-  background-image: url(/img/mob-bg-1x-min.jpg);
+  background-image: url(/img/hero/desk-bg-1x-min.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -12,7 +12,7 @@
 
 @media screen and (min-resolution: 2x) {
   .hero {
-    background-image: url(/img/mob-bg-2x-min.jpg);
+    background-image: url(/img/hero/mob-bg-2x-min.jpg);
   }
 }
 
@@ -67,12 +67,12 @@
 @media screen and (min-width: 768px) {
   .hero {
     padding: 37px 0;
-    background-image: url(/img/tab-bg-1x-min.jpg);
+    background-image: url(/img/hero/tab-bg-1x-min.jpg);
   }
 
   @media screen and (min-resolution: 2x) {
     .hero {
-      background-image: url(/img/tab-bg-2x-min.jpg);
+      background-image: url(/img/hero/tab-bg-2x-min.jpg);
     }
   }
 
@@ -96,12 +96,12 @@
 @media screen and (min-width: 1440px) {
   .hero {
     padding: 92px 0;
-    background-image: url(/img/desk-bg-1x-min.jpg);
+    background-image: url(/img/hero/desk-bg-1x-min.jpg);
   }
 
   @media screen and (min-resolution: 2x) {
     .hero {
-      background-image: url(/img/desk-bg-2x-min.jpg);
+      background-image: url(/img/hero/desk-bg-2x-min.jpg);
     }
   }
 }
