@@ -1,0 +1,149 @@
+.order-modal {
+  background-color: rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  padding: 64px 20px;
+  overflow-y: scroll;
+}
+.form-wrapper {
+  background-color: #ffffff;
+  position: relative;
+  border-radius: 8px;
+  padding: 64px 20px;
+  max-width: 335px;
+  margin: 0 auto;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.close-form-btn {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  background: none;
+  border: none;
+}
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.label-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.submit-btn {
+  border-radius: 100px;
+  padding: 10px 81px;
+  margin: 0 auto;
+  height: 46px;
+  border: none;
+  box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.15),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
+  background: #6b0609;
+  font-weight: 500;
+  color: #ffffff;
+  opacity: 100%;
+  transition: opacity 250ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.input-form {
+  border-radius: 12px;
+  padding: 8px 12px;
+  width: 100%;
+  height: 42px;
+  border: 1px solid rgba(8, 12, 9, 0.15);
+  background-color: rgba(8, 12, 9, 0.05);
+  outline: none;
+}
+
+.input-form::placeholder {
+  color: rgba(8, 12, 9, 0.05);
+  transition: color 250ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.textarea {
+  height: 180px;
+  resize: none;
+}
+
+/* адаптив */
+@media screen and (min-width: 768px) {
+  .order-modal {
+    padding: 64px 0px;
+  }
+
+  .form-wrapper {
+    padding: 64px;
+    max-width: 704px;
+    margin: 0 auto;
+  }
+
+  .submit-btn {
+    padding: 10px 31.5px;
+  }
+
+  .input-form::placeholder {
+    color: rgba(8, 12, 9, 0.6);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .form-wrapper {
+    max-width: 866px;
+  }
+
+  .form-title {
+    max-width: 530px;
+    margin: 0 auto;
+  }
+}
+
+/* зміна станів */
+.input-form:hover::placeholder {
+  color: rgb(8, 12, 9);
+}
+
+.input-form:focus {
+  border: 1px solid rgba(8, 12, 9, 0.4);
+}
+
+.submit-btn:hover,
+.submit-btn:focus {
+  opacity: 50%;
+}
+
+.error-message {
+  border: 1px solid #6b0609;
+}
+
+.error-message::placeholder {
+  color: #6b0609;
+}
+
+.error-text {
+  color: #6b0609;
+  font-size: 12px;
+}
+
+.label-phone {
+  position: relative;
+}
+
+.plus-elem {
+  font-family: inherit;
+  font-size: 16px;
+  position: absolute;
+  top: 57%;
+  left: 13px;
+}
