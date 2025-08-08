@@ -2,10 +2,11 @@ import Swiper from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
-import refs from './refs';
 import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import rater from 'rater-js';
+import refs from './refs';
 
 axios.defaults.baseURL = 'https://furniture-store.b.goit.study/api';
 
@@ -17,43 +18,24 @@ function hideSwipeBox() {
 async function getFeedback(currentPage = 1) {
   try {
     const response = await axios.get(`/feedbacks?limit=10&page=${currentPage}`);
-    return response;
+    return response.data.feedbacks;
   } catch (error) {
     hideSwipeBox();
     iziToast.error({
-      title: error.message,
+      title: 'Помилка',
+      message: 'Не вдалось завантажити дані. Спробуйте пізніше',
       position: 'topRight',
     });
   }
 }
 
-function getStars(rate) {
-  const fullStars = Math.floor(rate);
-  const hasHalfStar = rate % 1 !== 0;
-  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-  let stars = '';
-
-  for (let i = 0; i < fullStars; i++) {
-    stars += `<svg class="star star-filled" width="20" height="20"><use href="img/icons.svg#icon-star-filled"></use></svg>`;
-  }
-  if (hasHalfStar) {
-    stars += `<svg class="star star-half" width="20" height="20"><use href="img/icons.svg#icon-star-half"></use></svg>`;
-  }
-  for (let i = 0; i < emptyStars; i++) {
-    stars += `<svg class="star star-empty" width="20" height="20"><use href="img/icons.svg#icon-star-empty"></use></svg>`;
-  }
-
-  return stars;
-}
-
-function renderFeedback(response) {
+async function renderFeedback() {
+  const response = await getFeedback();
   const slidesMarkup = response
-    .map(({ descr, name, rate }) => {
-      const starsMarkup = getStars(rate);
-
+    .map(({ descr, name, rate, _id }) => {
       return `
       <li class="feedback-item swiper-slide">
-          <div class="star-container">${starsMarkup}</div>
+          <div id="rater-${_id}" data-rating="${rate}"></div>
           <p class="feedback-descr">${descr}</p>
           <p class="feedback-name">${name}</p>
       </li>`;
@@ -62,6 +44,23 @@ function renderFeedback(response) {
 
   refs.feedbackList.insertAdjacentHTML('beforeend', slidesMarkup);
 
+  addStarToFeedbackList(response);
+  swipeFeedbackLists();
+}
+
+function addStarToFeedbackList(response) {
+  response.forEach(({ rate, _id }) => {
+    rater({
+      max: 5,
+      readOnly: true,
+      rating: rate,
+      starSize: 20,
+      element: document.querySelector(`#rater-${_id}`),
+    });
+  });
+}
+
+function swipeFeedbackLists() {
   new Swiper('.swiper', {
     modules: [Navigation, Pagination],
     pagination: {
@@ -72,10 +71,11 @@ function renderFeedback(response) {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
+    grabCursor: true,
     breakpoints: {
       375: {
         slidesPerView: 1,
-        spaceBetween: 0,
+        spaceBetween: 20,
       },
       768: {
         slidesPerView: 2,
@@ -89,7 +89,4 @@ function renderFeedback(response) {
   });
 }
 
-export async function feedbackSection() {
-  const response = await getFeedback();
-  renderFeedback(response.data.feedbacks);
-}
+renderFeedback();

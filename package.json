@@ -21,6 +21,7 @@
     "axios": "^1.11.0",
     "izitoast": "^1.4.0",
     "modern-normalize": "^3.0.1",
+    "rater-js": "^1.0.1",
     "swiper": "^11.2.10",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-html-inject": "^1.1.2"
