@@ -10,13 +10,14 @@
 @import url('./container.css');
 
 /* Sections style */
+@import url('./header-modal.css');
 @import url('./header.css');
 @import url('./hero.css');
 @import url('./furniture-list.css');
 @import url('./about-us.css');
+@import url('./popular-goods.css');
 @import url('./faq.css');
 @import url('./feedback.css');
 @import url('./footer.css');
 @import url('./furniture-details-modal.css');
 @import url('./order-modal.css');
-
