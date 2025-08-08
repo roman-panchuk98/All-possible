@@ -10,7 +10,7 @@ const phoneForm = document.querySelector(".input-phone");
 const plus = document.querySelector(".plus-elem");
 
 const savedData = localStorage.getItem("orderData");
-const parsedData = JSON.parse(savedData);
+const parsedData = savedData ? JSON.parse(savedData) : {};
 const productId = parsedData.productId;
 const color = parsedData.color;
 
