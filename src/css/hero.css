@@ -4,7 +4,7 @@
   background-color: #54504a;
   padding-top: 157px;
   padding-bottom: 157px;
-  background-image: url(/img/hero/desk-bg-1x-min.jpg);
+  background-image: url(/img/hero/mob-bg-1x-min.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -28,7 +28,7 @@
   max-width: 335px;
 }
 
-.section-text {
+.hero-text {
   margin-bottom: 32px;
   color: #fff;
   max-width: 335px;
@@ -83,7 +83,7 @@
     max-width: 560px;
   }
 
-  .section-text {
+  .hero-text {
     font-size: 18px;
     max-width: 560px;
   }
