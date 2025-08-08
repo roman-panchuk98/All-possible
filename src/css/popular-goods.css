@@ -88,11 +88,11 @@
     gap: 16px;
 }
 
-.popular-goods-swiper-pagination .swiper-pagination :first-child {
+.swiper .popular-goods-swiper-pagination :first-child {
     margin-left: 0 !important;
 }
 
-.popular-goods-swiper .popular-goods-swiper-pagination :last-child {
+.swiper .popular-goods-swiper-pagination :last-child {
     margin-right: 0 !important;
 }
 
@@ -103,8 +103,13 @@
     margin: 0 !important;
 }
 
-.popular-goods-swiper-pagination>.popular-goods-swiper-pagination-bullet-active {
+.popular-goods-swiper-pagination>.swiper-pagination-bullet {
+    transition: opacity 0.3s ease;
+}
+
+.popular-goods-swiper-pagination>.swiper-pagination-bullet-active {
     background-color: #080c09;
+    opacity: 1;
 }
 
 .popular-goods-swiper-button-prev,

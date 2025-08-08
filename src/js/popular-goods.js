@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import { renderProductDetails } from './furniture-details-modal';
 
 async function getPopularGoods() {
   try {
@@ -76,6 +77,16 @@ async function renderPopularGoods() {
         spaceBetween: 24,
       },
     },
+  });
+
+  refs.popularGoodsList.addEventListener('click', event => {
+    const cardBtn = event.target.closest('.furniture-btn');
+    if (!cardBtn) return;
+    const currentProductId = cardBtn.dataset.id;
+    const selectedProduct = response.furnitures.find(
+      product => product._id === currentProductId
+    );
+    renderProductDetails([selectedProduct]);
   });
 }
 

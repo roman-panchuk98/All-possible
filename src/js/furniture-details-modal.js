@@ -3,7 +3,6 @@ import refs from './refs';
 import iziToast from 'izitoast';
 // import openOrderModal from './order-modal.js';
 
-
 //  Основна ініціалізація
 export function setupProductClickHandler(allProducts) {
   refs.furnitureGrid.addEventListener('click', event => {
@@ -11,7 +10,9 @@ export function setupProductClickHandler(allProducts) {
     if (!cardBtn) return;
 
     const productId = cardBtn.dataset.id;
-    const selectedProduct = allProducts.find(product => product._id === productId);
+    const selectedProduct = allProducts.find(
+      product => product._id === productId
+    );
 
     if (selectedProduct) {
       renderProductDetails([selectedProduct]);
@@ -26,7 +27,7 @@ export function setupProductClickHandler(allProducts) {
 }
 
 // Рендер модалки з деталями продукту
-function renderProductDetails(product) {
+export function renderProductDetails(product) {
   openProductDetailis();
 
   const modalContent = document.querySelector('.modal-content');
@@ -68,10 +69,22 @@ function renderProductDetails(product) {
 }
 
 //  Генерація HTML для продукту
-function createProductMarkup({ _id, images, name, price, rate, sizes, color, description, type }) {
+function createProductMarkup({
+  _id,
+  images,
+  name,
+  price,
+  rate,
+  sizes,
+  color,
+  description,
+  type,
+}) {
   return `
     <div class="img-product">
-      <img class="large-img" src="${images[0]}" alt="${name}" id="main-product-img"/>
+      <img class="large-img" src="${
+        images[0]
+      }" alt="${name}" id="main-product-img"/>
       <div class="small-img">
         <img class="mini-img" src="${images[1]}" alt="${name}" />
         <img class="mini-img" src="${images[2]}" alt="${name}" />
@@ -111,21 +124,25 @@ function createProductMarkup({ _id, images, name, price, rate, sizes, color, des
   `;
 }
 
-
 //  Генерація кольорів
 function generateColorOptions(colors) {
-  return colors.map((color, index) => `
+  return colors
+    .map(
+      (color, index) => `
     <label class="color-label">
-      <input type="radio" name="color" value="${color}" ${index === 0 ? 'checked' : ''} />
+      <input type="radio" name="color" value="${color}" ${
+        index === 0 ? 'checked' : ''
+      } />
       <span class="circle" style="background-color: ${color}"></span>
       <span class="checkmark"></span>
     </label>
-  `).join('');
+  `
+    )
+    .join('');
 }
 
 //  Оновлення зірочок за рейтингом
 function updateStars(rawRating) {
-
   let rating;
   if (rawRating >= 3.3 && rawRating <= 3.7) {
     rating = 3.5;
@@ -169,7 +186,9 @@ function handleOrderSubmit(event) {
 
   const submitBtn = document.querySelector('.modal-product-btn');
   const productId = submitBtn.dataset.id;
-  const selectedColor = event.target.querySelector('input[name="color"]:checked')?.value;
+  const selectedColor = event.target.querySelector(
+    'input[name="color"]:checked'
+  )?.value;
 
   if (!selectedColor) {
     iziToast.warning({
@@ -213,4 +232,3 @@ function listenerClosseModalProduct() {
     if (event.target === refs.modalDetailisProduct) closseProductDatailis();
   });
 }
-
