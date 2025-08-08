@@ -59,7 +59,7 @@
     line-height: 160%;
 }
 
-.popular-goods-more-datails-btn {
+.btn-details {
     font-weight: 500;
     line-height: 160%;
     border: none;
@@ -72,12 +72,12 @@
     transition: opacity 0.3s ease;
 }
 
-.popular-goods-more-datails-btn:hover,
-.popular-goods-more-datails-btn:focus {
+.btn-details:hover,
+.btn-details:focus {
     opacity: 0.5;
 }
 
-.swiper-container {
+.swiper-navigation {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -88,27 +88,32 @@
     gap: 16px;
 }
 
-.swiper .swiper-pagination :first-child {
+.swiper .popular-goods-swiper-pagination :first-child {
     margin-left: 0 !important;
 }
 
-.swiper .swiper-pagination :last-child {
+.swiper .popular-goods-swiper-pagination :last-child {
     margin-right: 0 !important;
 }
 
-.swiper .swiper-pagination {
+.popular-goods-swiper .popular-goods-swiper-pagination {
     position: static !important;
     transform: none !important;
     width: auto !important;
     margin: 0 !important;
 }
 
-.swiper-pagination>.swiper-pagination-bullet-active {
-    background-color: #080c09;
+.popular-goods-swiper-pagination>.swiper-pagination-bullet {
+    transition: opacity 0.3s ease;
 }
 
-.swiper-button-prev,
-.swiper-button-next {
+.popular-goods-swiper-pagination>.swiper-pagination-bullet-active {
+    background-color: #080c09;
+    opacity: 1;
+}
+
+.popular-goods-swiper-button-prev,
+.popular-goods-swiper-button-next {
     background-color: #f2f2f2;
     border: 1px solid rgba(8, 12, 9, 0.15);
     border-radius: 100px;
@@ -120,31 +125,31 @@
     transition: border 0.3s ease, background-color 0.3s ease, fill 0.3s ease, opacity 0.3s ease;
 }
 
-.swiper-button-prev:hover,
-.swiper-button-next:hover,
-.swiper-button-prev:focus,
-.swiper-button-next:focus {
+.popular-goods-swiper-button-prev:hover,
+.popular-goods-swiper-button-next:hover,
+.popular-goods-swiper-button-prev:focus,
+.popular-goods-swiper-button-next:focus {
     border: none;
     background-color: #975052;
     fill: #fff;
 }
 
-.swiper-button-prev:active,
-.swiper-button-next:active {
+.popular-goods-swiper-button-prev:active,
+.popular-goods-swiper-button-next:active {
     border: none;
     background-color: #6b0609;
     ;
     fill: #fff;
 }
 
-.swiper-button-prev:disabled,
-.swiper-button-next:disabled {
+.popular-goods-swiper-button-prev:disabled,
+.popular-goods-swiper-button-next:disabled {
     opacity: 0.3;
     cursor: default;
     pointer-events: none;
 }
 
-.swiper .swiper-slide {
+.popular-goods-swiper .swiper-slide {
     display: flex;
 }
 

@@ -56,11 +56,11 @@
     gap: 16px;
 }
 
-.swiper-pagination > .swiper-pagination-bullet {
+.swiper-pagination>.swiper-pagination-bullet {
     transition: opacity 0.3s ease;
 }
 
-.swiper-pagination > .swiper-pagination-bullet-active {
+.swiper-pagination>.swiper-pagination-bullet-active {
     background-color: #080c09;
     opacity: 1;
 }
@@ -90,7 +90,8 @@
 .swiper-button-prev:active,
 .swiper-button-next:active {
     border: none;
-    background-color: #6b0609;;
+    background-color: #6b0609;
+    ;
     fill: #fff;
 }
 

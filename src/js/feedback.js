@@ -61,7 +61,7 @@ function addStarToFeedbackList(response) {
 }
 
 function swipeFeedbackLists() {
-  new Swiper('.swiper', {
+  new Swiper('.feedback-swiper', {
     modules: [Navigation, Pagination],
     pagination: {
       el: '.swiper-pagination',
