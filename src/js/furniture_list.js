@@ -3,7 +3,7 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import '../css/furniture-list.css';
 import refs from './refs';
-import { setupProductClickHandler } from './furniture-details-modal.js';
+import { renderProductDetails } from './furniture-details-modal.js';
 
 const BaseUrl = 'https://furniture-store.b.goit.study/api/';
 let allProducts = [];
@@ -13,10 +13,10 @@ export async function getCategories() {
     const res = await axios.get(`${BaseUrl}categories`);
     const categories = res.data;
     console.log(categories);
-    
-   
-   
-    
+
+
+
+
     markUpCategories(categories);
   } catch (error) {
     iziToast.error({
@@ -29,8 +29,8 @@ export async function getCategories() {
 
 function markUpCategories(categories) {
 
-    const categoryImages = {
-    '': './img/furnitureList/всі товари-min.png', 
+  const categoryImages = {
+    '': './img/furnitureList/всі товари-min.png',
     '66504a50a1b2c3d4e5f6a7b8': '/img/furnitureList/декор та аксесуари-min.png',
     '66504a50a1b2c3d4e5f6a7b9': '/img/furnitureList/Кухні-min.png',
     '66504a50a1b2c3d4e5f6a7ba': '/img/furnitureList/ліжка та матраци-min.png',
@@ -50,18 +50,18 @@ function markUpCategories(categories) {
       ({ _id, name }) => {
         const imageUrl = categoryImages[_id];
 
-      return`
+        return `
         <li>
         <button type="button"
-         class="category-btn${
-          _id === '' ? ' active' : ''}"
+         class="category-btn${_id === '' ? ' active' : ''}"
           data-category="${_id}"  style="${imageUrl ? `background-image: url('${imageUrl}');background-size: cover; background-position: center;"` : ''}">
           
           <span class="category-name">${name}</span>
           </button>
           </li>
           `
-          ;})
+          ;
+      })
     .join('');
   refs.categoriesList.insertAdjacentHTML('beforeend', markUp);
 }
@@ -80,17 +80,16 @@ export async function getFurniture(limit, page, category = '') {
 
     const responce = await axios.get(`${BaseUrl}furnitures`, { params });
     const data = responce.data;
-    
+
     allProducts = data.furnitures;
-    
+
     if (page === 1) {
       refs.furnitureGrid.innerHTML = '';
-      
+
     }
-    
+
     markUpFurniture(allProducts);
-    setupProductClickHandler(allProducts);
-    
+
     if (page * limit >= data.totalItems) {
       refs.furnitureLoadMoreBtn.style.display = 'none';
     } else {
@@ -109,11 +108,11 @@ function markUpFurniture(items) {
   const markUp = items
     .map(({ _id, name, images, color, price }) => {
       const colorsFurniture =
-      ` <ul class="color-list"> 
+        ` <ul class="color-list"> 
         ${color.map(
           colorValue => `<li class="color-dot" style="background-color:${colorValue}"></li>`
         )
-        .join('')}
+          .join('')}
         </ul> `;
 
       return `
@@ -130,6 +129,26 @@ function markUpFurniture(items) {
     })
     .join('');
   refs.furnitureGrid.insertAdjacentHTML('beforeend', markUp);
+  //обробник кліку по кнопці
+  refs.furnitureGrid.addEventListener('click', event => {
+    const cardBtn = event.target.closest('.furniture-btn');
+    if (!cardBtn) return;
+
+    const productId = cardBtn.dataset.id;
+    const selectedProduct = allProducts.find(
+      product => product._id === productId
+    );
+
+    if (selectedProduct) {
+      renderProductDetails([selectedProduct]);
+    } else {
+      iziToast.error({
+        title: 'Error',
+        message: 'Продукт не знайдено за ID',
+        position: 'topRight',
+      });
+    }
+  });
 }
 
 
@@ -152,10 +171,10 @@ export function handlerCategories(event) {
 refs.furnitureLoadMoreBtn.addEventListener("click", handlerMore);
 
 export function handlerMore(event) {
-    page +=1;
-    const currentCategoryBtn = refs.categoriesList.querySelector(`.category-btn.active`);
-    const selectedCategory = currentCategoryBtn ? currentCategoryBtn.dataset.category : "";
-    getFurniture(limit, page, selectedCategory);
+  page += 1;
+  const currentCategoryBtn = refs.categoriesList.querySelector(`.category-btn.active`);
+  const selectedCategory = currentCategoryBtn ? currentCategoryBtn.dataset.category : "";
+  getFurniture(limit, page, selectedCategory);
 
 }
 
