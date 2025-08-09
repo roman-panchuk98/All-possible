@@ -15,8 +15,11 @@ export function renderProductDetails(product) {
   renderStars(product[0].rate);
 
   // заміна кольору зірочок
+   const starToRun = document.querySelector('.star-to-run');
+  const starUrl = starToRun.getAttribute('href');
+
   document.querySelectorAll('.star-value').forEach(el => {
-    el.style.backgroundImage = 'url("../img/star-full.svg")';
+    el.style.backgroundImage = `url("${starUrl}")`;
   });
 
   const mainImg = document.getElementById('main-product-img');
