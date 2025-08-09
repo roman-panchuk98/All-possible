@@ -28,7 +28,7 @@ export async function getCategories() {
 
 function markUpCategories(categories) {
   const categoryImages = {
-    '': '/img/about-us/peoples-desktop-min.jpg',
+    '': '/img/furnitureList/всі товари-min.png',
     '66504a50a1b2c3d4e5f6a7b8': '/img/furnitureList/мякі меблі-min.png',
     '66504a50a1b2c3d4e5f6a7b9':
       '/img/furnitureList/шафи та системи зберігання-min.png',
