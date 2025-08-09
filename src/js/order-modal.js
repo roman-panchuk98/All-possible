@@ -163,7 +163,7 @@ function elementInFocus(targetElement) {
     if (targetElement === refs.modalOrderPhone) {
         // Слухач для вводу — додається лише один раз
         targetElement.addEventListener("input", () => {
-            refs.modalOrderPhone.value = "+380" + modalOrderPhone.value.replace(/\D/g, '').slice(3);
+            refs.modalOrderPhone.value = "+380" + refs.modalOrderPhone.value.replace(/\D/g, '').slice(3);
         });
     }
 }
