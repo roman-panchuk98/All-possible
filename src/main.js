@@ -6,11 +6,7 @@ import { getCategories, getFurniture, handlerCategories, handlerMore} from './js
 import './js/feedback';
 import refs from './js/refs';
 import './js/order-modal.js'
-// Furniture-list
-refs.categoriesList.addEventListener('click', handlerCategories);
-refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
-getCategories();
-getFurniture(8, 1);
+import './js/furniture_list.js';
 
 
 
