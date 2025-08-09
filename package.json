@@ -20,6 +20,7 @@
     "accordion-js": "^3.4.1",
     "axios": "^1.11.0",
     "izitoast": "^1.4.0",
+    "loaders.css": "^0.1.2",
     "modern-normalize": "^3.0.1",
     "rater-js": "^1.0.1",
     "swiper": "^11.2.10",

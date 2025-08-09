@@ -36,19 +36,19 @@ export async function getCategories() {
 function markUpCategories(categories) {
 
     const categoryImages = {
-    '': './img/furnitureList/всі товари-min.png', 
-    '66504a50a1b2c3d4e5f6a7b8': '/img/furnitureList/мякі меблі-min.png',
-    '66504a50a1b2c3d4e5f6a7b9': '/img/furnitureList/шафи та системи зберігання-min.png',
-    '66504a50a1b2c3d4e5f6a7ba': '/img/furnitureList/ліжка та матраци-min.png',
-    '66504a50a1b2c3d4e5f6a7bb': '/img/furnitureList/столи-min.png',
-    '66504a50a1b2c3d4e5f6a7bc': '/img/furnitureList/стільці та табурети-min.png',
-    '66504a50a1b2c3d4e5f6a7bd': '/img/furnitureList/Кухні-min.png',
-    '66504a50a1b2c3d4e5f6a7be': '/img/furnitureList/меблі для дитячої-min.png',
-    '66504a50a1b2c3d4e5f6a7bf': '/img/furnitureList/меблі для офісу-min.png',
-    '66504a50a1b2c3d4e5f6a7c0': '/img/furnitureList/меблі для передпокою-min.png',
-    '66504a50a1b2c3d4e5f6a7c1': '/img/furnitureList/меблі для ванної кімнати-min.png',
-    '66504a50a1b2c3d4e5f6a7c2': '/img/furnitureList/садові та вуличні меблі-min.png',
-    '66504a50a1b2c3d4e5f6a7c3': '/img/furnitureList/декор та аксесуари-min.png',
+    '': './img/furnitureList/all-products-min.png', 
+    '66504a50a1b2c3d4e5f6a7b8': '/img/furnitureList/upholstered-furniture-min.png',
+    '66504a50a1b2c3d4e5f6a7b9': '/img/furnitureList/cabinets-and-storage-systems-min.png',
+    '66504a50a1b2c3d4e5f6a7ba': '/img/furnitureList/beds-and-mattresses-min.png',
+    '66504a50a1b2c3d4e5f6a7bb': '/img/furnitureList/tables-min.png',
+    '66504a50a1b2c3d4e5f6a7bc': '/img/furnitureList/chairs-and-stools-min.png',
+    '66504a50a1b2c3d4e5f6a7bd': '/img/furnitureList/kitchens-min.png',
+    '66504a50a1b2c3d4e5f6a7be': '/img/furnitureList/children’s-furniture-min.png',
+    '66504a50a1b2c3d4e5f6a7bf': '/img/furnitureList/office-furniture-min.png',
+    '66504a50a1b2c3d4e5f6a7c0': '/img/furnitureList/hallway-furniture-min.png',
+    '66504a50a1b2c3d4e5f6a7c1': '/img/furnitureList/bathroom-furniture-min.png',
+    '66504a50a1b2c3d4e5f6a7c2': '/img/furnitureList/garden-and-outdoor-furniture-min.png',
+    '66504a50a1b2c3d4e5f6a7c3': '/img/furnitureList/decor-and-accessories-min.png',
   };
   const markUp = [{ _id: '', name: 'Всі товари' }, ...categories]
     .map(
@@ -74,7 +74,7 @@ function markUpCategories(categories) {
 
 let page = 1;
 const limit = 8;
-let totalPages = 1;
+let totalPages = 0;
 
 
 
@@ -94,7 +94,7 @@ export async function getFurniture(limit, page, category = '') {
     
     allProducts = data.furnitures;
     
-    totalPages = Math.ceil(data.totalItems / Number(limit));
+    totalPages = Math.ceil(data.totalItems / limit);
 
     if (page === 1) {
       refs.furnitureGrid.innerHTML = '';
@@ -115,6 +115,7 @@ export async function getFurniture(limit, page, category = '') {
       message: 'Не вдалося завантажити дані. Спробуйте пізніше',
       position: 'topRight',
     });
+     hideLoadMoreBtn();
   }
 }
 
@@ -161,10 +162,10 @@ export function handlerCategories(event) {
 }
 
 function showLoadMoreBtn() {
-  refs.furnitureLoadMoreBtn.classList.remove('visually-hidden');
+  refs.furnitureLoadMoreBtn.classList.remove('visually-hidden-moreBtn');
 }
 function hideLoadMoreBtn() {
-  refs.furnitureLoadMoreBtn.classList.add('visually-hidden');
+  refs.furnitureLoadMoreBtn.classList.add('visually-hidden-moreBtn');
 }
 
 refs.furnitureLoadMoreBtn.addEventListener("click", handlerMore);
