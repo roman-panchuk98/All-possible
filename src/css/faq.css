@@ -2,31 +2,23 @@
   padding-top: 48px;
   padding-bottom: 48px;
 }
-.faq-container {
-}
-
 .faq-title {
   text-align: center;
   margin-bottom: 32px;
 }
-
 .accordion-container {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 0px;
 }
-
 .ac {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 0px;
   width: 335px;
 }
-
 .ac-trigger {
   display: flex;
   align-items: center;
@@ -44,8 +36,11 @@
   line-height: 1.6;
   text-align: left;
 }
+.ac:last-child .ac-trigger {
+  border-bottom: 1px solid rgba(8, 12, 9, 0.15);
+}
 .ac-icon-btn {
-  flex-shrink: 0;
+  flex-shrink:0;
 }
 .ac-trigger .ac-icon-btn {
   transition: transform 0.3s ease;
@@ -57,22 +52,22 @@
 
 .ac-panel {
   max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.9s ease-in-out;
-  padding-bottom: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out, max-height 0.9s ease-in-out;
+    opacity: 0;
 }
 
 .ac.is-active .ac-panel {
   max-height: 152px;
-  padding-bottom: 24px;
+  opacity: 1;
 }
 .ac-text {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.6;
   color: #080c09;
+  padding-bottom: 24px;
 }
-/* tablet styles */
 @media screen and (min-width: 768px) {
   .ac {
     width: 704px;
@@ -82,7 +77,6 @@
     font-size: 18px;
   }
 }
-/* desctop styles */
 @media screen and (min-width: 1440px) {
   #FAQ-section {
     padding: 80px 0;
