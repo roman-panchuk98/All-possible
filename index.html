@@ -8,7 +8,7 @@
     <script type="module" crossorigin src="/All-possible/index.js"></script>
     <link rel="modulepreload" crossorigin href="/All-possible/assets/vendor-CyeEw-01.js">
     <link rel="stylesheet" crossorigin href="/All-possible/assets/vendor-Co4fKibZ.css">
-    <link rel="stylesheet" crossorigin href="/All-possible/assets/index-CpDJ88U8.css">
+    <link rel="stylesheet" crossorigin href="/All-possible/assets/index-BIrUlE3p.css">
   </head>
   <body>
     <!-- Header partial -->
@@ -248,12 +248,12 @@
         <form action="" class="modal-form">
             <label class="label-form">Емейл*
                 <input class="input-form input-email" type="email" id="email" name="email"
-                    placeholder="12345ggg@gmail.com">
+                    placeholder="12345ggg@gmail.com" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"
+                    inputmode="email" required>
             </label>
             <label class="label-form label-phone">Телефон*
-                <span class="plus-elem visually-hidden">+</span>
-                <input class="input-form input-phone" type="tel" id="phone" name="phone" pattern="^[0-9]{12}$"
-                    placeholder="+38 (099) 123 22 11">
+                <input class="input-form input-phone" type="tel" id="phone" name="phone" pattern="^\+380\d{9}$"
+                    maxlength="13" placeholder="+38 (099) 123 22 11" inputmode="numeric" required>
             </label>
             <label class="label-form">Коментар
                 <textarea class="input-form textarea" name="comment" id="comment"
