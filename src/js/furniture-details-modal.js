@@ -14,7 +14,6 @@ export function renderProductDetails(product) {
   const markup = product.map(createProductMarkup).join('');
   modalContent.innerHTML = markup;
 
-  // updateStars(product[0].rate);
   renderStars(product[0].rate);
 
   //заміна кольору зірочок
@@ -128,8 +127,6 @@ function generateColorOptions(colors) {
 }
 
 //  Оновлення зірочок за рейтингом
-
-
 function renderStars(rating, containerSelector = '.modal-rating') {
   const container = document.querySelector(containerSelector);
 
@@ -139,7 +136,6 @@ function renderStars(rating, containerSelector = '.modal-rating') {
   }
 
   container.innerHTML = ''; // Очистити попередній вміст
-
   rater({
     max: 5,
     readOnly: true,
@@ -170,9 +166,8 @@ function handleOrderSubmit(event) {
   }
 
   const orderData = { productId, color: selectedColor };
-  // console.log('Дані для замовлення:', orderData);
-
   localStorage.setItem('orderData', JSON.stringify(orderData));
+
   closseProductDatailis();
   openOrderModal(); // якщо буде така функція
 }
@@ -193,7 +188,6 @@ function closseProductDatailis() {
 function listenerClosseModalProduct() {
   const closseBtn = document.querySelector('.modal-close-btn');
   closseBtn.addEventListener('click', closseProductDatailis);
-
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') closseProductDatailis();
   });
