@@ -55,11 +55,10 @@ function markUpCategories(categories) {
         <li>
         <button type="button"
          class="category-btn${_id === '' ? ' active' : ''}"
-          data-category="${_id}"  style="${
-        imageUrl
+          data-category="${_id}"  style="${imageUrl
           ? `background-image: url('${imageUrl}');background-size: cover; background-position: center;"`
           : ''
-      }">
+        }">
           
           ${name}
           </button>
@@ -86,14 +85,20 @@ export async function getFurniture(limit, page, category = '') {
 
     const responce = await axios.get(`${BaseUrl}furnitures`, { params });
     const data = responce.data;
-    allProducts = data.furnitures;
-    totalPages = Math.ceil(data.totalItems / Number(limit));
+    const furnituresAll = data.furnitures;  //нова змінна. потрібна
 
+    //дещо змінена частка контенту при зміні категорії
     if (page === 1) {
       refs.furnitureGrid.innerHTML = '';
+      allProducts = furnituresAll;
+    } else {
+      allProducts = [...allProducts, ...furnituresAll];  // тут я записую уже існуючий пакет даних + новий пекет коли "page+1"
     }
 
-    markUpFurniture(allProducts);
+    totalPages = Math.ceil(data.totalItems / limit);   //прибрав перетворення числа в число бо воно мені не давало нормально вклюситися  втій код
+    markUpFurniture(furnituresAll); // рендер першого пекету даних
+
+
 
     if (page >= totalPages) {
       hideLoadMoreBtn();
@@ -110,6 +115,8 @@ export async function getFurniture(limit, page, category = '') {
 }
 
 function markUpFurniture(items) {
+  console.log(items);
+
   const markUp = items
     .map(({ _id, name, images, color, price }) => {
       const colorsFurniture = ` <ul class="color-list"> 
@@ -120,14 +127,14 @@ function markUpFurniture(items) {
           )
           .join('')}
         </ul> `;
-
+      // додаю aria-label на кнопку М.Н 
       return `
         <li class="furniture-card">
         <img src="${images[0]}" alt="${name}" class="furniture-img">
         <h3 class="furniture-name">${name}</h3>
          ${colorsFurniture}
         <p class="furniture-price">${price} грн</p>
-        <button class="furniture-btn btn-details" data-id="${_id}">Детальніше</button>
+                <button class="furniture-btn btn-details" data-id="${_id}" aria-label="Open detailed information window for this product">Детальніше</button>  
 
         </li>
         
@@ -135,26 +142,7 @@ function markUpFurniture(items) {
     })
     .join('');
   refs.furnitureGrid.insertAdjacentHTML('beforeend', markUp);
-  //обробник кліку по кнопці
-  refs.furnitureGrid.addEventListener('click', event => {
-    const cardBtn = event.target.closest('.furniture-btn');
-    if (!cardBtn) return;
 
-    const productId = cardBtn.dataset.id;
-    const selectedProduct = allProducts.find(
-      product => product._id === productId
-    );
-
-    if (selectedProduct) {
-      renderProductDetails([selectedProduct]);
-    } else {
-      iziToast.error({
-        title: 'Error',
-        message: 'Продукт не знайдено за ID',
-        position: 'topRight',
-      });
-    }
-  });
 }
 
 export function handlerCategories(event) {
@@ -189,3 +177,23 @@ export function handlerMore(event) {
     : '';
   getFurniture(limit, page, selectedCategory);
 }
+//обробник кліку по кнопці   переїхав в глобальку видимість  
+refs.furnitureGrid.addEventListener('click', event => {
+  const cardBtn = event.target.closest('.furniture-btn');
+  if (!cardBtn) return;
+
+  const productId = cardBtn.dataset.id;
+  const selectedProduct = allProducts.find(
+    product => product._id === productId
+  );
+
+  if (selectedProduct) {
+    renderProductDetails([selectedProduct]);
+  } else {
+    iziToast.error({
+      title: 'Error',
+      message: 'Продукт не знайдено за ID',
+      position: 'topRight',
+    });
+  }
+});
