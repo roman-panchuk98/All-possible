@@ -4,8 +4,6 @@ import iziToast from 'izitoast';
 import { openOrderModal } from './order-modal';
 import rater from 'rater-js';
 
-
-
 // Рендер модалки з деталями продукту
 export function renderProductDetails(product) {
   openProductDetailis();
@@ -16,9 +14,9 @@ export function renderProductDetails(product) {
 
   renderStars(product[0].rate);
 
-  //заміна кольору зірочок
+  // заміна кольору зірочок
   document.querySelectorAll('.star-value').forEach(el => {
-    el.style.backgroundImage = 'url("/img/svgviewer-output.svg")';
+    el.style.backgroundImage = 'url("img/star-full.svg")';
   });
 
   const mainImg = document.getElementById('main-product-img');
@@ -67,8 +65,9 @@ function createProductMarkup({
 }) {
   return `
     <div class="img-product">
-      <img class="large-img" src="${images[0]
-    }" alt="${name}" id="main-product-img"/>
+      <img class="large-img" src="${
+        images[0]
+      }" alt="${name}" id="main-product-img"/>
       <div class="small-img">
         <img class="mini-img" src="${images[1]}" alt="${name}" />
         <img class="mini-img" src="${images[2]}" alt="${name}" />
@@ -114,8 +113,9 @@ function generateColorOptions(colors) {
     .map(
       (color, index) => `
     <label class="color-label">
-      <input type="radio" name="color" value="${color}" ${index === 0 ? 'checked' : ''
-        } />
+      <input type="radio" name="color" value="${color}" ${
+        index === 0 ? 'checked' : ''
+      } />
       <span class="circle" style="background-color: ${color}"></span>
       <span class="checkmark"></span>
     </label>
@@ -140,7 +140,7 @@ function renderStars(rating, containerSelector = '.modal-rating') {
     starSize: 20,
     rating: rating,
     element: container,
-    step: 0.5
+    step: 0.5,
   });
 }
 
