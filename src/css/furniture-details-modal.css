@@ -140,20 +140,6 @@
     gap: 4px;
 }
 
-element.style {
-    background-size: 20px;
-    width: 94%;
-}
-
-/*заміна кольру зірочкам*/
-.star-rating .star-value1 {
-    position: absolute;
-    height: 100%;
-    background: url('../img/svgviewer-output.svg');
-    background-repeat: repeat-x;
-}
-
-
 .select-color {
 
     margin-bottom: 8px;

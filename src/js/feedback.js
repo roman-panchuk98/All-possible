@@ -45,6 +45,11 @@ async function renderFeedback() {
   refs.feedbackList.insertAdjacentHTML('beforeend', slidesMarkup);
 
   addStarToFeedbackList(response);
+
+  document.querySelectorAll('.star-value').forEach(el => {
+    el.style.backgroundImage = 'url("img/star-full.svg")';
+  });
+
   swipeFeedbackLists();
 }
 
