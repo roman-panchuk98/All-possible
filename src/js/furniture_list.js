@@ -115,7 +115,6 @@ export async function getFurniture(limit, page, category = '') {
 }
 
 function markUpFurniture(items) {
-  console.log(items);
 
   const markUp = items
     .map(({ _id, name, images, color, price }) => {
