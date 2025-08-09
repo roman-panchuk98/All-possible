@@ -6,16 +6,16 @@ import refs from './refs';
 import { renderProductDetails } from './furniture-details-modal.js';
 
 const BaseUrl = 'https://furniture-store.b.goit.study/api/';
-let allProducts = [];
+
+refs.categoriesList.addEventListener('click', handlerCategories);
+refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
+getCategories();
+getFurniture(8, 1);
 
 export async function getCategories() {
   try {
     const res = await axios.get(`${BaseUrl}categories`);
     const categories = res.data;
-    console.log(categories);
-
-
-
 
     markUpCategories(categories);
   } catch (error) {
@@ -29,20 +29,21 @@ export async function getCategories() {
 
 function markUpCategories(categories) {
 
-  const categoryImages = {
-    '': './img/furnitureList/всі товари-min.png',
-    '66504a50a1b2c3d4e5f6a7b8': '/img/furnitureList/декор та аксесуари-min.png',
-    '66504a50a1b2c3d4e5f6a7b9': '/img/furnitureList/Кухні-min.png',
+
+    const categoryImages = {
+    '': './img/furnitureList/всі товари-min.png', 
+    '66504a50a1b2c3d4e5f6a7b8': '/img/furnitureList/мякі меблі-min.png',
+    '66504a50a1b2c3d4e5f6a7b9': '/img/furnitureList/шафи та системи зберігання-min.png',
     '66504a50a1b2c3d4e5f6a7ba': '/img/furnitureList/ліжка та матраци-min.png',
-    '66504a50a1b2c3d4e5f6a7bb': '/img/furnitureList/меблі для ванної кімнати-min.png',
-    '66504a50a1b2c3d4e5f6a7bc': '/img/furnitureList/меблі для дитячої-min.png',
-    '66504a50a1b2c3d4e5f6a7bd': '/img/furnitureList/меблі для офісу-min.png',
-    '66504a50a1b2c3d4e5f6a7be': '/img/furnitureList/меблі для передпокою-min.png',
-    '66504a50a1b2c3d4e5f6a7bf': '/img/furnitureList/мякі меблі-min.png',
-    '66504a50a1b2c3d4e5f6a7c0': '/img/furnitureList/садові та вуличні меблі-min.png',
-    '66504a50a1b2c3d4e5f6a7c1': '/img/furnitureList/стільці та табурети-min.png',
-    '66504a50a1b2c3d4e5f6a7c2': '/img/furnitureList/столи-min.png',
-    '66504a50a1b2c3d4e5f6a7c3': '/img/furnitureList/шафи та системи зберігання-min.png',
+    '66504a50a1b2c3d4e5f6a7bb': '/img/furnitureList/столи-min.png',
+    '66504a50a1b2c3d4e5f6a7bc': '/img/furnitureList/стільці та табурети-min.png',
+    '66504a50a1b2c3d4e5f6a7bd': '/img/furnitureList/Кухні-min.png',
+    '66504a50a1b2c3d4e5f6a7be': '/img/furnitureList/меблі для дитячої-min.png',
+    '66504a50a1b2c3d4e5f6a7bf': '/img/furnitureList/меблі для офісу-min.png',
+    '66504a50a1b2c3d4e5f6a7c0': '/img/furnitureList/меблі для передпокою-min.png',
+    '66504a50a1b2c3d4e5f6a7c1': '/img/furnitureList/меблі для ванної кімнати-min.png',
+    '66504a50a1b2c3d4e5f6a7c2': '/img/furnitureList/садові та вуличні меблі-min.png',
+    '66504a50a1b2c3d4e5f6a7c3': '/img/furnitureList/декор та аксесуари-min.png',
   };
   const markUp = [{ _id: '', name: 'Всі товари' }, ...categories]
     .map(
@@ -56,7 +57,7 @@ function markUpCategories(categories) {
          class="category-btn${_id === '' ? ' active' : ''}"
           data-category="${_id}"  style="${imageUrl ? `background-image: url('${imageUrl}');background-size: cover; background-position: center;"` : ''}">
           
-          <span class="category-name">${name}</span>
+          ${name}
           </button>
           </li>
           `
@@ -68,6 +69,10 @@ function markUpCategories(categories) {
 
 let page = 1;
 const limit = 8;
+let totalPages = 1;
+
+
+
 export async function getFurniture(limit, page, category = '') {
   try {
     const params = {
@@ -81,7 +86,7 @@ export async function getFurniture(limit, page, category = '') {
     const responce = await axios.get(`${BaseUrl}furnitures`, { params });
     const data = responce.data;
 
-    allProducts = data.furnitures;
+    totalPages = Math.ceil(data.totalItems / Number(limit));
 
     if (page === 1) {
       refs.furnitureGrid.innerHTML = '';
@@ -90,10 +95,10 @@ export async function getFurniture(limit, page, category = '') {
 
     markUpFurniture(allProducts);
 
-    if (page * limit >= data.totalItems) {
-      refs.furnitureLoadMoreBtn.style.display = 'none';
+    if (page >= totalPages) {
+      hideLoadMoreBtn();
     } else {
-      refs.furnitureLoadMoreBtn.style.display = 'block';
+      showLoadMoreBtn();
     }
   } catch (error) {
     iziToast.error({
@@ -166,7 +171,12 @@ export function handlerCategories(event) {
   getFurniture(limit, page, selectCategory);
 }
 
-
+function showLoadMoreBtn() {
+  refs.furnitureLoadMoreBtn.classList.remove('visually-hidden');
+}
+function hideLoadMoreBtn() {
+  refs.furnitureLoadMoreBtn.classList.add('visually-hidden');
+}
 
 refs.furnitureLoadMoreBtn.addEventListener("click", handlerMore);
 
