@@ -11,7 +11,6 @@ const refs = {
   modalOrderEmail: document.querySelector(".input-email"),
   modalOrderComment: document.querySelector(".textarea"),
   modalOrderPhone: document.querySelector(".input-phone"),
-};
 // Header modal section
   headerOpenModalBtn: document.querySelector('[data-modal-open]'),
   headerCloseModalBtns: document.querySelectorAll('[data-modal-close]'),
