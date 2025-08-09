@@ -48,8 +48,9 @@ async function renderFeedback() {
 
   const starToRun = document.querySelector('.star-to-run');
   const starUrl = starToRun.getAttribute('href');
+  const feedbackSection = document.querySelector('.feedback');
 
-  document.querySelectorAll('.star-value').forEach(el => {
+  feedbackSection.querySelectorAll('.star-value').forEach(el => {
     el.style.backgroundImage = `url("${starUrl}")`;
   });
 

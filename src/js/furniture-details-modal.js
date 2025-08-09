@@ -12,14 +12,14 @@ export function renderProductDetails(product) {
   const markup = product.map(createProductMarkup).join('');
   modalContent.innerHTML = markup;
 
-  renderStars(product[0].rate);
+  addStarToModalList(product[0]);
 
   // заміна кольору зірочок
-   const starToRun = document.querySelector('.star-to-run');
-  const starUrl = starToRun.getAttribute('href');
+  const starToRunModal = document.querySelector('.star-to-run');
+  const starUrlModal = starToRunModal.getAttribute('href');
 
-  document.querySelectorAll('.star-value').forEach(el => {
-    el.style.backgroundImage = `url("${starUrl}")`;
+  modalContent.querySelectorAll('.star-value').forEach(el => {
+    el.style.backgroundImage = `url("${starUrlModal}")`;
   });
 
   const mainImg = document.getElementById('main-product-img');
@@ -82,11 +82,7 @@ function createProductMarkup({
         <h2 class="title-modal-product">${name}</h2>
         <p class="type-product-modal">${type}</p>
         <p class="price">${price}\u00A0<span class="hrn"></span>грн</p>
-        <div class="reting">
-          <div class="modal-rating custom-stars" >
-            
-          </div>
-        </div>
+        <div id="rater-modal-${_id}" data-rating-modal="${rate}"></div>
       </div>
 
       <form class="detailis-product">
@@ -127,23 +123,13 @@ function generateColorOptions(colors) {
     .join('');
 }
 
-//  Оновлення зірочок за рейтингом
-function renderStars(rating, containerSelector = '.modal-rating') {
-  const container = document.querySelector(containerSelector);
-
-  if (!container) {
-    console.warn(`Контейнер ${containerSelector} не знайдено`);
-    return;
-  }
-
-  container.innerHTML = ''; // Очистити попередній вміст
+function addStarToModalList({ rate, _id }) {
   rater({
     max: 5,
     readOnly: true,
+    rating: rate,
     starSize: 20,
-    rating: rating,
-    element: container,
-    step: 0.5,
+    element: document.querySelector(`#rater-modal-${_id}`),
   });
 }
 
