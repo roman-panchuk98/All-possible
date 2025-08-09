@@ -1,29 +1,42 @@
 import iziToast from "izitoast";
 import 'izitoast/dist/css/iziToast.min.css';
 import axios from "axios";
+import refs from "./refs";
 
-const form = document.querySelector(".modal-form");
-const modalForm = document.querySelector(".order-modal");
-const emailForm = document.querySelector(".input-email");
-const commentForm = document.querySelector(".textarea");
-const phoneForm = document.querySelector(".input-phone");
-const plus = document.querySelector(".plus-elem");
-
-const savedData = localStorage.getItem("orderData");
-const parsedData = JSON.parse(savedData);
-const productId = parsedData.productId;
-const color = parsedData.color;
 
 // слухач події для форми
-form.addEventListener("submit", handleFormSubmit);
+refs.modalOrderForm.addEventListener("submit", handleFormSubmit);
 
 // Сабміт на формі
-function handleFormSubmit(event) {
+async function handleFormSubmit(event) {
     event.preventDefault();
+
+    const savedData = localStorage.getItem("orderData");
+    if (!savedData) {
+        iziToast.error({
+            title: 'Помилка',
+            message: 'Немає інформації про товар. Оформлення неможливе.',
+            position: 'topCenter',
+        });
+        return;
+    }
+
+    const parsedData = JSON.parse(savedData);
+    const productId = parsedData.productId;
+    const color = parsedData.color;
+
+    if (!productId || !color) {
+        iziToast.error({
+            title: 'Помилка',
+            message: 'Немає даних про товар. Спробуйте додати його ще раз.',
+            position: 'topCenter',
+        });
+        return;
+    }
 
     // значення в інпутах
     const email = event.currentTarget.elements.email.value.trim();
-    const phone = event.currentTarget.elements.phone.value.trim();
+    const phone = event.currentTarget.elements.phone.value.replace(/^\+/, "");
     const comment = event.currentTarget.elements.comment.value.trim();
     const orderData = {
         "email": email,
@@ -31,40 +44,39 @@ function handleFormSubmit(event) {
         "modelId": productId,
         "color": color,
         "comment": comment
-    }
-    console.log(orderData);
+    };
 
     // помилка на емейлі (функція нижче)
-    const existingEmailError = emailForm.parentElement.querySelector(".error-text");
+    const existingEmailError = refs.modalOrderEmail.parentElement.querySelector(".error-text");
     if (!email || email.length > 64) {
-        emailForm.classList.add("error-message");
-        markupError(emailForm, "Не валідний Email");
+        refs.modalOrderEmail.classList.add("error-message");
+        markupError(refs.modalOrderEmail, "Не валідний Email");
     } else {
-        emailForm.classList.remove("error-message");
+        refs.modalOrderEmail.classList.remove("error-message");
         if (existingEmailError) {
             existingEmailError.remove();
         };
     };
 
     // помилка на телефоні якщо він порожній, якщо не валідний, то патерн і так не дає пройти, тому я вже не писала
-    const existingPhoneError = phoneForm.parentElement.querySelector(".error-text");
+    const existingPhoneError = refs.modalOrderPhone.parentElement.querySelector(".error-text");
     if (!phone) {
-        phoneForm.classList.add("error-message");
-        markupError(phoneForm, "Введіть номер телефону");
+        refs.modalOrderPhone.classList.add("error-message");
+        markupError(refs.modalOrderPhone, "Введіть номер телефону");
     } else {
-        phoneForm.classList.remove("error-message");
+        refs.modalOrderPhone.classList.remove("error-message");
         if (existingPhoneError) {
             existingPhoneError.remove();
         };
     };
 
     // помилка на комент
-    const existingCommentError = commentForm.parentElement.querySelector(".error-text");
+    const existingCommentError = refs.modalOrderComment.parentElement.querySelector(".error-text");
     if (comment.length < 5 || comment.length > 256) {
-        commentForm.classList.add("error-message");
-        markupError(commentForm, "Введіть коментар довжиною від 5 до 256 символів");
+        refs.modalOrderComment.classList.add("error-message");
+        markupError(refs.modalOrderComment, "Введіть коментар довжиною від 5 до 256 символів");
     } else {
-        commentForm.classList.remove("error-message");
+        refs.modalOrderComment.classList.remove("error-message");
         if (existingCommentError) {
             existingCommentError.remove();
         };
@@ -72,17 +84,19 @@ function handleFormSubmit(event) {
 
     // перевірка на валідність при сабміті з повідомленням iziToast
     const isEmailValid = email && email.length <= 64;
-    const isPhoneValid = phone;
+    const isPhoneValid = /^380\d{9}$/.test(phone);
     const isCommentValid = comment.length >= 5 && comment.length <= 256;
 
     if (isEmailValid && isPhoneValid && isCommentValid) {
-        iziToast.success({
-            title: 'Успіх',
-            message: 'Форма успішно відправлена!',
-            position: 'topCenter',
-        });
-        submitOrder(orderData);
-        form.reset();
+        const success = await submitOrder(orderData);
+        if (success) {
+            iziToast.success({
+                title: 'Успіх',
+                message: 'Форма успішно відправлена!',
+                position: 'topCenter',
+            });
+            refs.modalOrderForm.reset();
+        }
     } else {
         iziToast.error({
             title: 'Помилка',
@@ -104,13 +118,14 @@ function markupError(targetElement, message) {
 // відкриття модалки
 export function openOrderModal() {
     document.body.classList.add('body--no-scroll');
-    modalForm.classList.remove('visually-hidden');
+    refs.modalOrderBackground.classList.remove('visually-hidden');
 }
 
 //  закриття модалки
 function closseOrderModal() {
     document.body.classList.remove('body--no-scroll');
-    modalForm.classList.add('visually-hidden');
+    refs.modalOrderBackground.classList.add('visually-hidden');
+    localStorage.clear();
 }
 
 // слухачі подій для закриття
@@ -124,8 +139,8 @@ function listenerHandlClose() {
             closseOrderModal();
         };
     });
-    modalForm.addEventListener("click", event => {
-        if (event.target === modalForm) {
+    refs.modalOrderBackground.addEventListener("click", event => {
+        if (event.target === refs.modalOrderBackground) {
             closseOrderModal();
         }
     });
@@ -136,46 +151,51 @@ function listenerHandlClose() {
 function elementInFocus(targetElement) {
     targetElement.addEventListener("focus", () => {
         targetElement.removeAttribute("placeholder");
-        if (targetElement === phoneForm) {
-            plus.classList.remove("visually-hidden");
-            phoneForm.style.paddingLeft = "20px"
-        };
+
+        if (targetElement === refs.modalOrderPhone) {
+            // Якщо немає префікса — додаємо один раз
+            if (!targetElement.value.startsWith('+380')) {
+                targetElement.value = '+380';
+            }
+        }
     });
-};
-elementInFocus(emailForm);
-elementInFocus(commentForm);
-elementInFocus(phoneForm);
+
+    if (targetElement === refs.modalOrderPhone) {
+        // Слухач для вводу — додається лише один раз
+        targetElement.addEventListener("input", () => {
+            refs.modalOrderPhone.value = "+380" + modalOrderPhone.value.replace(/\D/g, '').slice(3);
+        });
+    }
+}
+elementInFocus(refs.modalOrderEmail);
+elementInFocus(refs.modalOrderComment);
+elementInFocus(refs.modalOrderPhone);
 
 // інпут не у фокусі
 function elementOutFocus(targetElement, placeholder) {
     targetElement.addEventListener("blur", () => {
         targetElement.setAttribute("placeholder", `${placeholder}`);
-        if (targetElement === phoneForm && targetElement.value.trim().length === 0) {
-            plus.classList.add("visually-hidden");
-            phoneForm.style.paddingLeft = "12px"
-        }
     })
 }
-elementOutFocus(emailForm, "12345ggg@gmail.com");
-elementOutFocus(commentForm, "Type your message...");
-elementOutFocus(phoneForm, "+38 (099) 123 22 11");
+elementOutFocus(refs.modalOrderEmail, "12345ggg@gmail.com");
+elementOutFocus(refs.modalOrderComment, "Type your message...");
+elementOutFocus(refs.modalOrderPhone, "+38 (099) 123 22 11");
 
 // запит на бекенд
 const baseURL = "https://furniture-store.b.goit.study/api"
 async function submitOrder(orderData) {
     try {
         const response = await axios.post(`${baseURL}/orders`, orderData, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' }
         });
-        console.log('Замовлення відправлено:', response.data);
-        return response;
-        
+        return response.status === 201;
     } catch (error) {
+        const errorMessage = error.response?.data?.message || error.message || 'Помилка запиту';
         iziToast.error({
-            title: error.message,
+            title: 'Помилка',
+            message: errorMessage,
             position: 'topCenter',
         });
+        return false;
     }
 }

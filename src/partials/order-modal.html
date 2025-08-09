@@ -12,9 +12,8 @@
                     placeholder="12345ggg@gmail.com">
             </label>
             <label class="label-form label-phone">Телефон*
-                <span class="plus-elem visually-hidden">+</span>
-                <input class="input-form input-phone" type="tel" id="phone" name="phone" pattern="^[0-9]{12}$"
-                    placeholder="+38 (099) 123 22 11">
+                <input class="input-form input-phone" type="tel" id="phone" name="phone" pattern="^\+380\d{9}$"
+                    maxlength="13" placeholder="+38 (099) 123 22 11" inputmode="numeric">
             </label>
             <label class="label-form">Коментар
                 <textarea class="input-form textarea" name="comment" id="comment"

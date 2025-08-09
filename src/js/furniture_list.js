@@ -3,10 +3,9 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import '../css/furniture-list.css';
 import refs from './refs';
-import { setupProductClickHandler } from './furniture-details-modal.js';
+import { renderProductDetails } from './furniture-details-modal.js';
 
 const BaseUrl = 'https://furniture-store.b.goit.study/api/';
-let allProducts = [];
 
 refs.categoriesList.addEventListener('click', handlerCategories);
 refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
@@ -17,12 +16,7 @@ export async function getCategories() {
   try {
     const res = await axios.get(`${BaseUrl}categories`);
     const categories = res.data;
-   
-    
-    
-   
-   
-    
+
     markUpCategories(categories);
   } catch (error) {
     iziToast.error({
@@ -34,6 +28,7 @@ export async function getCategories() {
 }
 
 function markUpCategories(categories) {
+
 
     const categoryImages = {
     '': './img/furnitureList/всі товари-min.png', 
@@ -56,18 +51,18 @@ function markUpCategories(categories) {
       ({ _id, name }) => {
         const imageUrl = categoryImages[_id];
 
-      return`
+        return `
         <li>
         <button type="button"
-         class="category-btn${
-          _id === '' ? ' active' : ''}"
+         class="category-btn${_id === '' ? ' active' : ''}"
           data-category="${_id}"  style="${imageUrl ? `background-image: url('${imageUrl}');background-size: cover; background-position: center;"` : ''}">
           
           ${name}
           </button>
           </li>
           `
-          ;})
+          ;
+      })
     .join('');
   refs.categoriesList.insertAdjacentHTML('beforeend', markUp);
 }
@@ -90,20 +85,16 @@ export async function getFurniture(limit, page, category = '') {
 
     const responce = await axios.get(`${BaseUrl}furnitures`, { params });
     const data = responce.data;
-   
-    
-    allProducts = data.furnitures;
-    
+
     totalPages = Math.ceil(data.totalItems / Number(limit));
 
     if (page === 1) {
       refs.furnitureGrid.innerHTML = '';
-      
+
     }
-    
+
     markUpFurniture(allProducts);
-    setupProductClickHandler(allProducts);
-    
+
     if (page >= totalPages) {
       hideLoadMoreBtn();
     } else {
@@ -122,11 +113,11 @@ function markUpFurniture(items) {
   const markUp = items
     .map(({ _id, name, images, color, price }) => {
       const colorsFurniture =
-      ` <ul class="color-list"> 
+        ` <ul class="color-list"> 
         ${color.map(
           colorValue => `<li class="color-dot" style="background-color:${colorValue}"></li>`
         )
-        .join('')}
+          .join('')}
         </ul> `;
 
       return `
@@ -143,6 +134,26 @@ function markUpFurniture(items) {
     })
     .join('');
   refs.furnitureGrid.insertAdjacentHTML('beforeend', markUp);
+  //обробник кліку по кнопці
+  refs.furnitureGrid.addEventListener('click', event => {
+    const cardBtn = event.target.closest('.furniture-btn');
+    if (!cardBtn) return;
+
+    const productId = cardBtn.dataset.id;
+    const selectedProduct = allProducts.find(
+      product => product._id === productId
+    );
+
+    if (selectedProduct) {
+      renderProductDetails([selectedProduct]);
+    } else {
+      iziToast.error({
+        title: 'Error',
+        message: 'Продукт не знайдено за ID',
+        position: 'topRight',
+      });
+    }
+  });
 }
 
 
@@ -170,10 +181,10 @@ function hideLoadMoreBtn() {
 refs.furnitureLoadMoreBtn.addEventListener("click", handlerMore);
 
 export function handlerMore(event) {
-    page +=1;
-    const currentCategoryBtn = refs.categoriesList.querySelector(`.category-btn.active`);
-    const selectedCategory = currentCategoryBtn ? currentCategoryBtn.dataset.category : "";
-    getFurniture(limit, page, selectedCategory);
+  page += 1;
+  const currentCategoryBtn = refs.categoriesList.querySelector(`.category-btn.active`);
+  const selectedCategory = currentCategoryBtn ? currentCategoryBtn.dataset.category : "";
+  getFurniture(limit, page, selectedCategory);
 
 }
 
