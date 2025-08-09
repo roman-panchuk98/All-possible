@@ -10,6 +10,10 @@ import refs from './refs';
 
 axios.defaults.baseURL = 'https://furniture-store.b.goit.study/api';
 
+const starToRun = document.querySelector('.star-to-run');
+const starUrl = starToRun.getAttribute('src');
+const feedbackSection = document.querySelector('.feedback');
+
 function hideSwipeBox() {
   const swipeBox = document.querySelector('.swiper');
   swipeBox.remove();
@@ -45,10 +49,6 @@ async function renderFeedback() {
   refs.feedbackList.insertAdjacentHTML('beforeend', slidesMarkup);
 
   addStarToFeedbackList(response);
-
-  const starToRun = document.querySelector('.star-to-run');
-  const starUrl = starToRun.getAttribute('href');
-  const feedbackSection = document.querySelector('.feedback');
 
   feedbackSection.querySelectorAll('.star-value').forEach(el => {
     el.style.backgroundImage = `url("${starUrl}")`;

@@ -4,20 +4,20 @@ import iziToast from 'izitoast';
 import { openOrderModal } from './order-modal';
 import rater from 'rater-js';
 
+const modalContent = document.querySelector('.modal-content');
+const starToRunModal = document.querySelector('.star-to-run');
+const starUrlModal = starToRunModal.getAttribute('src');
+
 // Рендер модалки з деталями продукту
 export function renderProductDetails(product) {
   openProductDetailis();
 
-  const modalContent = document.querySelector('.modal-content');
   const markup = product.map(createProductMarkup).join('');
   modalContent.innerHTML = markup;
 
   addStarToModalList(product[0]);
 
   // заміна кольору зірочок
-  const starToRunModal = document.querySelector('.star-to-run');
-  const starUrlModal = starToRunModal.getAttribute('href');
-
   modalContent.querySelectorAll('.star-value').forEach(el => {
     el.style.backgroundImage = `url("${starUrlModal}")`;
   });
