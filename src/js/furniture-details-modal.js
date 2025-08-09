@@ -2,7 +2,7 @@
 import refs from './refs';
 import iziToast from 'izitoast';
 import { openOrderModal } from './order-modal';
-// import rater from 'rater-js';
+import rater from 'rater-js';
 
 
 
@@ -14,7 +14,15 @@ export function renderProductDetails(product) {
   const markup = product.map(createProductMarkup).join('');
   modalContent.innerHTML = markup;
 
-  updateStars(product[0].rate);
+  // updateStars(product[0].rate);
+  renderStars(product[0].rate);
+
+  //заміна кольору зірочок
+  document.querySelectorAll('.star-value').forEach(el => {
+    el.classList.remove('star-value');
+    el.classList.add('star-value1');
+  });
+
 
   const mainImg = document.getElementById('main-product-img');
   const thumbnails = document.querySelectorAll('.mini-img');
@@ -76,7 +84,7 @@ function createProductMarkup({
         <p class="type-product-modal">${type}</p>
         <p class="price">${price}\u00A0<span class="hrn"></span>грн</p>
         <div class="reting">
-          <div class="modal-rating" >
+          <div class="modal-rating custom-stars" >
             
           </div>
         </div>
@@ -120,44 +128,26 @@ function generateColorOptions(colors) {
 }
 
 //  Оновлення зірочок за рейтингом
-function updateStars(rawRating) {
-  let rating;
-  if (rawRating >= 3.3 && rawRating <= 3.7) {
-    rating = 3.5;
-  } else if (rawRating >= 3.8 && rawRating <= 4.2) {
-    rating = 4;
-  } else {
-    rating = Math.round(rawRating * 2) / 2;
-  }
 
-  const spritePath = './img/icons.svg';
-  const starRatingContainerr = document.querySelector('.modal-rating');
 
-  if (!starRatingContainerr) {
-    console.warn('Контейнер .star-rating не знайдено');
+function renderStars(rating, containerSelector = '.modal-rating') {
+  const container = document.querySelector(containerSelector);
+
+  if (!container) {
+    console.warn(`Контейнер ${containerSelector} не знайдено`);
     return;
   }
 
-  const starsMarkup = Array.from({ length: 5 }, (_, i) => {
-    const index = i + 1;
-    let icon = 'icon-star-empty';
+  container.innerHTML = ''; // Очистити попередній вміст
 
-    if (rating >= index) {
-      icon = 'icon-star-filled';
-    } else if (rating >= index - 0.5) {
-      icon = 'icon-star-half';
-    }
-
-    return `
-      <svg class="star" data-index="${index}" width="20" height="20">
-        <use href="${spritePath}#${icon}" />
-      </svg>
-    `;
-  }).join('');
-
-  starRatingContainerr.innerHTML = starsMarkup;
-  console.log(starRatingContainerr);
-
+  rater({
+    max: 5,
+    readOnly: true,
+    starSize: 20,
+    rating: rating,
+    element: container,
+    step: 0.5
+  });
 }
 
 // Обробка сабміту форми
