@@ -18,7 +18,7 @@ export function renderProductDetails(product) {
 
   //заміна кольору зірочок
   document.querySelectorAll('.star-value').forEach(el => {
-    el.style.backgroundImage = 'url("../img/svgviewer-output.svg")';
+    el.style.backgroundImage = 'url("/img/svgviewer-output.svg")';
   });
 
   const mainImg = document.getElementById('main-product-img');
