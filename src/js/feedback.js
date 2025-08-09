@@ -46,8 +46,12 @@ async function renderFeedback() {
 
   addStarToFeedbackList(response);
 
+  const starToRun = document.querySelector('.star-to-run');
+  console.log(starToRun.getAttribute('href'));
+  const starUrl = starToRun.getAttribute('href');
+
   document.querySelectorAll('.star-value').forEach(el => {
-    el.style.backgroundImage = 'url("img/star-full.svg")';
+    el.style.backgroundImage = `url("${starUrl}")`;
   });
 
   swipeFeedbackLists();
