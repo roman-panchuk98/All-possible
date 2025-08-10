@@ -46,18 +46,18 @@ export async function getCategories() {
 function markUpCategories(categories) {
   const categoryImages = {
     '': `${imagesUrlForCategories.allProducts.src}`,
-    '66504a50a1b2c3d4e5f6a7b8': `${imagesUrlForCategories.bathroomFurniture.src}`,
-    '66504a50a1b2c3d4e5f6a7b9': `${imagesUrlForCategories.bedsAndMattresses.src}`,
-    '66504a50a1b2c3d4e5f6a7ba': `${imagesUrlForCategories.cabinets.src}`,
-    '66504a50a1b2c3d4e5f6a7bb': `${imagesUrlForCategories.chairsAndStools.src}`,
-    '66504a50a1b2c3d4e5f6a7bc': `${imagesUrlForCategories.childrensFurniture.src}`,
-    '66504a50a1b2c3d4e5f6a7bd': `${imagesUrlForCategories.decorAndAccessories.src}`,
-    '66504a50a1b2c3d4e5f6a7be': `${imagesUrlForCategories.gardenAndOutdoor.src}`,
-    '66504a50a1b2c3d4e5f6a7bf': `${imagesUrlForCategories.hallwayFurniture.src}`,
-    '66504a50a1b2c3d4e5f6a7c0': `${imagesUrlForCategories.kitchens.src}`,
-    '66504a50a1b2c3d4e5f6a7c1': `${imagesUrlForCategories.officeFurniture.src}`,
-    '66504a50a1b2c3d4e5f6a7c2': `${imagesUrlForCategories.tables.src}`,
-    '66504a50a1b2c3d4e5f6a7c3': `${imagesUrlForCategories.upholsteredFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7b8': `${imagesUrlForCategories.upholsteredFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7b9': `${imagesUrlForCategories.cabinets.src}`,
+    '66504a50a1b2c3d4e5f6a7ba': `${imagesUrlForCategories.bedsAndMattresses.src}`,
+    '66504a50a1b2c3d4e5f6a7bb': `${imagesUrlForCategories.tables.src}`,
+    '66504a50a1b2c3d4e5f6a7bc': `${imagesUrlForCategories.chairsAndStools.src}`,
+    '66504a50a1b2c3d4e5f6a7bd': `${imagesUrlForCategories.kitchens.src}`,
+    '66504a50a1b2c3d4e5f6a7be': `${imagesUrlForCategories.childrensFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7bf': `${imagesUrlForCategories.officeFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7c0': `${imagesUrlForCategories.hallwayFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7c1': `${imagesUrlForCategories.bathroomFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7c2': `${imagesUrlForCategories.gardenAndOutdoor.src}`,
+    '66504a50a1b2c3d4e5f6a7c3': `${imagesUrlForCategories.decorAndAccessories.src}`,
   };
 
   const markUp = [{ _id: '', name: 'Всі товари' }, ...categories]
