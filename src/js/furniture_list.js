@@ -2,23 +2,6 @@ import axiosInstance from './axios-config';
 import '../css/furniture-list.css';
 import refs from './refs';
 import { renderProductDetails } from './furniture-details-modal.js';
-
-const imagesUrlForCategories = {
-  allProducts: document.querySelector('.all-products'),
-  bathroomFurniture: document.querySelector('.bathroom-furniture'),
-  bedsAndMattresses: document.querySelector('.beds-and-mattresses'),
-  cabinets: document.querySelector('.cabinets-and-storage-systems'),
-  chairsAndStools: document.querySelector('.chairs-and-stools'),
-  childrensFurniture: document.querySelector('.childrens-furniture'),
-  decorAndAccessories: document.querySelector('.decor-and-accessories'),
-  gardenAndOutdoor: document.querySelector('.garden-and-outdoor-furnitur'),
-  hallwayFurniture: document.querySelector('.hallway-furniture'),
-  kitchens: document.querySelector('.kitchens'),
-  officeFurniture: document.querySelector('.office-furniture'),
-  tables: document.querySelector('.tables'),
-  upholsteredFurniture: document.querySelector('.upholstered-furniture'),
-};
-
 let allProducts = [];
 
 refs.categoriesList.addEventListener('click', handlerCategories);
@@ -47,21 +30,25 @@ export async function getCategories() {
 
 function markUpCategories(categories) {
   const categoryImages = {
-    '': `${imagesUrlForCategories.allProducts.src}`,
-    '66504a50a1b2c3d4e5f6a7b8': `${imagesUrlForCategories.upholsteredFurniture.src}`,
-    '66504a50a1b2c3d4e5f6a7b9': `${imagesUrlForCategories.cabinets.src}`,
-    '66504a50a1b2c3d4e5f6a7ba': `${imagesUrlForCategories.bedsAndMattresses.src}`,
-    '66504a50a1b2c3d4e5f6a7bb': `${imagesUrlForCategories.tables.src}`,
-    '66504a50a1b2c3d4e5f6a7bc': `${imagesUrlForCategories.chairsAndStools.src}`,
-    '66504a50a1b2c3d4e5f6a7bd': `${imagesUrlForCategories.kitchens.src}`,
-    '66504a50a1b2c3d4e5f6a7be': `${imagesUrlForCategories.childrensFurniture.src}`,
-    '66504a50a1b2c3d4e5f6a7bf': `${imagesUrlForCategories.officeFurniture.src}`,
-    '66504a50a1b2c3d4e5f6a7c0': `${imagesUrlForCategories.hallwayFurniture.src}`,
-    '66504a50a1b2c3d4e5f6a7c1': `${imagesUrlForCategories.bathroomFurniture.src}`,
-    '66504a50a1b2c3d4e5f6a7c2': `${imagesUrlForCategories.gardenAndOutdoor.src}`,
-    '66504a50a1b2c3d4e5f6a7c3': `${imagesUrlForCategories.decorAndAccessories.src}`,
+    '': './img/furnitureList/всі товари-min.png',
+    '66504a50a1b2c3d4e5f6a7b8': '/img/furnitureList/мякі меблі-min.png',
+    '66504a50a1b2c3d4e5f6a7b9':
+      '/img/furnitureList/шафи та системи зберігання-min.png',
+    '66504a50a1b2c3d4e5f6a7ba': '/img/furnitureList/ліжка та матраци-min.png',
+    '66504a50a1b2c3d4e5f6a7bb': '/img/furnitureList/столи-min.png',
+    '66504a50a1b2c3d4e5f6a7bc':
+      '/img/furnitureList/стільці та табурети-min.png',
+    '66504a50a1b2c3d4e5f6a7bd': '/img/furnitureList/Кухні-min.png',
+    '66504a50a1b2c3d4e5f6a7be': '/img/furnitureList/меблі для дитячої-min.png',
+    '66504a50a1b2c3d4e5f6a7bf': '/img/furnitureList/меблі для офісу-min.png',
+    '66504a50a1b2c3d4e5f6a7c0':
+      '/img/furnitureList/меблі для передпокою-min.png',
+    '66504a50a1b2c3d4e5f6a7c1':
+      '/img/furnitureList/меблі для ванної кімнати-min.png',
+    '66504a50a1b2c3d4e5f6a7c2':
+      '/img/furnitureList/садові та вуличні меблі-min.png',
+    '66504a50a1b2c3d4e5f6a7c3': '/img/furnitureList/декор та аксесуари-min.png',
   };
-
   const markUp = [{ _id: '', name: 'Всі товари' }, ...categories]
     .map(({ _id, name }) => {
       const imageUrl = categoryImages[_id];
@@ -336,4 +323,3 @@ function renderPaginationNumbers() {
  
   paginationNumbers.innerHTML = numbersHTML;
 }
-
