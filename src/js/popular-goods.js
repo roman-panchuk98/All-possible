@@ -8,6 +8,11 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { renderProductDetails } from './furniture-details-modal';
 
+function removeSliderPG() {
+  const swipeBoxPG = document.querySelector('.popular-goods-swiper');
+  swipeBoxPG.remove();
+}
+
 async function getPopularGoods() {
   try {
     const response = await axios.get(
@@ -15,7 +20,7 @@ async function getPopularGoods() {
     );
     return response.data.furnitures || [];
   } catch (error) {
-    hideSwipeBox();
+    removeSliderPG();
     iziToast.error({
       title: error.message,
       position: 'topRight',
@@ -98,11 +103,6 @@ async function renderPopularGoods() {
     );
     renderProductDetails([selectedProduct]);
   });
-}
-
-function hideSwipeBox() {
-  const swipeBox = document.querySelector('.swiper');
-  swipeBox.remove();
 }
 
 renderPopularGoods();

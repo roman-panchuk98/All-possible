@@ -10,8 +10,12 @@ import refs from './refs';
 
 axios.defaults.baseURL = 'https://furniture-store.b.goit.study/api';
 
-function hideSwipeBox() {
-  const swipeBox = document.querySelector('.swiper');
+const starToRun = document.querySelector('.star-to-run');
+const starUrl = starToRun.getAttribute('src');
+const feedbackSection = document.querySelector('.feedback');
+
+function removeSlider() {
+  const swipeBox = document.querySelector('.feedback-swiper');
   swipeBox.remove();
 }
 
@@ -20,7 +24,7 @@ async function getFeedback(currentPage = 1) {
     const response = await axios.get(`/feedbacks?limit=3&page=${currentPage}`);
     return response.data.feedbacks;
   } catch (error) {
-    hideSwipeBox();
+    removeSlider();
     iziToast.error({
       title: 'Помилка',
       message: 'Не вдалось завантажити дані. Спробуйте пізніше',
