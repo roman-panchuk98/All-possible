@@ -198,9 +198,9 @@ function hideLoadMoreBtn() {
 refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
 
 // Desktop pagination event listeners
-const prevBtn = document.getElementById('furniture-prevBtn');
-const nextBtn = document.getElementById('furniture-nextBtn');
-const paginationNumbers = document.getElementById('furniture-paginationNumbers');
+const prevBtn = document.querySelector('#furniture-prevBtn');
+const nextBtn = document.querySelector('#furniture-nextBtn');
+const paginationNumbers = document.querySelector('#furniture-paginationNumbers');
 
 if (prevBtn) prevBtn.addEventListener('click', handlePrevPage);
 if (nextBtn) nextBtn.addEventListener('click', handleNextPage);
@@ -291,8 +291,8 @@ async function getFurnitureForPagination(limit, page, category = '') {
 
 function updatePaginationControls() {
   // Update navigation buttons state
-  const prevBtn = document.getElementById('furniture-prevBtn');
-  const nextBtn = document.getElementById('furniture-nextBtn');
+  const prevBtn = document.querySelector('#furniture-prevBtn');
+  const nextBtn = document.querySelector('#furniture-nextBtn');
   
   if (prevBtn) {
     prevBtn.disabled = page <= 1;
@@ -307,7 +307,7 @@ function updatePaginationControls() {
 }
 
 function renderPaginationNumbers() {
-  const paginationNumbers = document.getElementById('furniture-paginationNumbers');
+  const paginationNumbers = document.querySelector('#furniture-paginationNumbers');
   if (!paginationNumbers) return;
   
   let numbersHTML = '';

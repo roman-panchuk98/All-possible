@@ -27,7 +27,7 @@ async function renderPopularGoods() {
   const response = await getPopularGoods();
   
   if (!response || response.length < 3) {
-    iziToast.warning({
+    iziToast.info({
       title: 'Увага',
       message: 'Недостатньо товарів для відображення (мінімум 3)',
       position: 'topRight',
@@ -93,7 +93,7 @@ async function renderPopularGoods() {
     const cardBtn = event.target.closest('.furniture-btn');
     if (!cardBtn) return;
     const currentProductId = cardBtn.dataset.id;
-    const selectedProduct = response.furnitures.find(
+    const selectedProduct = response.find(
       product => product._id === currentProductId
     );
     renderProductDetails([selectedProduct]);

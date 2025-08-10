@@ -103,7 +103,7 @@ async function renderFeedback() {
   
   if (!response || response.feedbacks.length < 3) {
     hideSwipeBox();
-    iziToast.warning({
+    iziToast.info({
       title: 'Увага',
       message: 'Недостатньо відгуків для відображення (мінімум 3)',
       position: 'topRight',
