@@ -12,7 +12,7 @@ class LoaderManager {
     this.loaderElement = document.getElementById('global-loader');
     
     if (!this.loaderElement) {
-      console.warn('Loader element not found in DOM');
+      // Loader element not found in DOM
       return;
     }
   }

@@ -25,7 +25,6 @@ export async function getCategories() {
     markUpCategories(categories);
   } catch (error) {
     // Помилка вже оброблена в axios-config
-    console.error('Categories loading failed:', error);
   }
 }
 
@@ -105,7 +104,6 @@ export async function getFurniture(limit, page, category = '') {
     }
   } catch (error) {
     // Помилка вже оброблена в axios-config
-    console.error('Furniture loading failed:', error);
   }
 }
 
@@ -148,7 +146,7 @@ function markUpFurniture(items) {
     if (selectedProduct) {
       renderProductDetails([selectedProduct]);
     } else {
-      console.error('Product not found by ID');
+      // Product not found by ID
     }
   });
 }
@@ -269,7 +267,6 @@ async function getFurnitureForPagination(limit, page, category = '') {
     
   } catch (error) {
     // Помилка вже оброблена в axios-config
-    console.error('Furniture loading failed:', error);
   }
 }
 

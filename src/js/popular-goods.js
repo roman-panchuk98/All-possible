@@ -13,7 +13,6 @@ async function getPopularGoods() {
   } catch (error) {
     hideSwipeBox();
     // Помилка вже оброблена в axios-config
-    console.error('Popular goods loading failed:', error);
   }
 }
 
@@ -21,7 +20,7 @@ async function renderPopularGoods() {
   const response = await getPopularGoods();
   
   if (!response || response.length < 3) {
-    console.warn('Not enough popular goods to display (minimum 3)');
+    // Not enough popular goods to display (minimum 3)
     return;
   }
   

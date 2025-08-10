@@ -18,7 +18,6 @@ async function getFeedback(currentPage = 1) {
   } catch (error) {
     hideSwipeBox();
     // Помилка вже оброблена в axios-config
-    console.error('Feedback loading failed:', error);
   }
 }
 
@@ -39,7 +38,6 @@ async function getFeedbackData(page = 1) {
   } catch (error) {
     hideSwipeBox();
     // Помилка вже оброблена в axios-config
-    console.error('Feedback data loading failed:', error);
     return null;
   }
 }
@@ -93,7 +91,7 @@ async function renderFeedback() {
   
   if (!response || response.feedbacks.length < 3) {
     hideSwipeBox();
-    console.warn('Not enough feedbacks to display (minimum 3)');
+    // Not enough feedbacks to display (minimum 3)
     return;
   }
 
