@@ -8,11 +8,13 @@
       <li>
         <img class="all-products" src="/img/furnitureList/all-products-min.png" alt="all-products" />
         <img class="bathroom-furniture" src="/img/furnitureList/bathroom-furniture-min.png" alt="bathroom-furniture" />
-        <img class="beds-and-mattresses" src="/img/furnitureList/beds-and-mattresses-min.png" alt="beds-and-mattresses" />
+        <img class="beds-and-mattresses" src="/img/furnitureList/beds-and-mattresses-min.png"
+          alt="beds-and-mattresses" />
         <img class="cabinets-and-storage-systems" src="/img/furnitureList/cabinets-and-storage-systems-min.png"
           alt="cabinets-and-storage-systems" />
         <img class="chairs-and-stools" src="/img/furnitureList/chairs-and-stools-min.png" alt="chairs-and-stools" />
-        <img class="childrens-furniture" src="/img/furnitureList/childrens-furniture-min.png" alt="childrens-furniture" />
+        <img class="childrens-furniture" src="/img/furnitureList/childrens-furniture-min.png"
+          alt="childrens-furniture" />
         <img class="decor-and-accessories" src="/img/furnitureList/decor-and-accessories-min.png"
           alt="decor-and-accessories" />
         <img class="garden-and-outdoor-furnitur" src="/img/furnitureList/garden-and-outdoor-furniture-min.png"
@@ -25,16 +27,18 @@
           alt="upholstered-furniture" />
       </li>
     </ul>
-    <ul class="furniture-categories">
-    </ul>
-    <ul class="furniture-gallery furniture_grid"></ul>
+    <div class="furniture-categories-wrap">
+      <ul class="furniture-categories">
+      </ul>
+      <div class="loader-wrap loader-hidden"><span class="loader"></span></div>
+    </div>
+    <div class="furniture-gallery-wrap">
+      <ul class="furniture-gallery furniture_grid"></ul>
+      <div class="loader-wrap loader-hidden"><span class="loader"></span></div>
+    </div>
     <!-- додаю aria-label М.Н -->
-    <button
-      type="button"
-      id="furniture-loadMoreBtn"
-      class="btn btn-primary"
-      aria-label="Show more products"
-    >
+    <button type="button" id="furniture-loadMoreBtn" class="btn btn-primary visually-hidden-moreBtn"
+      aria-label="Show more products">
       Показати ще
     </button>
   </div>

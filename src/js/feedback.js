@@ -7,6 +7,7 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import rater from 'rater-js';
 import refs from './refs';
+import { showLoader, hideLoader } from './loader';
 
 axios.defaults.baseURL = 'https://furniture-store.b.goit.study/api';
 
@@ -14,12 +15,15 @@ const starToRun = document.querySelector('.star-to-run');
 const starUrl = starToRun.getAttribute('src');
 const feedbackSection = document.querySelector('.feedback');
 
-function hideSwipeBox() {
-  const swipeBox = document.querySelector('.swiper');
-  swipeBox.remove();
+export function hideSwipeBox() {
+  const swipeBox = document.querySelector('.swiper-navigation');
+  swipeBox.classList.add('loader-hidden');
 }
 
 async function getFeedback(currentPage = 1) {
+  const box = document.querySelector('.feedback-swiper');
+  const loader = box.querySelector('.loader');
+  showLoader(loader);
   try {
     const response = await axios.get(`/feedbacks?limit=10&page=${currentPage}`);
     return response.data.feedbacks;
@@ -30,6 +34,8 @@ async function getFeedback(currentPage = 1) {
       message: 'Не вдалось завантажити дані. Спробуйте пізніше',
       position: 'topRight',
     });
+  } finally {
+    hideLoader(loader);
   }
 }
 
@@ -93,6 +99,13 @@ function swipeFeedbackLists() {
       1440: {
         slidesPerView: 3,
         spaceBetween: 24,
+      },
+    },
+    on: {
+      init: function () {
+        document
+          .querySelector('.swiper-container')
+          ?.classList.remove('loader-hidden');
       },
     },
   });
