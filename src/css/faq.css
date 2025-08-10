@@ -27,7 +27,6 @@
   gap: 24px;
   border: none;
   background-color: transparent;
-  border-top: 1px solid rgba(8, 12, 9, 0.15);
   padding: 20px 0px;
   width: 335px;
   height: 72px;
@@ -36,7 +35,12 @@
   line-height: 1.6;
   text-align: left;
 }
-.ac:last-child .ac-trigger {
+
+.item-border {
+  border-top: 1px solid rgba(8, 12, 9, 0.15);
+}
+
+.item-border:last-child {
   border-bottom: 1px solid rgba(8, 12, 9, 0.15);
 }
 .ac-icon-btn {
@@ -84,7 +88,7 @@
   .faq-title {
     font-size: 48px;
   }
-  .ac-trigger {
+  .ac {
     width: 865px;
   }
   .ac-text {
