@@ -24,6 +24,9 @@
 }
 
 .ac-trigger {
+  -webkit-appearance: none;
+  appearance: none;
+  color: inherit;
   display: flex;
   align-items: center;
   justify-content: space-between;
