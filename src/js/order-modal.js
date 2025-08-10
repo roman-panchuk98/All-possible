@@ -3,7 +3,9 @@ import 'izitoast/dist/css/iziToast.min.css';
 import axios from "axios";
 import refs from "./refs";
 
-
+window.addEventListener('unhandledrejection', event => {
+    event.preventDefault();
+});
 // слухач події для форми
 refs.modalOrderForm.addEventListener("submit", handleFormSubmit);
 
@@ -83,21 +85,28 @@ async function handleFormSubmit(event) {
     }
 
     // перевірка на валідність при сабміті з повідомленням iziToast
-    const isEmailValid = email && email.length <= 64;
-    const isPhoneValid = /^380\d{9}$/.test(phone);
-    const isCommentValid = comment.length >= 5 && comment.length <= 256;
+    const isEmailValid = email && email.length <= 64 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isPhoneValid = /^380\d{9}$/.test(phone);
+const isCommentValid = comment.length >= 5 && comment.length <= 256;
 
-    if (isEmailValid && isPhoneValid && isCommentValid) {
-        const success = await submitOrder(orderData);
-        if (success) {
-            iziToast.success({
-                title: 'Успіх',
-                message: 'Форма успішно відправлена!',
-                position: 'topCenter',
-            });
-            refs.modalOrderForm.reset();
-        }
-    } else {
+if (!isEmailValid || !isPhoneValid || !isCommentValid) {
+    iziToast.error({
+        title: 'Помилка',
+        message: 'Будь ласка, виправ помилки у формі',
+        position: 'topCenter',
+    });
+    return; 
+}
+
+const success = await submitOrder(orderData);
+if (success) {
+    iziToast.success({
+        title: 'Успіх',
+        message: 'Форма успішно відправлена!',
+        position: 'topCenter',
+    });
+    refs.modalOrderForm.reset();
+} else {
         iziToast.error({
             title: 'Помилка',
             message: 'Будь ласка, виправ помилки у формі',
@@ -190,7 +199,7 @@ async function submitOrder(orderData) {
         });
         return response.status === 201;
     } catch (error) {
-        const errorMessage = error.response?.data?.message || error.message || 'Помилка запиту';
+        const errorMessage = error.response?.data?.message || 'Помилка запиту';
         iziToast.error({
             title: 'Помилка',
             message: errorMessage,
