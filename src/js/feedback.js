@@ -39,7 +39,7 @@ async function renderFeedback() {
     .map(({ descr, name, rate, _id }) => {
       return `
       <li class="feedback-item swiper-slide">
-          <div id="rater-${_id}" data-rating="${rate}"></div>
+          <div id="rater-${_id}" data-rating="${rate}"  aria-label="Rated ${rate} out of 5 stars"></div>
           <p class="feedback-descr">${descr}</p>
           <p class="feedback-name">${name}</p>
       </li>`;
