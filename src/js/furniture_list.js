@@ -1,11 +1,8 @@
-import axios from 'axios';
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
+import axiosInstance from './axios-config';
 import '../css/furniture-list.css';
 import refs from './refs';
 import { renderProductDetails } from './furniture-details-modal.js';
 let allProducts = [];
-const BaseUrl = 'https://furniture-store.b.goit.study/api/';
 
 refs.categoriesList.addEventListener('click', handlerCategories);
 refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
@@ -23,15 +20,12 @@ setTimeout(() => {
 
 export async function getCategories() {
   try {
-    const res = await axios.get(`${BaseUrl}categories`);
+    const res = await axiosInstance.get('categories');
     const categories = res.data;
     markUpCategories(categories);
   } catch (error) {
-    iziToast.error({
-      title: 'Помилка',
-      message: 'Не вдалося завантажити дані. Спробуйте пізніше',
-      position: 'topRight',
-    });
+    // Помилка вже оброблена в axios-config
+    console.error('Categories loading failed:', error);
   }
 }
 
@@ -93,7 +87,7 @@ export async function getFurniture(limit, page, category = '') {
       params.category = category;
     }
 
-    const responce = await axios.get(`${BaseUrl}furnitures`, { params });
+    const responce = await axiosInstance.get('furnitures', { params });
     const data = responce.data;
     allProducts = data.furnitures;
     totalPages = Math.ceil(data.totalItems / Number(limit));
@@ -110,11 +104,8 @@ export async function getFurniture(limit, page, category = '') {
       showLoadMoreBtn();
     }
   } catch (error) {
-    iziToast.error({
-      title: 'Помилка',
-      message: 'Не вдалося завантажити дані. Спробуйте пізніше',
-      position: 'topRight',
-    });
+    // Помилка вже оброблена в axios-config
+    console.error('Furniture loading failed:', error);
   }
 }
 
@@ -157,11 +148,7 @@ function markUpFurniture(items) {
     if (selectedProduct) {
       renderProductDetails([selectedProduct]);
     } else {
-      iziToast.error({
-        title: 'Error',
-        message: 'Продукт не знайдено за ID',
-        position: 'topRight',
-      });
+      console.error('Product not found by ID');
     }
   });
 }
@@ -266,7 +253,7 @@ async function getFurnitureForPagination(limit, page, category = '') {
       params.category = category;
     }
 
-    const responce = await axios.get(`${BaseUrl}furnitures`, { params });
+    const responce = await axiosInstance.get('furnitures', { params });
     const data = responce.data;
     allProducts = data.furnitures;
     totalPages = Math.ceil(data.totalItems / Number(limit));
@@ -281,11 +268,8 @@ async function getFurnitureForPagination(limit, page, category = '') {
     updatePaginationControls();
     
   } catch (error) {
-    iziToast.error({
-      title: 'Помилка',
-      message: 'Не вдалося завантажити дані. Спробуйте пізніше',
-      position: 'topRight',
-    });
+    // Помилка вже оброблена в axios-config
+    console.error('Furniture loading failed:', error);
   }
 }
 

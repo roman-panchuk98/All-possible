@@ -2,13 +2,9 @@ import Swiper from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
-import axios from 'axios';
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
+import axiosInstance from './axios-config';
 import rater from 'rater-js';
 import refs from './refs';
-
-axios.defaults.baseURL = 'https://furniture-store.b.goit.study/api';
 
 function hideSwipeBox() {
   const swipeBox = document.querySelector('.swiper');
@@ -17,15 +13,12 @@ function hideSwipeBox() {
 
 async function getFeedback(currentPage = 1) {
   try {
-    const response = await axios.get(`/feedbacks?limit=3&page=${currentPage}`);
+    const response = await axiosInstance.get(`feedbacks?limit=3&page=${currentPage}`);
     return response.data.feedbacks;
   } catch (error) {
     hideSwipeBox();
-    iziToast.error({
-      title: 'Помилка',
-      message: 'Не вдалось завантажити дані. Спробуйте пізніше',
-      position: 'topRight',
-    });
+    // Помилка вже оброблена в axios-config
+    console.error('Feedback loading failed:', error);
   }
 }
 
@@ -37,7 +30,7 @@ let allFeedbacks = [];
 
 async function getFeedbackData(page = 1) {
   try {
-    const response = await axios.get(`/feedbacks?limit=3&page=${page}`);
+    const response = await axiosInstance.get(`feedbacks?limit=3&page=${page}`);
     return {
       feedbacks: response.data.feedbacks || [],
       totalPages: Math.ceil(response.data.total / response.data.limit) || 1,
@@ -45,11 +38,8 @@ async function getFeedbackData(page = 1) {
     };
   } catch (error) {
     hideSwipeBox();
-    iziToast.error({
-      title: 'Помилка',
-      message: 'Не вдалось завантажити дані. Спробуйте пізніше',
-      position: 'topRight',
-    });
+    // Помилка вже оброблена в axios-config
+    console.error('Feedback data loading failed:', error);
     return null;
   }
 }
@@ -103,11 +93,7 @@ async function renderFeedback() {
   
   if (!response || response.feedbacks.length < 3) {
     hideSwipeBox();
-    iziToast.info({
-      title: 'Увага',
-      message: 'Недостатньо відгуків для відображення (мінімум 3)',
-      position: 'topRight',
-    });
+    console.warn('Not enough feedbacks to display (minimum 3)');
     return;
   }
 

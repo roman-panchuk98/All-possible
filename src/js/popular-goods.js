@@ -1,25 +1,19 @@
-import axios from 'axios';
+import axiosInstance from './axios-config';
 import refs from './refs';
 import Swiper from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
 import { renderProductDetails } from './furniture-details-modal';
 
 async function getPopularGoods() {
   try {
-    const response = await axios.get(
-      `https://furniture-store.b.goit.study/api/furnitures?type=popular`
-    );
+    const response = await axiosInstance.get('furnitures?type=popular');
     return response.data.furnitures || [];
   } catch (error) {
     hideSwipeBox();
-    iziToast.error({
-      title: error.message,
-      position: 'topRight',
-    });
+    // Помилка вже оброблена в axios-config
+    console.error('Popular goods loading failed:', error);
   }
 }
 
@@ -27,11 +21,7 @@ async function renderPopularGoods() {
   const response = await getPopularGoods();
   
   if (!response || response.length < 3) {
-    iziToast.info({
-      title: 'Увага',
-      message: 'Недостатньо товарів для відображення (мінімум 3)',
-      position: 'topRight',
-    });
+    console.warn('Not enough popular goods to display (minimum 3)');
     return;
   }
   

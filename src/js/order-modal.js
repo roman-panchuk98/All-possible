@@ -1,6 +1,6 @@
 import iziToast from "izitoast";
 import 'izitoast/dist/css/iziToast.min.css';
-import axios from "axios";
+import axiosInstance from './axios-config';
 import refs from "./refs";
 
 
@@ -182,12 +182,10 @@ elementOutFocus(refs.modalOrderComment, "Type your message...");
 elementOutFocus(refs.modalOrderPhone, "+38 (099) 123 22 11");
 
 // запит на бекенд
-const baseURL = "https://furniture-store.b.goit.study/api"
+// baseURL is now handled in axios-config
 async function submitOrder(orderData) {
     try {
-        const response = await axios.post(`${baseURL}/orders`, orderData, {
-            headers: { 'Content-Type': 'application/json' }
-        });
+        const response = await axiosInstance.post('orders', orderData);
         return response.status === 201;
     } catch (error) {
         const errorMessage = error.response?.data?.message || error.message || 'Помилка запиту';
