@@ -40,6 +40,7 @@ export async function getCategories() {
       message: 'Не вдалося завантажити дані. Спробуйте пізніше',
       position: 'topRight',
     });
+  } finally {
   }
 }
 
@@ -88,6 +89,7 @@ const limit = 8;
 let totalPages = 0;
 
 export async function getFurniture(limit, page, category = '') {
+  hideLoadMoreBtn();
   try {
     const params = {
       limit: limit,
@@ -112,7 +114,7 @@ export async function getFurniture(limit, page, category = '') {
 
     totalPages = Math.ceil(data.totalItems / limit); //прибрав перетворення числа в число бо воно мені не давало нормально вклюситися  втій код
     markUpFurniture(furnituresAll); // рендер першого пекету даних
-
+    showLoadMoreBtn();
     if (page >= totalPages) {
       hideLoadMoreBtn();
     } else {
@@ -125,6 +127,7 @@ export async function getFurniture(limit, page, category = '') {
       position: 'topRight',
     });
     hideLoadMoreBtn();
+  } finally {
   }
 }
 
