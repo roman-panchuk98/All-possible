@@ -27,7 +27,16 @@ const BaseUrl = 'https://furniture-store.b.goit.study/api/';
 refs.categoriesList.addEventListener('click', handlerCategories);
 refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
 getCategories();
-getFurniture(8, 1);
+// Initialize furniture loading
+setTimeout(() => {
+  const isDesktop = window.innerWidth >= 768;
+
+  if (isDesktop) {
+    getFurnitureForPagination(limit, 1);
+  } else {
+    getFurniture(limit, 1);
+  }
+}, 100);
 
 export async function getCategories() {
   try {
@@ -64,7 +73,6 @@ function markUpCategories(categories) {
   const markUp = [{ _id: '', name: 'Всі товари' }, ...categories]
     .map(({ _id, name }) => {
       const imageUrl = categoryImages[_id];
-
       return `
         <li>
         <button type="button"
@@ -74,7 +82,6 @@ function markUpCategories(categories) {
           ? `background-image: url('${imageUrl}');background-size: cover; background-position: center;"`
           : ''
       }">
-          
           ${name}
           </button>
           </li>
@@ -86,7 +93,7 @@ function markUpCategories(categories) {
 
 let page = 1;
 const limit = 8;
-let totalPages = 0;
+let totalPages = 1;
 
 export async function getFurniture(limit, page, category = '') {
   hideLoadMoreBtn();
@@ -101,20 +108,22 @@ export async function getFurniture(limit, page, category = '') {
 
     const responce = await axios.get(`${BaseUrl}furnitures`, { params });
     const data = responce.data;
+    allProducts = data.furnitures;
+    totalPages = Math.ceil(data.totalItems / Number(limit));
 
-    const furnituresAll = data.furnitures; //нова змінна. потрібна
-
-    //дещо змінена частка контенту при зміні категорії
+    const furnituresAll = data.furnitures;
+    
     if (page === 1) {
       refs.furnitureGrid.innerHTML = '';
       allProducts = furnituresAll;
     } else {
-      allProducts = [...allProducts, ...furnituresAll]; // тут я записую уже існуючий пакет даних + новий пекет коли "page+1"
+      allProducts = [...allProducts, ...furnituresAll];
     }
 
-    totalPages = Math.ceil(data.totalItems / limit); //прибрав перетворення числа в число бо воно мені не давало нормально вклюситися  втій код
-    markUpFurniture(furnituresAll); // рендер першого пекету даних
+    totalPages = Math.ceil(data.totalItems / limit);
+    markUpFurniture(furnituresAll);
     showLoadMoreBtn();
+
     if (page >= totalPages) {
       hideLoadMoreBtn();
     } else {
@@ -126,10 +135,10 @@ export async function getFurniture(limit, page, category = '') {
       message: 'Не вдалося завантажити дані. Спробуйте пізніше',
       position: 'topRight',
     });
+
     hideLoadMoreBtn();
-  } finally {
   }
-}
+};
 
 function markUpFurniture(items) {
   const markUp = items
@@ -142,17 +151,14 @@ function markUpFurniture(items) {
           )
           .join('')}
         </ul> `;
-      // додаю aria-label на кнопку М.Н
       return `
         <li class="furniture-card">
         <img src="${images[0]}" alt="${name}" class="furniture-img">
         <h3 class="furniture-name">${name}</h3>
          ${colorsFurniture}
         <p class="furniture-price">${price} грн</p>
-                <button class="furniture-btn btn-details" data-id="${_id}" aria-label="Open detailed information window for this product">Детальніше</button>  
-
+        <button class="furniture-btn btn-details" data-id="${_id}">Детальніше</button>
         </li>
-        
         `;
     })
     .join('');
@@ -170,17 +176,32 @@ export function handlerCategories(event) {
 
   page = 1;
 
-  getFurniture(limit, page, selectCategory);
+  const paginationEl = document.querySelector('.furniture-pagination');
+  const isDesktop = window.innerWidth >= 768;
+  
+  if (isDesktop) {
+    getFurnitureForPagination(limit, page, selectCategory);
+  } else {
+    getFurniture(limit, page, selectCategory);
+  }
 }
 
 function showLoadMoreBtn() {
-  refs.furnitureLoadMoreBtn.classList.remove('visually-hidden-moreBtn');
+  refs.furnitureLoadMoreBtn.classList.remove('visually-hidden');
 }
 function hideLoadMoreBtn() {
-  refs.furnitureLoadMoreBtn.classList.add('visually-hidden-moreBtn');
+  refs.furnitureLoadMoreBtn.classList.add('visually-hidden');
 }
 
 refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
+
+const prevBtn = document.querySelector('#furniture-prevBtn');
+const nextBtn = document.querySelector('#furniture-nextBtn');
+const paginationNumbers = document.querySelector('#furniture-paginationNumbers');
+
+if (prevBtn) prevBtn.addEventListener('click', handlePrevPage);
+if (nextBtn) nextBtn.addEventListener('click', handleNextPage);
+if (paginationNumbers) paginationNumbers.addEventListener('click', handlePageNumberClick);
 
 export function handlerMore(event) {
   page += 1;
@@ -191,7 +212,76 @@ export function handlerMore(event) {
     : '';
   getFurniture(limit, page, selectedCategory);
 }
-//обробник кліку по кнопці   переїхав в глобальку видимість
+
+function handlePrevPage() {
+  if (page > 1) {
+    page -= 1;
+    const currentCategoryBtn =
+      refs.categoriesList.querySelector(`.category-btn.active`);
+    const selectedCategory = currentCategoryBtn
+      ? currentCategoryBtn.dataset.category
+      : '';
+    getFurnitureForPagination(limit, page, selectedCategory);
+  }
+}
+
+function handleNextPage() {
+  if (page < totalPages) {
+    page += 1;
+    const currentCategoryBtn =
+      refs.categoriesList.querySelector(`.category-btn.active`);
+    const selectedCategory = currentCategoryBtn
+      ? currentCategoryBtn.dataset.category
+      : '';
+    getFurnitureForPagination(limit, page, selectedCategory);
+  }
+}
+
+function handlePageNumberClick(event) {
+  if (event.target.classList.contains('page-number')) {
+    const targetPage = parseInt(event.target.dataset.page);
+    if (targetPage !== page) {
+      page = targetPage;
+      const currentCategoryBtn =
+        refs.categoriesList.querySelector(`.category-btn.active`);
+      const selectedCategory = currentCategoryBtn
+        ? currentCategoryBtn.dataset.category
+        : '';
+      getFurnitureForPagination(limit, page, selectedCategory);
+    }
+  }
+}
+
+async function getFurnitureForPagination(limit, page, category = '') {
+  try {
+    const params = {
+      limit: limit,
+      page: page,
+    };
+    if (category) {
+      params.category = category;
+    }
+
+    const responce = await axios.get(`${BaseUrl}furnitures`, { params });
+    const data = responce.data;
+    allProducts = data.furnitures;
+    totalPages = Math.ceil(data.totalItems / limit);
+
+    
+    refs.furnitureGrid.innerHTML = '';
+    markUpFurniture(allProducts);
+    
+    hideLoadMoreBtn();
+    
+    updatePaginationControls();
+    
+  } catch (error) { iziToast.error({
+      title: 'Помилка',
+      message: 'Не вдалося завантажити дані. Спробуйте пізніше',
+      position: 'topRight',
+    });
+  }
+}
 refs.furnitureGrid.addEventListener('click', event => {
   const cardBtn = event.target.closest('.furniture-btn');
   if (!cardBtn) return;
@@ -205,9 +295,61 @@ refs.furnitureGrid.addEventListener('click', event => {
     renderProductDetails([selectedProduct]);
   } else {
     iziToast.error({
-      title: 'Error',
-      message: 'Продукт не знайдено за ID',
+      title: 'Помилка',
+      message: 'Не вдалося завантажити дані. Спробуйте пізніше',
       position: 'topRight',
     });
   }
-});
+  }
+
+function updatePaginationControls() {
+  const prevBtn = document.querySelector('#furniture-prevBtn');
+  const nextBtn = document.querySelector('#furniture-nextBtn');
+  
+  if (prevBtn) {
+    prevBtn.disabled = page <= 1;
+  }
+  
+  if (nextBtn) {
+    nextBtn.disabled = page >= totalPages;
+  }
+  
+  renderPaginationNumbers();
+}
+
+function renderPaginationNumbers() {
+  const paginationNumbers = document.querySelector('#furniture-paginationNumbers');
+  if (!paginationNumbers) return;
+  
+  let numbersHTML = '';
+  
+  if (totalPages <= 7) {
+    for (let i = 1; i <= totalPages; i++) {
+      numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
+    }
+  } else {
+    numbersHTML += `<button class="page-number ${1 === page ? 'active' : ''}" data-page="1">1</button>`;
+    if (page <= 3) {
+      for (let i = 2; i <= 3; i++) {
+        numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
+      }
+      numbersHTML += `<span class="page-dots">...</span>`;
+      numbersHTML += `<button class="page-number" data-page="${totalPages}">${totalPages}</button>`;
+    } else if (page >= totalPages - 3) {
+      numbersHTML += `<span class="page-dots">...</span>`;
+      for (let i = totalPages - 3; i <= totalPages; i++) {
+        numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
+      }
+    } else {
+      numbersHTML += `<span class="page-dots">...</span>`;
+      for (let i = page - 1; i <= page + 1; i++) {
+        numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
+      }
+      numbersHTML += `<span class="page-dots">...</span>`;
+      numbersHTML += `<button class="page-number" data-page="${totalPages}">${totalPages}</button>`;
+    }
+  }
+ 
+  paginationNumbers.innerHTML = numbersHTML;
+}
+

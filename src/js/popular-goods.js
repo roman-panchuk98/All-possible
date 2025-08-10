@@ -16,9 +16,9 @@ function removeSliderPG() {
 async function getPopularGoods() {
   try {
     const response = await axios.get(
-      `https://furniture-store.b.goit.study/api/furnitures?page=1&limit=11&type=popular`
+      `https://furniture-store.b.goit.study/api/furnitures?type=popular`
     );
-    return response.data;
+    return response.data.furnitures || [];
   } catch (error) {
     removeSliderPG();
     iziToast.error({
@@ -30,7 +30,17 @@ async function getPopularGoods() {
 
 async function renderPopularGoods() {
   const response = await getPopularGoods();
-  const markup = response.furnitures
+  
+  if (!response || response.length < 3) {
+    iziToast.info({
+      title: 'Увага',
+      message: 'Недостатньо товарів для відображення (мінімум 3)',
+      position: 'topRight',
+    });
+    return;
+  }
+  
+  const markup = response
     .map(({ images, name, color, price, _id }) => {
       if (name.length > 28) {
         name = name.slice(0, 28) + '...';
@@ -61,7 +71,7 @@ async function renderPopularGoods() {
     modules: [Navigation, Pagination],
     pagination: {
       el: '.popular-goods-swiper-pagination',
-      clickable: true,
+      dynamicBullets: true,
     },
     navigation: {
       nextEl: '.popular-goods-swiper-button-next',
@@ -88,7 +98,7 @@ async function renderPopularGoods() {
     const cardBtn = event.target.closest('.furniture-btn');
     if (!cardBtn) return;
     const currentProductId = cardBtn.dataset.id;
-    const selectedProduct = response.furnitures.find(
+    const selectedProduct = response.find(
       product => product._id === currentProductId
     );
     renderProductDetails([selectedProduct]);
