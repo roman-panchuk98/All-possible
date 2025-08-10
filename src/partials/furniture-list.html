@@ -9,5 +9,20 @@
     <button type="button" id="furniture-loadMoreBtn" class="btn btn-primary">
       Показати ще
     </button>
+    
+    <!-- Desktop pagination (hidden on mobile) -->
+    <div class="furniture-pagination desktop-pagination">
+      <button type="button" class="pagination-btn prev-btn" id="furniture-prevBtn" aria-label="Попередня сторінка">
+        <svg class="pagination-icon" width="24" height="24">
+          <use href="./img/icons.svg#icon-left-arrow-alt"></use>
+        </svg>
+      </button>
+      <div class="pagination-numbers" id="furniture-paginationNumbers"></div>
+      <button type="button" class="pagination-btn next-btn" id="furniture-nextBtn" aria-label="Наступна сторінка">
+        <svg class="pagination-icon" width="24" height="24">
+          <use href="./img/icons.svg#icon-right-arrow-alt"></use>
+        </svg>
+      </button>
+    </div>
   </div>
 </section>

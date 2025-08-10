@@ -1,4 +1,4 @@
-
+створи гілку під ці
 .visually-hidden {
   display: none ;
 }
@@ -6,9 +6,9 @@
 
 
 .furniture_title {
-  
+
   font-weight: 700;
-font-size: 36px; 
+font-size: 36px;
 line-height: 1.2;
 letter-spacing: 0.01em;
 color: #080c09;
@@ -40,12 +40,12 @@ margin-bottom: 40px;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 16px;
   margin-bottom: 40px;
-  
+
 }
 
 .category-btn {
   position: relative;
-  
+
 border-radius: 8px;
 
 width: 160px;
@@ -101,16 +101,8 @@ line-height: 1.4;
 letter-spacing: 0.01em;
 text-align: center;
 color: #fff;
-  
-}
-.furniture-gallery {
-  
-}
-.furniture-card {
- 
 
 }
-
 
 .furniture-name {
 font-weight: 600;
@@ -148,7 +140,6 @@ border: none;
 
 .furniture-img {
   border-radius: 8px;
-
 }
 
 .btn-primary {
@@ -170,7 +161,7 @@ margin-top: 8px;
 
 @media only screen and (min-width: 768px) {
   .furniture_title {
-  font-size: 48px; 
+  font-size: 48px;
 
 }
 .furniture_subtitle {
@@ -179,7 +170,7 @@ margin-top: 8px;
 
 
 .furniture-categories {
-  gap: 24px;  
+  gap: 24px;
 }
 .category-btn {
 width: 158px;
@@ -207,7 +198,7 @@ height: 281px;
 white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%; 
+  max-width: 100%;
 font-size: 18px;
 
 }
@@ -227,43 +218,259 @@ font-size: 20px;
 
 @media only screen and (min-width: 1440px) {
   .furniture_title {
-  
-
-margin-top: 80px;
-
-}
+    margin-top: 80px;
+  }
 
   .category-btn {
-width: 166px;
-}
-
-.furniture-img {
-
-width: 310px;
-height: 257px;
-
-}
-
-.btn-primary {
- margin-bottom: 80px;
-}
-
-.furniture-gallery {
-    
-    
-    grid-template-columns: repeat(4, 1fr);
-    
-    
+    width: 166px;
   }
-  .furniture-btn {
 
-width: 310px;
+  .furniture-img {
+    width: 310px;
+    height: 257px;
+  }
 
+  .btn-primary {
+    margin-bottom: 80px;
+  }
 
-}
-
-.furniture-card {
-  width: 310px;
+  .furniture-gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
   
+  .furniture-btn {
+    width: 310px;
+  }
+
+  .furniture-card {
+    width: 310px;
+  }
 }
+
+/* Desktop Pagination Styles */
+.furniture-pagination {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  margin-bottom: 48px;
+}
+
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(8, 12, 9, 0.15);
+  background: #F2F2F2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.pagination-btn .pagination-icon {
+  fill: #080C09;
+}
+
+.pagination-btn:hover,
+.pagination-btn:focus {
+  background: #975052;
+}
+
+.pagination-btn:hover .pagination-icon,
+.pagination-btn:focus .pagination-icon {
+  fill: white;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: #F2F2F2;
+}
+
+.pagination-btn:disabled:hover {
+  background: #F2F2F2;
+}
+
+.pagination-btn:disabled .pagination-icon {
+  fill: #080C09;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 8px;
+}
+
+.page-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(8, 12, 9, 0.15);
+  background: #F2F2F2;
+  cursor: pointer;
+  color: #080C09;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.page-number:hover,
+.page-number:focus {
+  background: #975052;
+  color: white;
+}
+
+.page-number.active {
+  background: #6B0609;
+  color: white;
+  border-color: rgba(8, 12, 9, 0.15);
+  box-shadow: 
+    0 1px 2px rgba(8, 12, 9, 0.05),
+    inset 0 -2px 1px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(8, 12, 9, 0.15),
+    inset 0 2px 1px rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px rgba(255, 255, 255, 0.05);
+}
+
+.page-number.active:hover {
+  background: #6B0609;
+  color: white;
+  box-shadow: 
+    0 1px 2px rgba(8, 12, 9, 0.05),
+    inset 0 -2px 1px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(8, 12, 9, 0.15),
+    inset 0 2px 1px rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px rgba(255, 255, 255, 0.05);
+}
+
+.page-dots {
+  display: flex;
+  align-items: center;
+  color: #080c09;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0 8px;
+}
+
+/* Show desktop pagination on tablet and desktop - same design */
+@media only screen and (min-width: 768px) {
+  .furniture-pagination {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+    margin-bottom: 48px;
+  }
+
+  .btn-primary {
+    display: none !important;
+  }
+
+  .pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(8, 12, 9, 0.15);
+    background: #F2F2F2;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .pagination-btn .pagination-icon {
+    fill: #080C09;
+  }
+
+  .pagination-btn:hover,
+  .pagination-btn:focus {
+    background: #975052;
+  }
+
+  .pagination-btn:hover .pagination-icon,
+  .pagination-btn:focus .pagination-icon {
+    fill: white;
+  }
+
+  .pagination-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background: #F2F2F2;
+  }
+
+  .pagination-btn:disabled:hover {
+    background: #F2F2F2;
+  }
+
+  .pagination-btn:disabled .pagination-icon {
+    fill: #080C09;
+  }
+
+  .pagination-numbers {
+    display: flex;
+    gap: 8px;
+  }
+
+  .page-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(8, 12, 9, 0.15);
+    background: #F2F2F2;
+    cursor: pointer;
+    color: #080C09;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .page-number:hover,
+  .page-number:focus {
+    background: #975052;
+    color: white;
+  }
+
+  .page-number.active {
+    background: #6B0609;
+    color: white;
+    border-color: rgba(8, 12, 9, 0.15);
+    box-shadow: 
+      0 1px 2px rgba(8, 12, 9, 0.05),
+      inset 0 -2px 1px rgba(0, 0, 0, 0.2),
+      inset 0 0 0 1px rgba(8, 12, 9, 0.15),
+      inset 0 2px 1px rgba(255, 255, 255, 0.25),
+      inset 0 32px 24px rgba(255, 255, 255, 0.05);
+  }
+
+  .page-number.active:hover {
+    background: #6B0609;
+    color: white;
+    box-shadow: 
+      0 1px 2px rgba(8, 12, 9, 0.05),
+      inset 0 -2px 1px rgba(0, 0, 0, 0.2),
+      inset 0 0 0 1px rgba(8, 12, 9, 0.15),
+      inset 0 2px 1px rgba(255, 255, 255, 0.25),
+      inset 0 32px 24px rgba(255, 255, 255, 0.05);
+  }
+
+  .page-dots {
+    display: flex;
+    align-items: center;
+    color: #080c09;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0 8px;
+  }
 }
