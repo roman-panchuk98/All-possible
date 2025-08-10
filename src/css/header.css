@@ -1,0 +1,41 @@
+.icon-header-logo {
+    display: block;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+}
+
+.header-nav {
+    display: none;
+}
+
+@media screen and (min-width: 1440px) {
+    .burger-box {
+        display: none;
+    }
+
+    .header-nav-wrap {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+    }
+
+    .header-menu {
+        display: flex;
+        flex-direction: row;
+        width: auto;
+    }
+
+    .header-nav {
+        display: flex;
+        gap: 32px;
+    }
+
+    .nav-btn {
+        width: 129px;
+    }
+}
