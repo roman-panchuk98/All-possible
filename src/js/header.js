@@ -42,16 +42,20 @@ import refs from './refs.js';
 
 refs.headerScrollBtns?.forEach(button => {
     button.addEventListener('click', e => {
-    e.preventDefault();
+        e.preventDefault();
 
-    const target = document.getElementById('furniture');
-    if (target) {
-    target.scrollIntoView({ behavior: 'smooth' });
+        const target = document.getElementById('furniture');
+        if (!target) return;
 
-    if (refs.headerModal?.classList.contains('isopen')) {
-        refs.headerModal.classList.remove('isopen');
-        refs.headerBody?.classList.remove('modal-open');
-    }
-    }
-  });
+        if (refs.headerModal?.classList.contains('isopen')) {
+            refs.headerModal.classList.remove('isopen');
+            refs.headerBody?.classList.remove('modal-open');
+
+            setTimeout(() => {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        } else {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
 });
