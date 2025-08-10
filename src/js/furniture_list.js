@@ -5,6 +5,21 @@ import '../css/furniture-list.css';
 import refs from './refs';
 import { renderProductDetails } from './furniture-details-modal.js';
 
+const imagesUrlForCategories = {
+  allProducts: document.querySelector('.all-products'),
+  bathroomFurniture: document.querySelector('.bathroom-furniture'),
+  bedsAndMattresses: document.querySelector('.beds-and-mattresses'),
+  cabinets: document.querySelector('.cabinets-and-storage-systems'),
+  chairsAndStools: document.querySelector('.chairs-and-stools'),
+  childrensFurniture: document.querySelector('.childrens-furniture'),
+  decorAndAccessories: document.querySelector('.decor-and-accessories'),
+  gardenAndOutdoor: document.querySelector('.garden-and-outdoor-furnitur'),
+  hallwayFurniture: document.querySelector('.hallway-furniture'),
+  kitchens: document.querySelector('.kitchens'),
+  officeFurniture: document.querySelector('.office-furniture'),
+  tables: document.querySelector('.tables'),
+  upholsteredFurniture: document.querySelector('.upholstered-furniture'),
+};
 
 let allProducts = [];
 const BaseUrl = 'https://furniture-store.b.goit.study/api/';
@@ -29,22 +44,22 @@ export async function getCategories() {
 }
 
 function markUpCategories(categories) {
-    const categoryImages = {
-    '': './img/furnitureList/all-products-min.png', 
-    '66504a50a1b2c3d4e5f6a7b8': '/img/furnitureList/upholstered-furniture-min.png',
-    '66504a50a1b2c3d4e5f6a7b9': '/img/furnitureList/cabinets-and-storage-systems-min.png',
-    '66504a50a1b2c3d4e5f6a7ba': '/img/furnitureList/beds-and-mattresses-min.png',
-    '66504a50a1b2c3d4e5f6a7bb': '/img/furnitureList/tables-min.png',
-    '66504a50a1b2c3d4e5f6a7bc': '/img/furnitureList/chairs-and-stools-min.png',
-    '66504a50a1b2c3d4e5f6a7bd': '/img/furnitureList/kitchens-min.png',
-    '66504a50a1b2c3d4e5f6a7be': '/img/furnitureList/children’s-furniture-min.png',
-    '66504a50a1b2c3d4e5f6a7bf': '/img/furnitureList/office-furniture-min.png',
-    '66504a50a1b2c3d4e5f6a7c0': '/img/furnitureList/hallway-furniture-min.png',
-    '66504a50a1b2c3d4e5f6a7c1': '/img/furnitureList/bathroom-furniture-min.png',
-    '66504a50a1b2c3d4e5f6a7c2': '/img/furnitureList/garden-and-outdoor-furniture-min.png',
-    '66504a50a1b2c3d4e5f6a7c3': '/img/furnitureList/decor-and-accessories-min.png',
-
+  const categoryImages = {
+    '': `${imagesUrlForCategories.allProducts.src}`,
+    '66504a50a1b2c3d4e5f6a7b8': `${imagesUrlForCategories.bathroomFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7b9': `${imagesUrlForCategories.bedsAndMattresses.src}`,
+    '66504a50a1b2c3d4e5f6a7ba': `${imagesUrlForCategories.cabinets.src}`,
+    '66504a50a1b2c3d4e5f6a7bb': `${imagesUrlForCategories.chairsAndStools.src}`,
+    '66504a50a1b2c3d4e5f6a7bc': `${imagesUrlForCategories.childrensFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7bd': `${imagesUrlForCategories.decorAndAccessories.src}`,
+    '66504a50a1b2c3d4e5f6a7be': `${imagesUrlForCategories.gardenAndOutdoor.src}`,
+    '66504a50a1b2c3d4e5f6a7bf': `${imagesUrlForCategories.hallwayFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7c0': `${imagesUrlForCategories.kitchens.src}`,
+    '66504a50a1b2c3d4e5f6a7c1': `${imagesUrlForCategories.officeFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7c2': `${imagesUrlForCategories.tables.src}`,
+    '66504a50a1b2c3d4e5f6a7c3': `${imagesUrlForCategories.upholsteredFurniture.src}`,
   };
+
   const markUp = [{ _id: '', name: 'Всі товари' }, ...categories]
     .map(({ _id, name }) => {
       const imageUrl = categoryImages[_id];
@@ -53,10 +68,11 @@ function markUpCategories(categories) {
         <li>
         <button type="button"
          class="category-btn${_id === '' ? ' active' : ''}"
-          data-category="${_id}"  style="${imageUrl
+          data-category="${_id}"  style="${
+        imageUrl
           ? `background-image: url('${imageUrl}');background-size: cover; background-position: center;"`
           : ''
-        }">
+      }">
           
           ${name}
           </button>
@@ -84,20 +100,18 @@ export async function getFurniture(limit, page, category = '') {
     const responce = await axios.get(`${BaseUrl}furnitures`, { params });
     const data = responce.data;
 
-    const furnituresAll = data.furnitures;  //нова змінна. потрібна
+    const furnituresAll = data.furnitures; //нова змінна. потрібна
 
     //дещо змінена частка контенту при зміні категорії
     if (page === 1) {
       refs.furnitureGrid.innerHTML = '';
       allProducts = furnituresAll;
     } else {
-      allProducts = [...allProducts, ...furnituresAll];  // тут я записую уже існуючий пакет даних + новий пекет коли "page+1"
+      allProducts = [...allProducts, ...furnituresAll]; // тут я записую уже існуючий пакет даних + новий пекет коли "page+1"
     }
 
-    totalPages = Math.ceil(data.totalItems / limit);   //прибрав перетворення числа в число бо воно мені не давало нормально вклюситися  втій код
+    totalPages = Math.ceil(data.totalItems / limit); //прибрав перетворення числа в число бо воно мені не давало нормально вклюситися  втій код
     markUpFurniture(furnituresAll); // рендер першого пекету даних
-
-
 
     if (page >= totalPages) {
       hideLoadMoreBtn();
@@ -110,12 +124,11 @@ export async function getFurniture(limit, page, category = '') {
       message: 'Не вдалося завантажити дані. Спробуйте пізніше',
       position: 'topRight',
     });
-     hideLoadMoreBtn();
+    hideLoadMoreBtn();
   }
 }
 
 function markUpFurniture(items) {
-
   const markUp = items
     .map(({ _id, name, images, color, price }) => {
       const colorsFurniture = ` <ul class="color-list"> 
@@ -126,7 +139,7 @@ function markUpFurniture(items) {
           )
           .join('')}
         </ul> `;
-      // додаю aria-label на кнопку М.Н 
+      // додаю aria-label на кнопку М.Н
       return `
         <li class="furniture-card">
         <img src="${images[0]}" alt="${name}" class="furniture-img">
@@ -141,7 +154,6 @@ function markUpFurniture(items) {
     })
     .join('');
   refs.furnitureGrid.insertAdjacentHTML('beforeend', markUp);
-
 }
 
 export function handlerCategories(event) {
@@ -176,7 +188,7 @@ export function handlerMore(event) {
     : '';
   getFurniture(limit, page, selectedCategory);
 }
-//обробник кліку по кнопці   переїхав в глобальку видимість  
+//обробник кліку по кнопці   переїхав в глобальку видимість
 refs.furnitureGrid.addEventListener('click', event => {
   const cardBtn = event.target.closest('.furniture-btn');
   if (!cardBtn) return;
