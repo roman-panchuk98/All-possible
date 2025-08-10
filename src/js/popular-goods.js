@@ -7,7 +7,11 @@ import { Navigation, Pagination } from 'swiper/modules';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { renderProductDetails } from './furniture-details-modal';
-import { removeSlider } from './feedback';
+
+function removeSliderPG() {
+  const swipeBoxPG = document.querySelector('.popular-goods-swiper');
+  swipeBoxPG.remove();
+}
 
 async function getPopularGoods() {
   try {
@@ -16,7 +20,7 @@ async function getPopularGoods() {
     );
     return response.data;
   } catch (error) {
-    removeSlider();
+    removeSliderPG();
     iziToast.error({
       title: error.message,
       position: 'topRight',
@@ -76,13 +80,6 @@ async function renderPopularGoods() {
       1440: {
         slidesPerView: 4,
         spaceBetween: 24,
-      },
-    },
-    on: {
-      init: function () {
-        document
-          .querySelector('.swiper-navigation')
-          ?.classList.remove('slider-controls-hidden');
       },
     },
   });
