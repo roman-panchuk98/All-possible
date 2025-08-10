@@ -7,13 +7,9 @@ import { Navigation, Pagination } from 'swiper/modules';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { renderProductDetails } from './furniture-details-modal';
-import { showLoader, hideLoader } from './loader';
 import { hideSwipeBox } from './feedback';
 
 async function getPopularGoods() {
-  const box = document.querySelector('.popular-goods-swiper');
-  const loader = box.querySelector('.loader');
-  showLoader(loader);
   try {
     const response = await axios.get(
       `https://furniture-store.b.goit.study/api/furnitures?page=1&limit=11&type=popular`
@@ -25,8 +21,6 @@ async function getPopularGoods() {
       title: error.message,
       position: 'topRight',
     });
-  } finally {
-    hideLoader(loader);
   }
 }
 
@@ -88,7 +82,7 @@ async function renderPopularGoods() {
       init: function () {
         document
           .querySelector('.swiper-navigation')
-          ?.classList.remove('loader-hidden');
+          ?.classList.remove('slider-controls-hidden');
       },
     },
   });

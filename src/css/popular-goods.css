@@ -1,3 +1,7 @@
+.slider-controls-hidden {
+    visibility: hidden;
+}
+
 .popular-goods-section {
     padding-top: 48px;
     padding-bottom: 48px;

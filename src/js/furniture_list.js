@@ -4,7 +4,6 @@ import 'izitoast/dist/css/iziToast.min.css';
 import '../css/furniture-list.css';
 import refs from './refs';
 import { renderProductDetails } from './furniture-details-modal.js';
-import { showLoader, hideLoader } from './loader.js';
 
 const imagesUrlForCategories = {
   allProducts: document.querySelector('.all-products'),
@@ -31,9 +30,6 @@ getCategories();
 getFurniture(8, 1);
 
 export async function getCategories() {
-  const box = document.querySelector('.furniture-categories-wrap');
-  const loader = box.querySelector('.loader');
-  showLoader(loader);
   try {
     const res = await axios.get(`${BaseUrl}categories`);
     const categories = res.data;
@@ -45,7 +41,6 @@ export async function getCategories() {
       position: 'topRight',
     });
   } finally {
-    hideLoader(loader);
   }
 }
 
@@ -95,9 +90,6 @@ let totalPages = 0;
 
 export async function getFurniture(limit, page, category = '') {
   hideLoadMoreBtn();
-  const box = document.querySelector('.furniture-gallery-wrap');
-  const loader = box.querySelector('.loader');
-  showLoader(loader);
   try {
     const params = {
       limit: limit,
@@ -136,7 +128,6 @@ export async function getFurniture(limit, page, category = '') {
     });
     hideLoadMoreBtn();
   } finally {
-    hideLoader(loader);
   }
 }
 
@@ -184,11 +175,9 @@ export function handlerCategories(event) {
 
 function showLoadMoreBtn() {
   refs.furnitureLoadMoreBtn.classList.remove('visually-hidden-moreBtn');
-  console.log('show');
 }
 function hideLoadMoreBtn() {
   refs.furnitureLoadMoreBtn.classList.add('visually-hidden-moreBtn');
-  console.log('hide');
 }
 
 refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);

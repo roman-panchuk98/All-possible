@@ -7,7 +7,6 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import rater from 'rater-js';
 import refs from './refs';
-import { showLoader, hideLoader } from './loader';
 
 axios.defaults.baseURL = 'https://furniture-store.b.goit.study/api';
 
@@ -17,13 +16,10 @@ const feedbackSection = document.querySelector('.feedback');
 
 export function hideSwipeBox() {
   const swipeBox = document.querySelector('.swiper-navigation');
-  swipeBox.classList.add('loader-hidden');
+  swipeBox.classList.add('slider-controls-hidden');
 }
 
 async function getFeedback(currentPage = 1) {
-  const box = document.querySelector('.feedback-swiper');
-  const loader = box.querySelector('.loader');
-  showLoader(loader);
   try {
     const response = await axios.get(`/feedbacks?limit=10&page=${currentPage}`);
     return response.data.feedbacks;
@@ -35,7 +31,6 @@ async function getFeedback(currentPage = 1) {
       position: 'topRight',
     });
   } finally {
-    hideLoader(loader);
   }
 }
 
@@ -105,7 +100,7 @@ function swipeFeedbackLists() {
       init: function () {
         document
           .querySelector('.swiper-container')
-          ?.classList.remove('loader-hidden');
+          ?.classList.remove('slider-controls-hidden');
       },
     },
   });
