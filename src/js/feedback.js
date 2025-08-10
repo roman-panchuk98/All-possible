@@ -18,13 +18,16 @@ export function hideSwipeBox() {
   const swipeBox = document.querySelector('.swiper-navigation');
   swipeBox.classList.add('slider-controls-hidden');
 }
-
+export function removeSlider() {
+  const swipeBox = document.querySelector('.swiper');
+  swipeBox.remove();
+}
 async function getFeedback(currentPage = 1) {
   try {
     const response = await axios.get(`/feedbacks?limit=10&page=${currentPage}`);
     return response.data.feedbacks;
   } catch (error) {
-    hideSwipeBox();
+    removeSlider();
     iziToast.error({
       title: 'Помилка',
       message: 'Не вдалось завантажити дані. Спробуйте пізніше',
