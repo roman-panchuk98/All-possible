@@ -2,39 +2,25 @@
 import refs from './refs';
 import iziToast from 'izitoast';
 import { openOrderModal } from './order-modal';
+import rater from 'rater-js';
 
-//  Основна ініціалізація
-export function setupProductClickHandler(allProducts) {
-  refs.furnitureGrid.addEventListener('click', event => {
-    const cardBtn = event.target.closest('.furniture-btn');
-    if (!cardBtn) return;
-
-    const productId = cardBtn.dataset.id;
-    const selectedProduct = allProducts.find(
-      product => product._id === productId
-    );
-
-    if (selectedProduct) {
-      renderProductDetails([selectedProduct]);
-    } else {
-      iziToast.error({
-        title: 'Error',
-        message: 'Продукт не знайдено за ID',
-        position: 'topRight',
-      });
-    }
-  });
-}
+const modalContent = document.querySelector('.modal-content');
+const starToRunModal = document.querySelector('.star-to-run');
+const starUrlModal = starToRunModal.getAttribute('src');
 
 // Рендер модалки з деталями продукту
 export function renderProductDetails(product) {
   openProductDetailis();
 
-  const modalContent = document.querySelector('.modal-content');
   const markup = product.map(createProductMarkup).join('');
   modalContent.innerHTML = markup;
 
-  updateStars(product[0].rate);
+  addStarToModalList(product[0]);
+
+  // заміна кольору зірочок
+  modalContent.querySelectorAll('.star-value').forEach(el => {
+    el.style.backgroundImage = `url("${starUrlModal}")`;
+  });
 
   const mainImg = document.getElementById('main-product-img');
   const thumbnails = document.querySelectorAll('.mini-img');
@@ -82,9 +68,8 @@ function createProductMarkup({
 }) {
   return `
     <div class="img-product">
-      <img class="large-img" src="${
-        images[0]
-      }" alt="${name}" id="main-product-img"/>
+      <img class="large-img" src="${images[0]
+    }" alt="${name}" id="main-product-img"/>
       <div class="small-img">
         <img class="mini-img" src="${images[1]}" alt="${name}" />
         <img class="mini-img" src="${images[2]}" alt="${name}" />
@@ -96,15 +81,11 @@ function createProductMarkup({
         <h2 class="title-modal-product">${name}</h2>
         <p class="type-product-modal">${type}</p>
         <p class="price">${price}\u00A0<span class="hrn"></span>грн</p>
-        <div class="reting">
-          <div class="star-rating">
-            
-          </div>
-        </div>
+        <div id="rater-modal-${_id}" data-rating-modal="${rate}"  aria-label="Rated ${rate} out of 5 stars"></div>
       </div>
 
       <form class="detailis-product">
-        <p class="select-color">Колір</p>
+        <p class="select-color" aria-label="Choose product color">Колір</p>
         <div class="radio-group">
           ${generateColorOptions(color)}
         </div>
@@ -115,7 +96,7 @@ function createProductMarkup({
         </div>
 
         <div class="modal-product-actions">
-          <button class="modal-product-btn" type="submit" data-id=${_id}>
+          <button class="modal-product-btn" type="submit" data-id=${_id} aria-label="Open order form modal">
             Перейти до замовлення
           </button>
         </div>
@@ -130,9 +111,8 @@ function generateColorOptions(colors) {
     .map(
       (color, index) => `
     <label class="color-label">
-      <input type="radio" name="color" value="${color}" ${
-        index === 0 ? 'checked' : ''
-      } />
+      <input type="radio" name="color" value="${color}" ${index === 0 ? 'checked' : ''
+        } />
       <span class="circle" style="background-color: ${color}"></span>
       <span class="checkmark"></span>
     </label>
@@ -141,43 +121,14 @@ function generateColorOptions(colors) {
     .join('');
 }
 
-//  Оновлення зірочок за рейтингом
-function updateStars(rawRating) {
-  let rating;
-  if (rawRating >= 3.3 && rawRating <= 3.7) {
-    rating = 3.5;
-  } else if (rawRating >= 3.8 && rawRating <= 4.2) {
-    rating = 4;
-  } else {
-    rating = Math.round(rawRating * 2) / 2;
-  }
-
-  const spritePath = './img/icons.svg';
-  const starRatingContainer = document.querySelector('.star-rating');
-
-  if (!starRatingContainer) {
-    console.warn('Контейнер .star-rating не знайдено');
-    return;
-  }
-
-  const starsMarkup = Array.from({ length: 5 }, (_, i) => {
-    const index = i + 1;
-    let icon = 'icon-star-empty';
-
-    if (rating >= index) {
-      icon = 'icon-star-filled';
-    } else if (rating >= index - 0.5) {
-      icon = 'icon-star-half';
-    }
-
-    return `
-      <svg class="star" data-index="${index}" width="20" height="20">
-        <use href="${spritePath}#${icon}" />
-      </svg>
-    `;
-  }).join('');
-
-  starRatingContainer.innerHTML = starsMarkup;
+function addStarToModalList({ rate, _id }) {
+  rater({
+    max: 5,
+    readOnly: true,
+    rating: rate,
+    starSize: 20,
+    element: document.querySelector(`#rater-modal-${_id}`),
+  });
 }
 
 // Обробка сабміту форми
@@ -200,9 +151,8 @@ function handleOrderSubmit(event) {
   }
 
   const orderData = { productId, color: selectedColor };
-  // console.log('Дані для замовлення:', orderData);
-
   localStorage.setItem('orderData', JSON.stringify(orderData));
+
   closseProductDatailis();
   openOrderModal(); // якщо буде така функція
 }
@@ -223,7 +173,6 @@ function closseProductDatailis() {
 function listenerClosseModalProduct() {
   const closseBtn = document.querySelector('.modal-close-btn');
   closseBtn.addEventListener('click', closseProductDatailis);
-
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') closseProductDatailis();
   });

@@ -10,6 +10,10 @@ import refs from './refs';
 
 axios.defaults.baseURL = 'https://furniture-store.b.goit.study/api';
 
+const starToRun = document.querySelector('.star-to-run');
+const starUrl = starToRun.getAttribute('src');
+const feedbackSection = document.querySelector('.feedback');
+
 function hideSwipeBox() {
   const swipeBox = document.querySelector('.swiper');
   swipeBox.remove();
@@ -35,7 +39,7 @@ async function renderFeedback() {
     .map(({ descr, name, rate, _id }) => {
       return `
       <li class="feedback-item swiper-slide">
-          <div id="rater-${_id}" data-rating="${rate}"></div>
+          <div id="rater-${_id}" data-rating="${rate}"  aria-label="Rated ${rate} out of 5 stars"></div>
           <p class="feedback-descr">${descr}</p>
           <p class="feedback-name">${name}</p>
       </li>`;
@@ -45,6 +49,11 @@ async function renderFeedback() {
   refs.feedbackList.insertAdjacentHTML('beforeend', slidesMarkup);
 
   addStarToFeedbackList(response);
+
+  feedbackSection.querySelectorAll('.star-value').forEach(el => {
+    el.style.backgroundImage = `url("${starUrl}")`;
+  });
+
   swipeFeedbackLists();
 }
 

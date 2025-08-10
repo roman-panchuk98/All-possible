@@ -135,15 +135,3 @@
   color: #6b0609;
   font-size: 12px;
 }
-
-.label-phone {
-  position: relative;
-}
-
-.plus-elem {
-  font-family: inherit;
-  font-size: 16px;
-  position: absolute;
-  top: 57%;
-  left: 13px;
-}

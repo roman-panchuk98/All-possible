@@ -3,10 +3,11 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import '../css/furniture-list.css';
 import refs from './refs';
-import { setupProductClickHandler } from './furniture-details-modal.js';
+import { renderProductDetails } from './furniture-details-modal.js';
 
-const BaseUrl = 'https://furniture-store.b.goit.study/api/';
+
 let allProducts = [];
+const BaseUrl = 'https://furniture-store.b.goit.study/api/';
 
 refs.categoriesList.addEventListener('click', handlerCategories);
 refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
@@ -17,12 +18,6 @@ export async function getCategories() {
   try {
     const res = await axios.get(`${BaseUrl}categories`);
     const categories = res.data;
-   
-    
-    
-   
-   
-    
     markUpCategories(categories);
   } catch (error) {
     iziToast.error({
@@ -34,7 +29,6 @@ export async function getCategories() {
 }
 
 function markUpCategories(categories) {
-
     const categoryImages = {
     '': './img/furnitureList/all-products-min.png', 
     '66504a50a1b2c3d4e5f6a7b8': '/img/furnitureList/upholstered-furniture-min.png',
@@ -49,25 +43,26 @@ function markUpCategories(categories) {
     '66504a50a1b2c3d4e5f6a7c1': '/img/furnitureList/bathroom-furniture-min.png',
     '66504a50a1b2c3d4e5f6a7c2': '/img/furnitureList/garden-and-outdoor-furniture-min.png',
     '66504a50a1b2c3d4e5f6a7c3': '/img/furnitureList/decor-and-accessories-min.png',
+
   };
   const markUp = [{ _id: '', name: 'Всі товари' }, ...categories]
-    .map(
+    .map(({ _id, name }) => {
+      const imageUrl = categoryImages[_id];
 
-      ({ _id, name }) => {
-        const imageUrl = categoryImages[_id];
-
-      return`
+      return `
         <li>
         <button type="button"
-         class="category-btn${
-          _id === '' ? ' active' : ''}"
-          data-category="${_id}"  style="${imageUrl ? `background-image: url('${imageUrl}');background-size: cover; background-position: center;"` : ''}">
+         class="category-btn${_id === '' ? ' active' : ''}"
+          data-category="${_id}"  style="${imageUrl
+          ? `background-image: url('${imageUrl}');background-size: cover; background-position: center;"`
+          : ''
+        }">
           
           ${name}
           </button>
           </li>
-          `
-          ;})
+          `;
+    })
     .join('');
   refs.categoriesList.insertAdjacentHTML('beforeend', markUp);
 }
@@ -75,8 +70,6 @@ function markUpCategories(categories) {
 let page = 1;
 const limit = 8;
 let totalPages = 0;
-
-
 
 export async function getFurniture(limit, page, category = '') {
   try {
@@ -90,20 +83,22 @@ export async function getFurniture(limit, page, category = '') {
 
     const responce = await axios.get(`${BaseUrl}furnitures`, { params });
     const data = responce.data;
-   
-    
-    allProducts = data.furnitures;
-    
-    totalPages = Math.ceil(data.totalItems / limit);
 
+    const furnituresAll = data.furnitures;  //нова змінна. потрібна
+
+    //дещо змінена частка контенту при зміні категорії
     if (page === 1) {
       refs.furnitureGrid.innerHTML = '';
-      
+      allProducts = furnituresAll;
+    } else {
+      allProducts = [...allProducts, ...furnituresAll];  // тут я записую уже існуючий пакет даних + новий пекет коли "page+1"
     }
-    
-    markUpFurniture(allProducts);
-    setupProductClickHandler(allProducts);
-    
+
+    totalPages = Math.ceil(data.totalItems / limit);   //прибрав перетворення числа в число бо воно мені не давало нормально вклюситися  втій код
+    markUpFurniture(furnituresAll); // рендер першого пекету даних
+
+
+
     if (page >= totalPages) {
       hideLoadMoreBtn();
     } else {
@@ -120,23 +115,25 @@ export async function getFurniture(limit, page, category = '') {
 }
 
 function markUpFurniture(items) {
+
   const markUp = items
     .map(({ _id, name, images, color, price }) => {
-      const colorsFurniture =
-      ` <ul class="color-list"> 
-        ${color.map(
-          colorValue => `<li class="color-dot" style="background-color:${colorValue}"></li>`
-        )
-        .join('')}
+      const colorsFurniture = ` <ul class="color-list"> 
+        ${color
+          .map(
+            colorValue =>
+              `<li class="color-dot" style="background-color:${colorValue}"></li>`
+          )
+          .join('')}
         </ul> `;
-
+      // додаю aria-label на кнопку М.Н 
       return `
         <li class="furniture-card">
         <img src="${images[0]}" alt="${name}" class="furniture-img">
         <h3 class="furniture-name">${name}</h3>
          ${colorsFurniture}
         <p class="furniture-price">${price} грн</p>
-        <button class="furniture-btn btn-details" data-id="${_id}">Детальніше</button>
+                <button class="furniture-btn btn-details" data-id="${_id}" aria-label="Open detailed information window for this product">Детальніше</button>  
 
         </li>
         
@@ -144,8 +141,8 @@ function markUpFurniture(items) {
     })
     .join('');
   refs.furnitureGrid.insertAdjacentHTML('beforeend', markUp);
-}
 
+}
 
 export function handlerCategories(event) {
   if (!event.target.classList.contains('category-btn')) return;
@@ -168,13 +165,34 @@ function hideLoadMoreBtn() {
   refs.furnitureLoadMoreBtn.classList.add('visually-hidden-moreBtn');
 }
 
-refs.furnitureLoadMoreBtn.addEventListener("click", handlerMore);
+refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
 
 export function handlerMore(event) {
-    page +=1;
-    const currentCategoryBtn = refs.categoriesList.querySelector(`.category-btn.active`);
-    const selectedCategory = currentCategoryBtn ? currentCategoryBtn.dataset.category : "";
-    getFurniture(limit, page, selectedCategory);
-
+  page += 1;
+  const currentCategoryBtn =
+    refs.categoriesList.querySelector(`.category-btn.active`);
+  const selectedCategory = currentCategoryBtn
+    ? currentCategoryBtn.dataset.category
+    : '';
+  getFurniture(limit, page, selectedCategory);
 }
+//обробник кліку по кнопці   переїхав в глобальку видимість  
+refs.furnitureGrid.addEventListener('click', event => {
+  const cardBtn = event.target.closest('.furniture-btn');
+  if (!cardBtn) return;
 
+  const productId = cardBtn.dataset.id;
+  const selectedProduct = allProducts.find(
+    product => product._id === productId
+  );
+
+  if (selectedProduct) {
+    renderProductDetails([selectedProduct]);
+  } else {
+    iziToast.error({
+      title: 'Error',
+      message: 'Продукт не знайдено за ID',
+      position: 'topRight',
+    });
+  }
+});
