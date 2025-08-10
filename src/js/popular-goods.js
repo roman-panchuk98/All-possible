@@ -6,12 +6,17 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
 import { renderProductDetails } from './furniture-details-modal';
 
+function removeSliderPG() {
+  const swipeBoxPG = document.querySelector('.popular-goods-swiper');
+  swipeBoxPG.remove();
+}
+
 async function getPopularGoods() {
   try {
     const response = await axiosInstance.get('furnitures?type=popular');
     return response.data.furnitures || [];
   } catch (error) {
-    hideSwipeBox();
+    removeSliderPG();
     // Помилка вже оброблена в axios-config
   }
 }
@@ -87,11 +92,6 @@ async function renderPopularGoods() {
     );
     renderProductDetails([selectedProduct]);
   });
-}
-
-function hideSwipeBox() {
-  const swipeBox = document.querySelector('.swiper');
-  swipeBox.remove();
 }
 
 renderPopularGoods();

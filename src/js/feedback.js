@@ -6,19 +6,13 @@ import axiosInstance from './axios-config';
 import rater from 'rater-js';
 import refs from './refs';
 
-function hideSwipeBox() {
-  const swipeBox = document.querySelector('.swiper');
-  swipeBox.remove();
-}
+const starToRun = document.querySelector('.star-to-run');
+const starUrl = starToRun.getAttribute('src');
+const feedbackSection = document.querySelector('.feedback');
 
-async function getFeedback(currentPage = 1) {
-  try {
-    const response = await axiosInstance.get(`feedbacks?limit=3&page=${currentPage}`);
-    return response.data.feedbacks;
-  } catch (error) {
-    hideSwipeBox();
-    // Помилка вже оброблена в axios-config
-  }
+function removeSlider() {
+  const swipeBox = document.querySelector('.feedback-swiper');
+  swipeBox.remove();
 }
 
 let currentPage = 1;
@@ -33,10 +27,10 @@ async function getFeedbackData(page = 1) {
     return {
       feedbacks: response.data.feedbacks || [],
       totalPages: Math.ceil(response.data.total / response.data.limit) || 1,
-      currentPage: parseInt(response.data.page) || 1
+      currentPage: parseInt(response.data.page) || 1,
     };
   } catch (error) {
-    hideSwipeBox();
+    removeSlider();
     // Помилка вже оброблена в axios-config
     return null;
   }
@@ -57,40 +51,35 @@ async function loadMoreFeedbacks() {
   isLoading = true;
   const nextPage = currentPage + 1;
   const response = await getFeedbackData(nextPage);
-  
+
   if (response && response.feedbacks.length > 0) {
     currentPage = response.currentPage;
     allFeedbacks = [...allFeedbacks, ...response.feedbacks];
-    
+
     const newSlides = response.feedbacks
       .map(feedback => createFeedbackSlide(feedback))
       .join('');
-    
+
     refs.feedbackList.insertAdjacentHTML('beforeend', newSlides);
     addStarToFeedbackList(response.feedbacks);
-    
-    // Застосовуємо стилі зірочок для нових елементів
-    const starToRun = document.querySelector('.star-to-run');
-    const starUrl = starToRun.getAttribute('href');
-    const feedbackSection = document.querySelector('.feedback');
 
     feedbackSection.querySelectorAll('.star-value').forEach(el => {
       el.style.backgroundImage = `url("${starUrl}")`;
     });
-    
+
     if (swiper) {
       swiper.update();
     }
   }
-  
+
   isLoading = false;
 }
 
 async function renderFeedback() {
   const response = await getFeedbackData(1);
-  
+
   if (!response || response.feedbacks.length < 3) {
-    hideSwipeBox();
+    removeSlider();
     // Not enough feedbacks to display (minimum 3)
     return;
   }
@@ -105,10 +94,6 @@ async function renderFeedback() {
 
   refs.feedbackList.insertAdjacentHTML('beforeend', slidesMarkup);
   addStarToFeedbackList(response.feedbacks);
-
-  const starToRun = document.querySelector('.star-to-run');
-  const starUrl = starToRun.getAttribute('href');
-  const feedbackSection = document.querySelector('.feedback');
 
   feedbackSection.querySelectorAll('.star-value').forEach(el => {
     el.style.backgroundImage = `url("${starUrl}")`;
@@ -157,18 +142,19 @@ function swipeFeedbackLists() {
       },
     },
     on: {
-      reachEnd: function() {
+      reachEnd: function () {
         if (currentPage < totalPages) {
           loadMoreFeedbacks();
         }
       },
-      slideChange: function() {
-        const remainingSlides = this.slides.length - this.activeIndex - this.slidesPerViewDynamic();
+      slideChange: function () {
+        const remainingSlides =
+          this.slides.length - this.activeIndex - this.slidesPerViewDynamic();
         if (remainingSlides <= 2 && currentPage < totalPages) {
           loadMoreFeedbacks();
         }
-      }
-    }
+      },
+    },
   });
 }
 

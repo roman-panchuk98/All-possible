@@ -2,6 +2,23 @@ import axiosInstance from './axios-config';
 import '../css/furniture-list.css';
 import refs from './refs';
 import { renderProductDetails } from './furniture-details-modal.js';
+
+const imagesUrlForCategories = {
+  allProducts: document.querySelector('.all-products'),
+  bathroomFurniture: document.querySelector('.bathroom-furniture'),
+  bedsAndMattresses: document.querySelector('.beds-and-mattresses'),
+  cabinets: document.querySelector('.cabinets-and-storage-systems'),
+  chairsAndStools: document.querySelector('.chairs-and-stools'),
+  childrensFurniture: document.querySelector('.childrens-furniture'),
+  decorAndAccessories: document.querySelector('.decor-and-accessories'),
+  gardenAndOutdoor: document.querySelector('.garden-and-outdoor-furnitur'),
+  hallwayFurniture: document.querySelector('.hallway-furniture'),
+  kitchens: document.querySelector('.kitchens'),
+  officeFurniture: document.querySelector('.office-furniture'),
+  tables: document.querySelector('.tables'),
+  upholsteredFurniture: document.querySelector('.upholstered-furniture'),
+};
+
 let allProducts = [];
 
 refs.categoriesList.addEventListener('click', handlerCategories);
@@ -30,29 +47,24 @@ export async function getCategories() {
 
 function markUpCategories(categories) {
   const categoryImages = {
-    '': './img/furnitureList/всі товари-min.png',
-    '66504a50a1b2c3d4e5f6a7b8': '/img/furnitureList/мякі меблі-min.png',
-    '66504a50a1b2c3d4e5f6a7b9':
-      '/img/furnitureList/шафи та системи зберігання-min.png',
-    '66504a50a1b2c3d4e5f6a7ba': '/img/furnitureList/ліжка та матраци-min.png',
-    '66504a50a1b2c3d4e5f6a7bb': '/img/furnitureList/столи-min.png',
-    '66504a50a1b2c3d4e5f6a7bc':
-      '/img/furnitureList/стільці та табурети-min.png',
-    '66504a50a1b2c3d4e5f6a7bd': '/img/furnitureList/Кухні-min.png',
-    '66504a50a1b2c3d4e5f6a7be': '/img/furnitureList/меблі для дитячої-min.png',
-    '66504a50a1b2c3d4e5f6a7bf': '/img/furnitureList/меблі для офісу-min.png',
-    '66504a50a1b2c3d4e5f6a7c0':
-      '/img/furnitureList/меблі для передпокою-min.png',
-    '66504a50a1b2c3d4e5f6a7c1':
-      '/img/furnitureList/меблі для ванної кімнати-min.png',
-    '66504a50a1b2c3d4e5f6a7c2':
-      '/img/furnitureList/садові та вуличні меблі-min.png',
-    '66504a50a1b2c3d4e5f6a7c3': '/img/furnitureList/декор та аксесуари-min.png',
+    '': `${imagesUrlForCategories.allProducts.src}`,
+    '66504a50a1b2c3d4e5f6a7b8': `${imagesUrlForCategories.upholsteredFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7b9': `${imagesUrlForCategories.cabinets.src}`,
+    '66504a50a1b2c3d4e5f6a7ba': `${imagesUrlForCategories.bedsAndMattresses.src}`,
+    '66504a50a1b2c3d4e5f6a7bb': `${imagesUrlForCategories.tables.src}`,
+    '66504a50a1b2c3d4e5f6a7bc': `${imagesUrlForCategories.chairsAndStools.src}`,
+    '66504a50a1b2c3d4e5f6a7bd': `${imagesUrlForCategories.kitchens.src}`,
+    '66504a50a1b2c3d4e5f6a7be': `${imagesUrlForCategories.childrensFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7bf': `${imagesUrlForCategories.officeFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7c0': `${imagesUrlForCategories.hallwayFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7c1': `${imagesUrlForCategories.bathroomFurniture.src}`,
+    '66504a50a1b2c3d4e5f6a7c2': `${imagesUrlForCategories.gardenAndOutdoor.src}`,
+    '66504a50a1b2c3d4e5f6a7c3': `${imagesUrlForCategories.decorAndAccessories.src}`,
   };
+
   const markUp = [{ _id: '', name: 'Всі товари' }, ...categories]
     .map(({ _id, name }) => {
       const imageUrl = categoryImages[_id];
-
       return `
         <li>
         <button type="button"
@@ -62,7 +74,6 @@ function markUpCategories(categories) {
           ? `background-image: url('${imageUrl}');background-size: cover; background-position: center;"`
           : ''
       }">
-          
           ${name}
           </button>
           </li>
@@ -73,10 +84,11 @@ function markUpCategories(categories) {
 }
 
 let page = 1;
-const limit = 8; // Мінімум 8 товарів на сторінку
+const limit = 8;
 let totalPages = 1;
 
 export async function getFurniture(limit, page, category = '') {
+  hideLoadMoreBtn();
   try {
     const params = {
       limit: limit,
@@ -91,11 +103,18 @@ export async function getFurniture(limit, page, category = '') {
     allProducts = data.furnitures;
     totalPages = Math.ceil(data.totalItems / Number(limit));
 
+    const furnituresAll = data.furnitures;
+    
     if (page === 1) {
       refs.furnitureGrid.innerHTML = '';
+      allProducts = furnituresAll;
+    } else {
+      allProducts = [...allProducts, ...furnituresAll];
     }
 
-    markUpFurniture(allProducts);
+    totalPages = Math.ceil(data.totalItems / limit);
+    markUpFurniture(furnituresAll);
+    showLoadMoreBtn();
 
     if (page >= totalPages) {
       hideLoadMoreBtn();
@@ -104,8 +123,9 @@ export async function getFurniture(limit, page, category = '') {
     }
   } catch (error) {
     // Помилка вже оброблена в axios-config
+    hideLoadMoreBtn();
   }
-}
+};
 
 function markUpFurniture(items) {
   const markUp = items
@@ -118,7 +138,6 @@ function markUpFurniture(items) {
           )
           .join('')}
         </ul> `;
-
       return `
         <li class="furniture-card">
         <img src="${images[0]}" alt="${name}" class="furniture-img">
@@ -126,29 +145,11 @@ function markUpFurniture(items) {
          ${colorsFurniture}
         <p class="furniture-price">${price} грн</p>
         <button class="furniture-btn btn-details" data-id="${_id}">Детальніше</button>
-
         </li>
-        
         `;
     })
     .join('');
   refs.furnitureGrid.insertAdjacentHTML('beforeend', markUp);
-  //обробник кліку по кнопці
-  refs.furnitureGrid.addEventListener('click', event => {
-    const cardBtn = event.target.closest('.furniture-btn');
-    if (!cardBtn) return;
-
-    const productId = cardBtn.dataset.id;
-    const selectedProduct = allProducts.find(
-      product => product._id === productId
-    );
-
-    if (selectedProduct) {
-      renderProductDetails([selectedProduct]);
-    } else {
-      // Product not found by ID
-    }
-  });
 }
 
 export function handlerCategories(event) {
@@ -162,7 +163,6 @@ export function handlerCategories(event) {
 
   page = 1;
 
-  // Check if we're on desktop (pagination visible) or mobile (load more visible)
   const paginationEl = document.querySelector('.furniture-pagination');
   const isDesktop = window.innerWidth >= 768;
   
@@ -182,7 +182,6 @@ function hideLoadMoreBtn() {
 
 refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
 
-// Desktop pagination event listeners
 const prevBtn = document.querySelector('#furniture-prevBtn');
 const nextBtn = document.querySelector('#furniture-nextBtn');
 const paginationNumbers = document.querySelector('#furniture-paginationNumbers');
@@ -240,7 +239,6 @@ function handlePageNumberClick(event) {
   }
 }
 
-// New function for desktop pagination (replaces content instead of appending)
 async function getFurnitureForPagination(limit, page, category = '') {
   try {
     const params = {
@@ -254,13 +252,12 @@ async function getFurnitureForPagination(limit, page, category = '') {
     const responce = await axiosInstance.get('furnitures', { params });
     const data = responce.data;
     allProducts = data.furnitures;
-    totalPages = Math.ceil(data.totalItems / Number(limit));
+    totalPages = Math.ceil(data.totalItems / limit);
 
-    // Always replace content for desktop pagination
+    
     refs.furnitureGrid.innerHTML = '';
     markUpFurniture(allProducts);
     
-    // Hide "Show more" button on desktop
     hideLoadMoreBtn();
     
     updatePaginationControls();
@@ -269,9 +266,27 @@ async function getFurnitureForPagination(limit, page, category = '') {
     // Помилка вже оброблена в axios-config
   }
 }
+refs.furnitureGrid.addEventListener('click', event => {
+  const cardBtn = event.target.closest('.furniture-btn');
+  if (!cardBtn) return;
+
+  const productId = cardBtn.dataset.id;
+  const selectedProduct = allProducts.find(
+    product => product._id === productId
+  );
+
+  if (selectedProduct) {
+    renderProductDetails([selectedProduct]);
+  } else {
+    iziToast.error({
+      title: 'Помилка',
+      message: 'Не вдалося завантажити дані. Спробуйте пізніше',
+      position: 'topRight',
+    });
+  }
+  });
 
 function updatePaginationControls() {
-  // Update navigation buttons state
   const prevBtn = document.querySelector('#furniture-prevBtn');
   const nextBtn = document.querySelector('#furniture-nextBtn');
   
@@ -283,7 +298,6 @@ function updatePaginationControls() {
     nextBtn.disabled = page >= totalPages;
   }
   
-  // Update page numbers
   renderPaginationNumbers();
 }
 
@@ -294,29 +308,23 @@ function renderPaginationNumbers() {
   let numbersHTML = '';
   
   if (totalPages <= 7) {
-    // Show all pages if 7 or fewer
     for (let i = 1; i <= totalPages; i++) {
       numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
     }
   } else {
-    // Always show first page
     numbersHTML += `<button class="page-number ${1 === page ? 'active' : ''}" data-page="1">1</button>`;
-    
     if (page <= 3) {
-      // Show 1 2 3 ... last
       for (let i = 2; i <= 3; i++) {
         numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
       }
       numbersHTML += `<span class="page-dots">...</span>`;
       numbersHTML += `<button class="page-number" data-page="${totalPages}">${totalPages}</button>`;
     } else if (page >= totalPages - 3) {
-      // Show 1 ... last-3 last-2 last-1 last
       numbersHTML += `<span class="page-dots">...</span>`;
       for (let i = totalPages - 3; i <= totalPages; i++) {
         numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
       }
     } else {
-      // Show 1 ... page-1 page page+1 ... last
       numbersHTML += `<span class="page-dots">...</span>`;
       for (let i = page - 1; i <= page + 1; i++) {
         numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
@@ -325,6 +333,7 @@ function renderPaginationNumbers() {
       numbersHTML += `<button class="page-number" data-page="${totalPages}">${totalPages}</button>`;
     }
   }
-  
+ 
   paginationNumbers.innerHTML = numbersHTML;
 }
+
