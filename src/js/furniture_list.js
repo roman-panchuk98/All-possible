@@ -300,7 +300,7 @@ refs.furnitureGrid.addEventListener('click', event => {
       position: 'topRight',
     });
   }
-  }
+  });
 
 function updatePaginationControls() {
   const prevBtn = document.querySelector('#furniture-prevBtn');
