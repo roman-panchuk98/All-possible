@@ -14,12 +14,8 @@ const starToRun = document.querySelector('.star-to-run');
 const starUrl = starToRun.getAttribute('src');
 const feedbackSection = document.querySelector('.feedback');
 
-export function hideSwipeBox() {
-  const swipeBox = document.querySelector('.swiper-navigation');
-  swipeBox.classList.add('slider-controls-hidden');
-}
-export function removeSlider() {
-  const swipeBox = document.querySelector('.swiper');
+function removeSlider() {
+  const swipeBox = document.querySelector('.feedback-swiper');
   swipeBox.remove();
 }
 async function getFeedback(currentPage = 1) {
@@ -33,7 +29,6 @@ async function getFeedback(currentPage = 1) {
       message: 'Не вдалось завантажити дані. Спробуйте пізніше',
       position: 'topRight',
     });
-  } finally {
   }
 }
 
@@ -97,13 +92,6 @@ function swipeFeedbackLists() {
       1440: {
         slidesPerView: 3,
         spaceBetween: 24,
-      },
-    },
-    on: {
-      init: function () {
-        document
-          .querySelector('.swiper-container')
-          ?.classList.remove('slider-controls-hidden');
       },
     },
   });
