@@ -71,6 +71,7 @@ async function renderPopularGoods() {
     modules: [Navigation, Pagination],
     pagination: {
       el: '.popular-goods-swiper-pagination',
+      clickable: true,
       dynamicBullets: true,
     },
     navigation: {
