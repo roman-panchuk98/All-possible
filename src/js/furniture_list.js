@@ -21,6 +21,7 @@ const imagesUrlForCategories = {
   upholsteredFurniture: document.querySelector('.upholstered-furniture'),
 };
 
+
 let allProducts = [];
 const BaseUrl = 'https://furniture-store.b.goit.study/api/';
 
@@ -38,6 +39,22 @@ setTimeout(() => {
   }
 }, 100);
 
+let isInitialLoad = true;
+/**типу стан сторінки  а саму:
+* "Це перше завантаження сторінки, ще нічого не клікали, не фільтрували, не пагінували."*/
+
+function renderFurniture() {
+  markUpFurniture(allProducts);
+  updatePaginationControls();
+  setTimeout(() => {
+    if (!isInitialLoad) {
+      scrollToFurnitureTop();
+    }
+    isInitialLoad = false;
+  }, 300);
+}
+/**renderFurniture() ф.  в яку перенесені рендер продуктів,
+ *  обоновленя стану пагінації і доданий контроли над скролом*/
 export async function getCategories() {
   try {
     const res = await axios.get(`${BaseUrl}categories`);
@@ -77,11 +94,10 @@ function markUpCategories(categories) {
         <li>
         <button type="button"
          class="category-btn${_id === '' ? ' active' : ''}"
-          data-category="${_id}"  style="${
-        imageUrl
+          data-category="${_id}"  style="${imageUrl
           ? `background-image: url('${imageUrl}');background-size: cover; background-position: center;"`
           : ''
-      }">
+        }">
           ${name}
           </button>
           </li>
@@ -94,9 +110,7 @@ function markUpCategories(categories) {
 let page = 1;
 const limit = 8;
 let totalPages = 1;
-
 export async function getFurniture(limit, page, category = '') {
-  hideLoadMoreBtn();
   try {
     const params = {
       limit: limit,
@@ -110,9 +124,8 @@ export async function getFurniture(limit, page, category = '') {
     const data = responce.data;
     allProducts = data.furnitures;
     totalPages = Math.ceil(data.totalItems / Number(limit));
-
     const furnituresAll = data.furnitures;
-    
+
     if (page === 1) {
       refs.furnitureGrid.innerHTML = '';
       allProducts = furnituresAll;
@@ -135,12 +148,12 @@ export async function getFurniture(limit, page, category = '') {
       message: 'Не вдалося завантажити дані. Спробуйте пізніше',
       position: 'topRight',
     });
-
     hideLoadMoreBtn();
   }
 };
 
 function markUpFurniture(items) {
+
   const markUp = items
     .map(({ _id, name, images, color, price }) => {
       const colorsFurniture = ` <ul class="color-list"> 
@@ -149,7 +162,7 @@ function markUpFurniture(items) {
             colorValue =>
               `<li class="color-dot" style="background-color:${colorValue}"></li>`
           )
-          .join('')}
+          .join('')};
         </ul> `;
       return `
         <li class="furniture-card">
@@ -159,7 +172,7 @@ function markUpFurniture(items) {
         <p class="furniture-price">${price} грн</p>
         <button class="furniture-btn btn-details" data-id="${_id}">Детальніше</button>
         </li>
-        `;
+        `//-;
     })
     .join('');
   refs.furnitureGrid.insertAdjacentHTML('beforeend', markUp);
@@ -171,14 +184,12 @@ export function handlerCategories(event) {
   buttons.forEach(btn => btn.classList.remove('active'));
 
   event.target.classList.add('active');
-
   const selectCategory = event.target.dataset.category;
-
   page = 1;
 
   const paginationEl = document.querySelector('.furniture-pagination');
   const isDesktop = window.innerWidth >= 768;
-  
+
   if (isDesktop) {
     getFurnitureForPagination(limit, page, selectCategory);
   } else {
@@ -187,12 +198,11 @@ export function handlerCategories(event) {
 }
 
 function showLoadMoreBtn() {
-  refs.furnitureLoadMoreBtn.classList.remove('visually-hidden');
+  refs.furnitureLoadMoreBtn.classList.remove('visually-hidden-moreBtn');
 }
 function hideLoadMoreBtn() {
-  refs.furnitureLoadMoreBtn.classList.add('visually-hidden');
+  refs.furnitureLoadMoreBtn.classList.add('visually-hidden-moreBtn');
 }
-
 refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
 
 const prevBtn = document.querySelector('#furniture-prevBtn');
@@ -242,6 +252,8 @@ function handlePageNumberClick(event) {
     const targetPage = parseInt(event.target.dataset.page);
     if (targetPage !== page) {
       page = targetPage;
+      localStorage.setItem('currentPage', page);
+
       const currentCategoryBtn =
         refs.categoriesList.querySelector(`.category-btn.active`);
       const selectedCategory = currentCategoryBtn
@@ -261,28 +273,32 @@ async function getFurnitureForPagination(limit, page, category = '') {
     if (category) {
       params.category = category;
     }
+    showLoader();//! тут зявляється лоадер
 
     const responce = await axios.get(`${BaseUrl}furnitures`, { params });
     const data = responce.data;
     allProducts = data.furnitures;
     totalPages = Math.ceil(data.totalItems / limit);
 
-    
     refs.furnitureGrid.innerHTML = '';
-    markUpFurniture(allProducts);
-    
     hideLoadMoreBtn();
-    
-    updatePaginationControls();
-    
-  } catch (error) { iziToast.error({
+
+    renderFurniture();//! тут виклик нової ф. яка рендерить продукти+ обновляє сторінки+котроль скролу
+
+  } catch (error) {
+    iziToast.error({
       title: 'Помилка',
       message: 'Не вдалося завантажити дані. Спробуйте пізніше',
       position: 'topRight',
     });
+  } finally {
+    hideLoader(); //!тут ховаю лоадер
   }
+
 }
+
 refs.furnitureGrid.addEventListener('click', event => {
+
   const cardBtn = event.target.closest('.furniture-btn');
   if (!cardBtn) return;
 
@@ -300,29 +316,26 @@ refs.furnitureGrid.addEventListener('click', event => {
       position: 'topRight',
     });
   }
-  });
+});
 
 function updatePaginationControls() {
   const prevBtn = document.querySelector('#furniture-prevBtn');
   const nextBtn = document.querySelector('#furniture-nextBtn');
-  
+
   if (prevBtn) {
     prevBtn.disabled = page <= 1;
   }
-  
   if (nextBtn) {
     nextBtn.disabled = page >= totalPages;
   }
-  
   renderPaginationNumbers();
 }
 
 function renderPaginationNumbers() {
   const paginationNumbers = document.querySelector('#furniture-paginationNumbers');
   if (!paginationNumbers) return;
-  
+
   let numbersHTML = '';
-  
   if (totalPages <= 7) {
     for (let i = 1; i <= totalPages; i++) {
       numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
@@ -349,7 +362,28 @@ function renderPaginationNumbers() {
       numbersHTML += `<button class="page-number" data-page="${totalPages}">${totalPages}</button>`;
     }
   }
- 
+
   paginationNumbers.innerHTML = numbersHTML;
 }
+
+function showLoader() {
+  document.getElementById('loader').classList.remove('hidden');
+}
+
+function hideLoader() {
+  document.getElementById('loader').classList.add('hidden');
+}
+
+function scrollToFurnitureTop() {
+  const section = document.querySelector('.furniture-gallery');
+  if (!section) return;
+  const offset = 140;
+  const top = section.getBoundingClientRect().top + window.scrollY - offset;
+
+  window.scrollTo({
+    top,
+    behavior: 'smooth',
+  });
+}
+/**scrollToFurnitureTop() котроль скролу. (p.S. chat gpt+goole) */
 

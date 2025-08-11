@@ -42,6 +42,33 @@
 
 }
 
+
+/**/
+
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 5px solid #ccc;
+  border-top-color: #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/***/
 .category-btn {
   position: relative;
   border-radius: 8px;
@@ -205,8 +232,8 @@
     width: 340px;
     box-sizing: border-box;
   }
-  
-   .furniture-pagination {
+
+  .furniture-pagination {
     display: flex !important;
     align-items: center;
     justify-content: center;
@@ -292,7 +319,7 @@
     background: #6B0609;
     color: white;
     border-color: rgba(8, 12, 9, 0.15);
-    box-shadow: 
+    box-shadow:
       0 1px 2px rgba(8, 12, 9, 0.05),
       inset 0 -2px 1px rgba(0, 0, 0, 0.2),
       inset 0 0 0 1px rgba(8, 12, 9, 0.15),
@@ -303,7 +330,7 @@
   .page-number.active:hover {
     background: #6B0609;
     color: white;
-    box-shadow: 
+    box-shadow:
       0 1px 2px rgba(8, 12, 9, 0.05),
       inset 0 -2px 1px rgba(0, 0, 0, 0.2),
       inset 0 0 0 1px rgba(8, 12, 9, 0.15),
@@ -344,7 +371,7 @@
   .furniture-gallery {
     grid-template-columns: repeat(4, 1fr);
   }
-  
+
   .furniture-btn {
     width: 310px;
   }
@@ -438,7 +465,7 @@
   background: #6B0609;
   color: white;
   border-color: rgba(8, 12, 9, 0.15);
-  box-shadow: 
+  box-shadow:
     0 1px 2px rgba(8, 12, 9, 0.05),
     inset 0 -2px 1px rgba(0, 0, 0, 0.2),
     inset 0 0 0 1px rgba(8, 12, 9, 0.15),
@@ -449,7 +476,7 @@
 .page-number.active:hover {
   background: #6B0609;
   color: white;
-  box-shadow: 
+  box-shadow:
     0 1px 2px rgba(8, 12, 9, 0.05),
     inset 0 -2px 1px rgba(0, 0, 0, 0.2),
     inset 0 0 0 1px rgba(8, 12, 9, 0.15),
