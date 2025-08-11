@@ -8,7 +8,7 @@
     <script type="module" crossorigin src="/All-possible/index.js"></script>
     <link rel="modulepreload" crossorigin href="/All-possible/assets/vendor-BDtnXfrh.js">
     <link rel="stylesheet" crossorigin href="/All-possible/assets/vendor-IwFjQqvT.css">
-    <link rel="stylesheet" crossorigin href="/All-possible/assets/index-Dt0KsFXA.css">
+    <link rel="stylesheet" crossorigin href="/All-possible/assets/index-bGp0CCYk.css">
   </head>
   <body>
     <!-- Header partial -->
@@ -72,47 +72,108 @@
     <p class="furniture_subtitle">
       Знайдіть ідеальні рішення для вашого інтер'єру
     </p>
+
     <ul class="visually-hidden">
       <li>
-        <img class="all-products" src="/All-possible/assets/all-products-min-D36yzKht.png" alt="all-products" />
-        <img class="bathroom-furniture" src="/All-possible/assets/bathroom-furniture-min-Cigq9YRO.png" alt="bathroom-furniture" />
-        <img class="beds-and-mattresses" src="/All-possible/assets/beds-and-mattresses-min-PoamBX7q.png"
-          alt="beds-and-mattresses" />
-        <img class="cabinets-and-storage-systems" src="/All-possible/assets/cabinets-and-storage-systems-min-D4KM0lez.png"
-          alt="cabinets-and-storage-systems" />
-        <img class="chairs-and-stools" src="/All-possible/assets/chairs-and-stools-min-D7RlQ5VT.png" alt="chairs-and-stools" />
-        <img class="childrens-furniture" src="/All-possible/assets/childrens-furniture-min-CL41Tzl8.png"
-          alt="childrens-furniture" />
-        <img class="decor-and-accessories" src="/All-possible/assets/decor-and-accessories-min-CSx8ftux.png"
-          alt="decor-and-accessories" />
-        <img class="garden-and-outdoor-furnitur" src="/All-possible/assets/garden-and-outdoor-furniture-min-CvwZfEmo.png"
-          alt="garden-and-outdoor-furnitur" />
-        <img class="hallway-furniture" src="/All-possible/assets/hallway-furniture-min-D-inWSfp.png" alt="hallway-furniture" />
-        <img class="kitchens" src="/All-possible/assets/kitchens-min-DDOe3BWE.png" alt="kitchens" />
-        <img class="office-furniture" src="/All-possible/assets/office-furniture-min-CMFUmPpe.png" alt="office-furniture" />
-        <img class="tables" src="/All-possible/assets/tables-min-DXePiBr9.png" alt="tables" />
-        <img class="upholstered-furniture" src="/All-possible/assets/upholstered-furniture-min-0VUoCfES.png"
-          alt="upholstered-furniture" />
+        <img
+          class="all-products"
+          src="/All-possible/assets/all-products-min-D36yzKht.png"
+          alt="all-products"
+        />
+        <img
+          class="bathroom-furniture"
+          src="/All-possible/assets/bathroom-furniture-min-Cigq9YRO.png"
+          alt="bathroom-furniture"
+        />
+        <img
+          class="beds-and-mattresses"
+          src="/All-possible/assets/beds-and-mattresses-min-PoamBX7q.png"
+          alt="beds-and-mattresses"
+        />
+        <img
+          class="cabinets-and-storage-systems"
+          src="/All-possible/assets/cabinets-and-storage-systems-min-D4KM0lez.png"
+          alt="cabinets-and-storage-systems"
+        />
+        <img
+          class="chairs-and-stools"
+          src="/All-possible/assets/chairs-and-stools-min-D7RlQ5VT.png"
+          alt="chairs-and-stools"
+        />
+        <img
+          class="childrens-furniture"
+          src="/All-possible/assets/childrens-furniture-min-CL41Tzl8.png"
+          alt="childrens-furniture"
+        />
+        <img
+          class="decor-and-accessories"
+          src="/All-possible/assets/decor-and-accessories-min-CSx8ftux.png"
+          alt="decor-and-accessories"
+        />
+        <img
+          class="garden-and-outdoor-furnitur"
+          src="/All-possible/assets/garden-and-outdoor-furniture-min-CvwZfEmo.png"
+          alt="garden-and-outdoor-furnitur"
+        />
+        <img
+          class="hallway-furniture"
+          src="/All-possible/assets/hallway-furniture-min-D-inWSfp.png"
+          alt="hallway-furniture"
+        />
+        <img
+          class="kitchens"
+          src="/All-possible/assets/kitchens-min-DDOe3BWE.png"
+          alt="kitchens"
+        />
+        <img
+          class="office-furniture"
+          src="/All-possible/assets/office-furniture-min-CMFUmPpe.png"
+          alt="office-furniture"
+        />
+        <img
+          class="tables"
+          src="/All-possible/assets/tables-min-DXePiBr9.png"
+          alt="tables"
+        />
+        <img
+          class="upholstered-furniture"
+          src="/All-possible/assets/upholstered-furniture-min-0VUoCfES.png"
+          alt="upholstered-furniture"
+        />
       </li>
     </ul>
-    <ul class="furniture-categories">
-    </ul>
+    <ul class="furniture-categories"></ul>
+    <div id="loader" class="loader hidden"></div>
     <ul class="furniture-gallery furniture_grid"></ul>
     <!-- додаю aria-label М.Н -->
-    <button type="button" id="furniture-loadMoreBtn" class="btn btn-primary visually-hidden-moreBtn"
-      aria-label="Show more products">
+    <button
+      type="button"
+      id="furniture-loadMoreBtn"
+      class="btn btn-primary visually-hidden-moreBtn"
+      aria-label="Show more products"
+    >
       Показати ще
     </button>
-    
+
     <!-- Desktop pagination (hidden on mobile) -->
     <div class="furniture-pagination desktop-pagination">
-      <button type="button" class="pagination-btn prev-btn" id="furniture-prevBtn" aria-label="Попередня сторінка">
+      <button
+        type="button"
+        class="pagination-btn prev-btn"
+        id="furniture-prevBtn"
+        aria-label="Попередня сторінка"
+      >
         <svg class="pagination-icon" width="24" height="24">
           <use href="/All-possible/assets/icons-BtuzxMEs.svg#icon-left-arrow-alt"></use>
         </svg>
       </button>
       <div class="pagination-numbers" id="furniture-paginationNumbers"></div>
-      <button type="button" class="pagination-btn next-btn" id="furniture-nextBtn" aria-label="Наступна сторінка">
+      <button
+        type="button"
+        class="pagination-btn next-btn"
+        id="furniture-nextBtn"
+        aria-label="Наступна сторінка"
+      >
         <svg class="pagination-icon" width="24" height="24">
           <use href="/All-possible/assets/icons-BtuzxMEs.svg#icon-right-arrow-alt"></use>
         </svg>
@@ -120,6 +181,7 @@
     </div>
   </div>
 </section>
+
 
       <!-- About-us partial -->
       <section class="about-us" id="about">
@@ -323,35 +385,55 @@
     </div>
     <div class="footer-info">
       <div class="footer-nav footer-copyright">
-        <p class="footer-copyright-text footer-text-small">© 2025 Relume. Всі права захищені.</p>
+        <p class="footer-copyright-text footer-text-small">
+          © 2025 Relume. Всі права захищені.
+        </p>
       </div>
     </div>
     <nav class="footer-links">
       <a href="#furniture" class="footer-link">
-        <div class="footer-link-text footer-link-style footer-text-regular">Наші меблі</div>
+        <div class="footer-link-text footer-link-style footer-text-regular">
+          Наші меблі
+        </div>
       </a>
       <a href="#about" class="footer-link">
-        <div class="footer-link-text footer-link-style footer-text-regular">Про нас</div>
+        <div class="footer-link-text footer-link-style footer-text-regular">
+          Про нас
+        </div>
       </a>
       <a href="#FAQ-section" class="footer-link">
         <div class="footer-link-text footer-link-style footer-text-regular">Часті питання</div>
       </a>
       <a href="#feedback" class="footer-link">
-        <div class="footer-link-contact footer-link-style footer-text-regular">Відгуки</div>
+        <div class="footer-link-contact footer-link-style footer-text-regular">
+          Відгуки
+        </div>
       </a>
     </nav>
     <div class="footer-socials">
-      <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://www.youtube.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <svg class="footer-social-icon" width="24" height="24">
           <use href="/All-possible/assets/icons-BtuzxMEs.svg#icon-Youtube"></use>
         </svg>
       </a>
-      <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://www.instagram.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <svg class="footer-social-icon" width="24" height="24">
           <use href="/All-possible/assets/icons-BtuzxMEs.svg#icon-Instagram"></use>
         </svg>
       </a>
-      <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://www.facebook.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <svg class="footer-social-icon" width="24" height="24">
           <use href="/All-possible/assets/icons-BtuzxMEs.svg#icon-Facebook"></use>
         </svg>
@@ -359,6 +441,7 @@
     </div>
   </div>
 </footer>
+
 
     <!-- Furniture details modal partial -->
     <div class="modal">
