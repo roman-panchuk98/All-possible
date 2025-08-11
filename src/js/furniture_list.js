@@ -6,7 +6,7 @@ import refs from './refs';
 import { renderProductDetails } from './furniture-details-modal.js';
 
 const imagesUrlForCategories = {
-  allProducts: document.querySelector('.all-products'),
+  allProductsImg: document.querySelector('.all-products'),
   bathroomFurniture: document.querySelector('.bathroom-furniture'),
   bedsAndMattresses: document.querySelector('.beds-and-mattresses'),
   cabinets: document.querySelector('.cabinets-and-storage-systems'),
@@ -71,7 +71,7 @@ export async function getCategories() {
 
 function markUpCategories(categories) {
   const categoryImages = {
-    '': `${imagesUrlForCategories.allProducts.src}`,
+    '': `${imagesUrlForCategories.allProductsImg.src}`,
     '66504a50a1b2c3d4e5f6a7b8': `${imagesUrlForCategories.upholsteredFurniture.src}`,
     '66504a50a1b2c3d4e5f6a7b9': `${imagesUrlForCategories.cabinets.src}`,
     '66504a50a1b2c3d4e5f6a7ba': `${imagesUrlForCategories.bedsAndMattresses.src}`,
