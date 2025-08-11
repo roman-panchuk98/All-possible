@@ -21,7 +21,6 @@ const imagesUrlForCategories = {
   upholsteredFurniture: document.querySelector('.upholstered-furniture'),
 };
 
-
 let allProducts = [];
 const BaseUrl = 'https://furniture-store.b.goit.study/api/';
 
@@ -41,7 +40,7 @@ setTimeout(() => {
 
 let isInitialLoad = true;
 /**типу стан сторінки  а саму:
-* "Це перше завантаження сторінки, ще нічого не клікали, не фільтрували, не пагінували."*/
+ * "Це перше завантаження сторінки, ще нічого не клікали, не фільтрували, не пагінували."*/
 
 function renderFurniture() {
   markUpFurniture(allProducts);
@@ -94,10 +93,11 @@ function markUpCategories(categories) {
         <li>
         <button type="button"
          class="category-btn${_id === '' ? ' active' : ''}"
-          data-category="${_id}"  style="${imageUrl
+          data-category="${_id}"  style="${
+        imageUrl
           ? `background-image: url('${imageUrl}');background-size: cover; background-position: center;"`
           : ''
-        }">
+      }">
           ${name}
           </button>
           </li>
@@ -150,10 +150,9 @@ export async function getFurniture(limit, page, category = '') {
     });
     hideLoadMoreBtn();
   }
-};
+}
 
 function markUpFurniture(items) {
-
   const markUp = items
     .map(({ _id, name, images, color, price }) => {
       const colorsFurniture = ` <ul class="color-list"> 
@@ -162,7 +161,7 @@ function markUpFurniture(items) {
             colorValue =>
               `<li class="color-dot" style="background-color:${colorValue}"></li>`
           )
-          .join('')};
+          .join('')}
         </ul> `;
       return `
         <li class="furniture-card">
@@ -172,7 +171,7 @@ function markUpFurniture(items) {
         <p class="furniture-price">${price} грн</p>
         <button class="furniture-btn btn-details" data-id="${_id}">Детальніше</button>
         </li>
-        `//-;
+        `;
     })
     .join('');
   refs.furnitureGrid.insertAdjacentHTML('beforeend', markUp);
@@ -207,11 +206,14 @@ refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
 
 const prevBtn = document.querySelector('#furniture-prevBtn');
 const nextBtn = document.querySelector('#furniture-nextBtn');
-const paginationNumbers = document.querySelector('#furniture-paginationNumbers');
+const paginationNumbers = document.querySelector(
+  '#furniture-paginationNumbers'
+);
 
 if (prevBtn) prevBtn.addEventListener('click', handlePrevPage);
 if (nextBtn) nextBtn.addEventListener('click', handleNextPage);
-if (paginationNumbers) paginationNumbers.addEventListener('click', handlePageNumberClick);
+if (paginationNumbers)
+  paginationNumbers.addEventListener('click', handlePageNumberClick);
 
 export function handlerMore(event) {
   page += 1;
@@ -273,7 +275,7 @@ async function getFurnitureForPagination(limit, page, category = '') {
     if (category) {
       params.category = category;
     }
-    showLoader();//! тут зявляється лоадер
+    showLoader(); //! тут зявляється лоадер
 
     const responce = await axios.get(`${BaseUrl}furnitures`, { params });
     const data = responce.data;
@@ -283,8 +285,7 @@ async function getFurnitureForPagination(limit, page, category = '') {
     refs.furnitureGrid.innerHTML = '';
     hideLoadMoreBtn();
 
-    renderFurniture();//! тут виклик нової ф. яка рендерить продукти+ обновляє сторінки+котроль скролу
-
+    renderFurniture(); //! тут виклик нової ф. яка рендерить продукти+ обновляє сторінки+котроль скролу
   } catch (error) {
     iziToast.error({
       title: 'Помилка',
@@ -294,11 +295,9 @@ async function getFurnitureForPagination(limit, page, category = '') {
   } finally {
     hideLoader(); //!тут ховаю лоадер
   }
-
 }
 
 refs.furnitureGrid.addEventListener('click', event => {
-
   const cardBtn = event.target.closest('.furniture-btn');
   if (!cardBtn) return;
 
@@ -332,31 +331,43 @@ function updatePaginationControls() {
 }
 
 function renderPaginationNumbers() {
-  const paginationNumbers = document.querySelector('#furniture-paginationNumbers');
+  const paginationNumbers = document.querySelector(
+    '#furniture-paginationNumbers'
+  );
   if (!paginationNumbers) return;
 
   let numbersHTML = '';
   if (totalPages <= 7) {
     for (let i = 1; i <= totalPages; i++) {
-      numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
+      numbersHTML += `<button class="page-number ${
+        i === page ? 'active' : ''
+      }" data-page="${i}">${i}</button>`;
     }
   } else {
-    numbersHTML += `<button class="page-number ${1 === page ? 'active' : ''}" data-page="1">1</button>`;
+    numbersHTML += `<button class="page-number ${
+      1 === page ? 'active' : ''
+    }" data-page="1">1</button>`;
     if (page <= 3) {
       for (let i = 2; i <= 3; i++) {
-        numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        numbersHTML += `<button class="page-number ${
+          i === page ? 'active' : ''
+        }" data-page="${i}">${i}</button>`;
       }
       numbersHTML += `<span class="page-dots">...</span>`;
       numbersHTML += `<button class="page-number" data-page="${totalPages}">${totalPages}</button>`;
     } else if (page >= totalPages - 3) {
       numbersHTML += `<span class="page-dots">...</span>`;
       for (let i = totalPages - 3; i <= totalPages; i++) {
-        numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        numbersHTML += `<button class="page-number ${
+          i === page ? 'active' : ''
+        }" data-page="${i}">${i}</button>`;
       }
     } else {
       numbersHTML += `<span class="page-dots">...</span>`;
       for (let i = page - 1; i <= page + 1; i++) {
-        numbersHTML += `<button class="page-number ${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        numbersHTML += `<button class="page-number ${
+          i === page ? 'active' : ''
+        }" data-page="${i}">${i}</button>`;
       }
       numbersHTML += `<span class="page-dots">...</span>`;
       numbersHTML += `<button class="page-number" data-page="${totalPages}">${totalPages}</button>`;
@@ -386,4 +397,3 @@ function scrollToFurnitureTop() {
   });
 }
 /**scrollToFurnitureTop() котроль скролу. (p.S. chat gpt+goole) */
-
