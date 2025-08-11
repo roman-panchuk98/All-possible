@@ -47,7 +47,6 @@ function renderFurniture() {
   markUpFurniture(allProducts);
   updatePaginationControls();
   setTimeout(() => {
-
     if (!isInitialLoad) {
       scrollToFurnitureTop();
     }
