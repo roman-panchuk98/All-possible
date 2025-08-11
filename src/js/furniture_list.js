@@ -27,16 +27,51 @@ const BaseUrl = 'https://furniture-store.b.goit.study/api/';
 refs.categoriesList.addEventListener('click', handlerCategories);
 refs.furnitureLoadMoreBtn.addEventListener('click', handlerMore);
 getCategories();
+
+// Track current viewport state
+let currentIsDesktop = window.innerWidth >= 768;
+
 // Initialize furniture loading
 setTimeout(() => {
-  const isDesktop = window.innerWidth >= 768;
-
-  if (isDesktop) {
+  if (currentIsDesktop) {
     getFurnitureForPagination(limit, 1);
   } else {
     getFurniture(limit, 1);
   }
 }, 100);
+
+// Handle viewport resize
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    const isDesktop = window.innerWidth >= 768;
+    
+    // Only reload if viewport type changed (mobile <-> desktop)
+    if (isDesktop !== currentIsDesktop) {
+      currentIsDesktop = isDesktop;
+      
+      // Get current category
+      const currentCategoryBtn = refs.categoriesList.querySelector('.category-btn.active');
+      const selectedCategory = currentCategoryBtn ? currentCategoryBtn.dataset.category : '';
+      
+      // Reset page to 1 when switching viewport
+      page = 1;
+      
+      // Clear grid and reload with appropriate method
+      refs.furnitureGrid.innerHTML = '';
+      
+      if (isDesktop) {
+        // Switch to desktop pagination
+        hideLoadMoreBtn();
+        getFurnitureForPagination(limit, page, selectedCategory);
+      } else {
+        // Switch to mobile "Load More"
+        getFurniture(limit, page, selectedCategory);
+      }
+    }
+  }, 250); // Debounce resize events
+});
 
 let isInitialLoad = true;
 /**типу стан сторінки  а саму:
@@ -186,10 +221,8 @@ export function handlerCategories(event) {
   const selectCategory = event.target.dataset.category;
   page = 1;
 
-  const paginationEl = document.querySelector('.furniture-pagination');
-  const isDesktop = window.innerWidth >= 768;
-
-  if (isDesktop) {
+  // Use global currentIsDesktop state
+  if (currentIsDesktop) {
     getFurnitureForPagination(limit, page, selectCategory);
   } else {
     getFurniture(limit, page, selectCategory);
