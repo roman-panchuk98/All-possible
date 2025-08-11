@@ -4,47 +4,108 @@
     <p class="furniture_subtitle">
       Знайдіть ідеальні рішення для вашого інтер'єру
     </p>
+
     <ul class="visually-hidden">
       <li>
-        <img class="all-products" src="/img/furnitureList/all-products-min.png" alt="all-products" />
-        <img class="bathroom-furniture" src="/img/furnitureList/bathroom-furniture-min.png" alt="bathroom-furniture" />
-        <img class="beds-and-mattresses" src="/img/furnitureList/beds-and-mattresses-min.png"
-          alt="beds-and-mattresses" />
-        <img class="cabinets-and-storage-systems" src="/img/furnitureList/cabinets-and-storage-systems-min.png"
-          alt="cabinets-and-storage-systems" />
-        <img class="chairs-and-stools" src="/img/furnitureList/chairs-and-stools-min.png" alt="chairs-and-stools" />
-        <img class="childrens-furniture" src="/img/furnitureList/childrens-furniture-min.png"
-          alt="childrens-furniture" />
-        <img class="decor-and-accessories" src="/img/furnitureList/decor-and-accessories-min.png"
-          alt="decor-and-accessories" />
-        <img class="garden-and-outdoor-furnitur" src="/img/furnitureList/garden-and-outdoor-furniture-min.png"
-          alt="garden-and-outdoor-furnitur" />
-        <img class="hallway-furniture" src="/img/furnitureList/hallway-furniture-min.png" alt="hallway-furniture" />
-        <img class="kitchens" src="/img/furnitureList/kitchens-min.png" alt="kitchens" />
-        <img class="office-furniture" src="/img/furnitureList/office-furniture-min.png" alt="office-furniture" />
-        <img class="tables" src="/img/furnitureList/tables-min.png" alt="tables" />
-        <img class="upholstered-furniture" src="/img/furnitureList/upholstered-furniture-min.png"
-          alt="upholstered-furniture" />
+        <img
+          class="all-products"
+          src="/img/furnitureList/all-products-min.png"
+          alt="all-products"
+        />
+        <img
+          class="bathroom-furniture"
+          src="/img/furnitureList/bathroom-furniture-min.png"
+          alt="bathroom-furniture"
+        />
+        <img
+          class="beds-and-mattresses"
+          src="/img/furnitureList/beds-and-mattresses-min.png"
+          alt="beds-and-mattresses"
+        />
+        <img
+          class="cabinets-and-storage-systems"
+          src="/img/furnitureList/cabinets-and-storage-systems-min.png"
+          alt="cabinets-and-storage-systems"
+        />
+        <img
+          class="chairs-and-stools"
+          src="/img/furnitureList/chairs-and-stools-min.png"
+          alt="chairs-and-stools"
+        />
+        <img
+          class="childrens-furniture"
+          src="/img/furnitureList/childrens-furniture-min.png"
+          alt="childrens-furniture"
+        />
+        <img
+          class="decor-and-accessories"
+          src="/img/furnitureList/decor-and-accessories-min.png"
+          alt="decor-and-accessories"
+        />
+        <img
+          class="garden-and-outdoor-furnitur"
+          src="/img/furnitureList/garden-and-outdoor-furniture-min.png"
+          alt="garden-and-outdoor-furnitur"
+        />
+        <img
+          class="hallway-furniture"
+          src="/img/furnitureList/hallway-furniture-min.png"
+          alt="hallway-furniture"
+        />
+        <img
+          class="kitchens"
+          src="/img/furnitureList/kitchens-min.png"
+          alt="kitchens"
+        />
+        <img
+          class="office-furniture"
+          src="/img/furnitureList/office-furniture-min.png"
+          alt="office-furniture"
+        />
+        <img
+          class="tables"
+          src="/img/furnitureList/tables-min.png"
+          alt="tables"
+        />
+        <img
+          class="upholstered-furniture"
+          src="/img/furnitureList/upholstered-furniture-min.png"
+          alt="upholstered-furniture"
+        />
       </li>
     </ul>
-    <ul class="furniture-categories">
-    </ul>
+    <ul class="furniture-categories"></ul>
+    <div id="loader" class="loader hidden"></div>
     <ul class="furniture-gallery furniture_grid"></ul>
     <!-- додаю aria-label М.Н -->
-    <button type="button" id="furniture-loadMoreBtn" class="btn btn-primary visually-hidden-moreBtn"
-      aria-label="Show more products">
+    <button
+      type="button"
+      id="furniture-loadMoreBtn"
+      class="btn btn-primary visually-hidden-moreBtn"
+      aria-label="Show more products"
+    >
       Показати ще
     </button>
-    
+
     <!-- Desktop pagination (hidden on mobile) -->
     <div class="furniture-pagination desktop-pagination">
-      <button type="button" class="pagination-btn prev-btn" id="furniture-prevBtn" aria-label="Попередня сторінка">
+      <button
+        type="button"
+        class="pagination-btn prev-btn"
+        id="furniture-prevBtn"
+        aria-label="Попередня сторінка"
+      >
         <svg class="pagination-icon" width="24" height="24">
           <use href="./img/icons.svg#icon-left-arrow-alt"></use>
         </svg>
       </button>
       <div class="pagination-numbers" id="furniture-paginationNumbers"></div>
-      <button type="button" class="pagination-btn next-btn" id="furniture-nextBtn" aria-label="Наступна сторінка">
+      <button
+        type="button"
+        class="pagination-btn next-btn"
+        id="furniture-nextBtn"
+        aria-label="Наступна сторінка"
+      >
         <svg class="pagination-icon" width="24" height="24">
           <use href="./img/icons.svg#icon-right-arrow-alt"></use>
         </svg>
