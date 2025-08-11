@@ -1,54 +1,27 @@
-<div class="order-modal visually-hidden">
-  <div class="form-wrapper">
-    <button
-      type="button"
-      class="close-form-btn"
-      aria-label="Close order window"
-    >
-      <svg class="close-form-svg" width="32" height="32">
-        <use href="/img/icons.svg#icon-close"></use>
-      </svg>
-    </button>
-    <h2 class="section-title form-title">Замовити зворотний зв'язок</h2>
-    <form class="modal-form">
-      <label class="label-form"
-        >Емейл*
-        <input
-          class="input-form input-email"
-          type="email"
-          id="email"
-          name="email"
-          aria-label="Email address"
-          placeholder="12345ggg@gmail.com"
-        />
-      </label>
-      <label class="label-form label-phone"
-        >Телефон*
-        <input
-          class="input-form input-phone"
-          type="tel"
-          id="phone"
-          name="phone"
-          pattern="^\+380\d{9}$"
-          maxlength="13"
-          aria-label="Phone number"
-          placeholder="+38 (099) 123 22 11"
-          inputmode="numeric"
-        />
-      </label>
-      <label class="label-form"
-        >Коментар
-        <textarea
-          class="input-form textarea"
-          name="comment"
-          id="comment"
-          aria-label="Comment"
-          placeholder="Type your message..."
-        ></textarea>
-      </label>
-      <button type="submit" class="submit-btn" aria-label="Submit order">
-        Надіслати заявку
-      </button>
-    </form>
-  </div>
+<div class="order-modal">
+    <div class="form-wrapper">
+        <button type="button" class="close-form-btn" aria-label="Close order window">
+            <svg class="close-form-svg" width="32" height="32">
+                <use href="/img/icons.svg#icon-close"></use>
+            </svg>
+        </button>
+        <h2 class="section-title form-title">Замовити зворотний зв'язок</h2>
+        <form class="modal-form">
+            <label class="label-form">Емейл*
+                <input class="input-form input-email" type="email" id="email" name="email" aria-label="Email address"
+                    placeholder="12345ggg@gmail.com" />
+            </label>
+            <label class="label-form label-phone">Телефон*
+                <input class="input-form input-phone" type="tel" id="phone" name="phone" pattern="^\+380\d{9}$"
+                    maxlength="13" aria-label="Phone number" placeholder="+38 (099) 123 22 11" inputmode="numeric" />
+            </label>
+            <label class="label-form">Коментар
+                <textarea class="input-form textarea" name="comment" id="comment" aria-label="Comment"
+                    placeholder="Type your message..."></textarea>
+            </label>
+            <button type="submit" class="submit-btn" aria-label="Submit order">
+                Надіслати заявку
+            </button>
+        </form>
+    </div>
 </div>

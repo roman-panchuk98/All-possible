@@ -8,7 +8,15 @@
   z-index: 999;
   padding: 64px 20px;
   overflow-y: scroll;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+.order-modal.order-open {
+  opacity: 1;
+  visibility: visible;
+}
+
 .form-wrapper {
   background-color: #ffffff;
   position: relative;

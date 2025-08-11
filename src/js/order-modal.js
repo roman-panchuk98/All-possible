@@ -106,6 +106,8 @@ if (success) {
         position: 'topCenter',
     });
     refs.modalOrderForm.reset();
+    closeOrderModal();
+    
 } else {
         iziToast.error({
             title: 'Помилка',
@@ -127,30 +129,30 @@ function markupError(targetElement, message) {
 // відкриття модалки
 export function openOrderModal() {
     document.body.classList.add('body--no-scroll');
-    refs.modalOrderBackground.classList.remove('visually-hidden');
+    refs.modalOrderBackground.classList.add('order-open');
 }
 
 //  закриття модалки
-function closseOrderModal() {
+function closeOrderModal() {
     document.body.classList.remove('body--no-scroll');
-    refs.modalOrderBackground.classList.add('visually-hidden');
+    refs.modalOrderBackground.classList.remove('order-open');
     localStorage.clear();
 }
 
 // слухачі подій для закриття
 function listenerHandlClose() {
     const closeFormBtn = document.querySelector(".close-form-btn");
-    closeFormBtn.addEventListener("click", closseOrderModal);
+    closeFormBtn.addEventListener("click", closeOrderModal);
 
 
     document.addEventListener("keydown", event => {
         if (event.key === "Escape") {
-            closseOrderModal();
+            closeOrderModal();
         };
     });
     refs.modalOrderBackground.addEventListener("click", event => {
         if (event.target === refs.modalOrderBackground) {
-            closseOrderModal();
+            closeOrderModal();
         }
     });
 }
