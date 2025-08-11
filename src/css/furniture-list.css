@@ -2,6 +2,11 @@
   display: none !important;
 }
 
+.furniture {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
 .furniture_title {
 
   font-weight: 700;
@@ -10,7 +15,6 @@
   letter-spacing: 0.01em;
   color: #080c09;
   text-align: left;
-  margin-top: 48px;
   margin-bottom: 16px;
 }
 
@@ -107,7 +111,8 @@
 
 .furniture-img {
   border-radius: 8px;
-  width: 335px;
+  width: 100%;
+  max-width: 335px;
   height: 277px;
   margin-bottom: 16px;
 }
@@ -142,7 +147,9 @@
 .furniture-btn {
   border-radius: 100px;
   padding: 10px 24px;
-  width: 335px;
+  width: 100%;
+  max-width: 335px;
+  min-width: fit-content;
   height: 46px;
   margin-bottom: 24px;
   font-weight: 500;
@@ -151,7 +158,6 @@
   color: #080c09;
   box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(8, 12, 9, 0.05), inset 0 0 0 1px rgba(8, 12, 9, 0.05);
   background: rgba(8, 12, 9, 0.05);
-  padding: 8px;
   border: none;
 
 }
@@ -163,7 +169,9 @@
 .btn-primary {
   border-radius: 100px;
   padding: 10px 24px;
-  width: 340px;
+  width: 100%;
+  max-width: 340px;
+  min-width: fit-content;
   height: 46px;
   box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25), inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
   background: #6b0609;
@@ -171,7 +179,6 @@
   font-size: 16px;
   line-height: 1.6;
   color: #fff;
-  margin-bottom: 48px;
   margin-top: 8px;
 }
 
@@ -351,8 +358,9 @@
 }
 
 @media only screen and (min-width: 1440px) {
-  .furniture_title {
-    margin-top: 80px;
+  .furniture {
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
 
   .category-btn {
@@ -364,16 +372,13 @@
     height: 257px;
   }
 
-  .btn-primary {
-    margin-bottom: 80px;
-  }
 
   .furniture-gallery {
     grid-template-columns: repeat(4, 1fr);
   }
 
   .furniture-btn {
-    width: 310px;
+    max-width: 310px;
   }
 
   .furniture-card {
