@@ -48,7 +48,7 @@ import{i as m,a as y,r as H,S as V,N as U,P as z,A as se}from"./assets/vendor-BD
           </button>
           </li>
           `}).join("");o.categoriesList.insertAdjacentHTML("beforeend",r)}let i=1;const g=8;let u=1;async function C(e,t,r=""){try{const s={limit:e,page:t};r&&(s.category=r);const n=(await y.get(`${O}furnitures`,{params:s})).data;b=n.furnitures,u=Math.ceil(n.totalItems/Number(e));const c=n.furnitures;t===1?(o.furnitureGrid.innerHTML="",b=c):b=[...b,...c],u=Math.ceil(n.totalItems/e),J(c),T(),t>=u?P():T()}catch{m.error({title:"Помилка",message:"Не вдалося завантажити дані. Спробуйте пізніше",position:"topRight"}),P()}}function J(e){const t=e.map(({_id:r,name:s,images:a,color:n,price:c})=>{const d=` <ul class="color-list"> 
-        ${n.map(l=>`<li class="color-dot" style="background-color:${l}"></li>`).join("")};
+        ${n.map(l=>`<li class="color-dot" style="background-color:${l}"></li>`).join("")}
         </ul> `;return`
         <li class="furniture-card">
         <img src="${a[0]}" alt="${s}" class="furniture-img">
