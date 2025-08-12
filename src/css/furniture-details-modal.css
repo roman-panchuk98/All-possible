@@ -200,9 +200,8 @@
 
 .modal-product-btn {
     border-radius: 100px;
-    padding: 10px 24px;
-    width: 310px;
-    height: 46px;
+    padding: 10px 54px;
+    min-height: 46px;
     box-shadow: 0 1px 2px 0 var(--opacity-neutral-darkest-5), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px var(--opacity-neutral-darkest-15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25), inset 0 32px 24px 0 var(--opacity-white-5);
     background: var(--color-madang);
     border: none;
@@ -243,6 +242,9 @@
     .price {
         font-size: 32px;
     }
+        .modal-product-btn {
+            padding: 10px 61.5px;
+        }
 }
 
 
@@ -250,7 +252,6 @@
 @media only screen and (min-width: 1440px) {
     .modal-container {
         max-width: 1090px;
-        height: 649px;
         padding: 64px;
         display: flex;
         align-items: center;
