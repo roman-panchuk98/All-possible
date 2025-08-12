@@ -221,6 +221,14 @@
     box-sizing: border-box;
 }
 
+/* Адаптація для дуже вузьких екранів */
+@media screen and (max-width: 375px) {
+    .modal-product-btn {
+        width: calc(100vw - 80px);
+        max-width: 310px;
+    }
+}
+
 .modal-product-btn:hover,
 .modal-product-btn:focus {
     opacity: 0.5;
