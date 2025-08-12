@@ -226,8 +226,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: 24px;
-    margin-bottom: 48px;
+    margin-top: 32px;
   }
 
   .btn-primary {
@@ -373,8 +372,6 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 24px;
-  margin-bottom: 48px;
 }
 
 .pagination-btn {
