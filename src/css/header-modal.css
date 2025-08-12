@@ -139,6 +139,15 @@ body.modal-open {
     font-size: 16px;
     color: #fff;
     transition: opacity 0.3s ease, background-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Адаптація для дуже вузьких екранів */
+@media screen and (max-width: 375px) {
+    .nav-btn {
+        width: calc(100vw - 40px);
+        max-width: 335px;
+    }
 }
 
 .nav-btn:hover,
