@@ -131,8 +131,7 @@ body.modal-open {
 .nav-btn {
     border-radius: 100px;
     padding: 8px 20px;
-    width: 100%;
-    max-width: 335px;
+    width: 335px;
     height: 42px;
     box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25), inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
     background-color: #6b0609;
@@ -140,7 +139,6 @@ body.modal-open {
     font-size: 16px;
     color: #fff;
     transition: opacity 0.3s ease, background-color 0.3s ease;
-    box-sizing: border-box;
 }
 
 .nav-btn:hover,
