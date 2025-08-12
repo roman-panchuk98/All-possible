@@ -198,10 +198,15 @@
     margin-bottom: 24px;
 }
 
+.modal-product-actions {
+    width: 100%;
+}
+
 .modal-product-btn {
     border-radius: 100px;
     padding: 10px 54px;
     min-height: 46px;
+    width: 100%;
     box-shadow: 0 1px 2px 0 var(--opacity-neutral-darkest-5), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px var(--opacity-neutral-darkest-15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25), inset 0 32px 24px 0 var(--opacity-white-5);
     background: var(--color-madang);
     border: none;
@@ -212,6 +217,7 @@
     line-height: 160%;
     color: var(--color-scheme-1-background);
     transition: opacity cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
 }
 
 .modal-product-btn:hover,
@@ -244,6 +250,7 @@
     }
         .modal-product-btn {
             padding: 10px 61.5px;
+            width: 100%;
         }
 }
 
